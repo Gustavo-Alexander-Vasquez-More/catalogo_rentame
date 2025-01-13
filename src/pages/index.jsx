@@ -1,0 +1,239 @@
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import icons from '../images/icons.png'
+import Ficha_tecnica from './ficha_tecnica';
+export default function index() {
+  const [datas, setDatas] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [current_page, setCurrent_page]=useState(parseInt(localStorage.getItem('products_list_current_page')))
+  const [itemsPerPage] = useState(8);
+  const [filteredDatas, setFilteredDatas] = useState([]);
+  const [loading, setLoading] = useState(true); // Estado de carga
+  const [modal, setModal]=useState(false)
+  const [id, setId]=useState(null)
+function openModal(){
+  window.scrollTo(0,0)
+  setModal(true)
+}
+function closeModal(){
+  setModal(false)
+}
+
+  async function get() {
+    try {
+      const { data } = await axios.get('https://backrecordatoriorenta-production.up.railway.app/api/products/');
+      setDatas(data.response);
+      setFilteredDatas(data.response); // Al principio mostramos todos los datos
+      setLoading(false); // Datos cargados, actualizamos el estado de carga
+    } catch (error) {
+      console.error('Error fetching image data:', error);
+      setLoading(false); // Si hay un error, dejamos de mostrar el estado de carga
+    }
+  }
+
+  useEffect(() => {
+    get();
+  }, []);
+
+  function handleSearch() {
+    // Filtra_ids según el término de búsqueda
+    const filtered = datas.filter((dat) =>
+      dat.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      dat.codigo.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  
+    // Establece la página actual a la primera si la búsqueda produce resultados diferentes
+    setFilteredDatas(filtered);
+    setCurrent_page(1); // Restablece la página actual a la 1
+  }
+  // Limpiar el término de búsqueda
+  function clear() {
+    setSearchTerm('');
+  }
+
+  // Ejecutar handleSearch cuando searchTerm se vacíe
+  useEffect(() => {
+    if (searchTerm === '') {
+      handleSearch();
+    }
+  }, [searchTerm]);
+
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch(); // Ejecutar la búsqueda al presionar Enter
+    }
+  };
+     const indexOfLastItem = current_page * itemsPerPage;
+        const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+        const currentItems = filteredDatas?.slice(indexOfFirstItem, indexOfLastItem);
+        
+        const totalPages = Math.ceil(filteredDatas.length / itemsPerPage);
+        
+        // Cambiar página
+        const changePage = (page) => {
+          if (page >= 1 && page <= totalPages) {
+            setCurrent_page(page);
+          }
+        };
+    const generatePaginationButtons = () => {
+      let buttons = [];
+    
+      if (totalPages <= 4) {
+        // Mostrar todas las páginas si son pocas
+        for (let i = 1; i <= totalPages; i++) {
+          buttons.push(i);
+        }
+      } else {
+        const startPage = Math.max(2, current_page - 1); // Páginas antes de la actual
+        const endPage = Math.min(totalPages - 1, current_page + 1); // Páginas después de la actual
+    
+        buttons.push(1); // Primera página
+    
+        if (startPage > 2) {
+          buttons.push("..."); // Puntos suspensivos antes
+        }
+    
+        for (let i = startPage; i <= endPage; i++) {
+          buttons.push(i);
+        }
+    
+        if (endPage < totalPages - 1) {
+          buttons.push("..."); // Puntos suspensivos después
+        }
+    
+        buttons.push(totalPages); // Última página
+      }
+    
+      return buttons;
+    };
+    useEffect(() => {
+      if (current_page) {
+        localStorage.setItem('products_current_page', current_page); // Guardar en localStorage
+      }
+    }, [current_page]);
+  return (
+   <>
+    {modal && (
+      <Ficha_tecnica closeModal={closeModal} id={id}/>
+    )}
+    <div className='flex flex-col w-full h-auto'>
+      <div className='w-full flex flex-col'>
+        <div className='bg-[#2D76B5] w-full flex lg:flex-row flex-col lg:gap-0 gap-1 items-center  text-white justify-between lg:px-[5rem] py-[0.5rem]'>
+          <div className='flex gap-1'>
+            <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M2.038 5.61A2.01 2.01 0 0 0 2 6v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6c0-.12-.01-.238-.03-.352l-.866.65-7.89 6.032a2 2 0 0 1-2.429 0L2.884 6.288l-.846-.677Z"/>
+              <path d="M20.677 4.117A1.996 1.996 0 0 0 20 4H4c-.225 0-.44.037-.642.105l.758.607L12 10.742 19.9 4.7l.777-.583Z"/>
+            </svg>
+            <p className='font-semibold'>info@RentameCarmen.com</p>
+          </div>
+          <div className='flex gap-1'>
+            <svg class="w-6 h-6 lg:flex hidden text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.309-.38l-.133-.163a.999.999 0 0 1-.13-.202 7.995 7.995 0 0 1 6.498-12.518ZM15 9.997a3 3 0 1 1-5.999 0 3 3 0 0 1 5.999 0Z" clip-rule="evenodd"/>
+            </svg>
+            <p className='hover:underline lg:flex hidden'>Calle 38 No.22 entre 35 y 37 Col. Centro 24100 Cd. del carmen</p>
+          </div>
+          <div className='flex gap-1'>
+          <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+  <path d="M7.978 4a2.553 2.553 0 0 0-1.926.877C4.233 6.7 3.699 8.751 4.153 10.814c.44 1.995 1.778 3.893 3.456 5.572 1.68 1.679 3.577 3.018 5.57 3.459 2.062.456 4.115-.073 5.94-1.885a2.556 2.556 0 0 0 .001-3.861l-1.21-1.21a2.689 2.689 0 0 0-3.802 0l-.617.618a.806.806 0 0 1-1.14 0l-1.854-1.855a.807.807 0 0 1 0-1.14l.618-.62a2.692 2.692 0 0 0 0-3.803l-1.21-1.211A2.555 2.555 0 0 0 7.978 4Z"/>
+</svg>
+
+            <p className='font-semibold'>938 195 8284</p>
+          </div>
+        </div>
+        <div className='w-full bg-[#F59600] py-[1rem] lg:gap-0 gap-2 px-[0.5rem] lg:px-[5rem] flex justify-between items-center'>
+          <img className='lg:w-[10rem] w-[5rem] lg:h-[8vh]' src="https://rentame-carmen.gob4.mx/assets/logo_blanco-65d9facc.png" alt="" />
+          <div className="flex lg:w-[50%] w-[90%] lg:h-[5.5vh]">
+              <div className="relative w-full flex justify-center items-center">
+                <input
+                  type="text"
+                  placeholder="Buscar producto ..."
+                  className="w-full lg:text-[1rem] text-[0.8rem] py-2 px-[1rem] border border-gray-300 rounded-l-[10px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)} // Actualizar el término de búsqueda
+                  onKeyDown={handleKeyDown} // Detectar presionar Enter
+                />
+                {searchTerm && (
+                  <button onClick={clear} className="absolute right-2 top-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
+                      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+              <button
+                className="px-[1rem] lg:px-[2rem] bg-primary text-white font-semibold rounded-r-[10px]"
+                onClick={handleSearch} // Ejecutar la búsqueda al hacer clic
+              >
+                <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className="bi bi-search w-3 lg:w-5" viewBox="0 0 16 16">
+                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                </svg>
+              </button>
+            </div>
+        </div>
+      </div>
+      {/* ESTO ES EL BODY */}
+      <div className='w-full bg-[#e3e2e294] px-[0.5rem] lg:px-[5rem] py-[2rem] gap-3 flex flex-col'>
+        <p className='font-semibold text-[1.5rem] lg:text-[2rem] text-secondary'>Catálogo de productos</p>
+        <div className="flex flex-col w-full lg:w-[100%]">
+  <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full justify-items-center">
+    {currentItems.map((dat, index) => (
+      <div key={index} className="bg-white w-full px-2 py-2 rounded-lg flex flex-col gap-2">
+        <img className='w-full' src={dat.foto} alt="" />
+        <p className='lg:text-[1rem] text-[0.7rem] text-center font-semibold text-danger'>{dat.nombre.toUpperCase()}</p>
+        <p className='text-center text-secondary font-semibold'>${dat.precio} MXN</p>
+        {dat.stock === 0 && (
+          <p className='text-center text-danger font-semibold bg-[#dbdbdb97] rounded-[5px] py-1 lg:text-[1rem] text-[0.7rem]'>Rentado</p>
+        )}
+        {dat.stock > 0 && (
+          <p className='text-center text-primary font-semibold bg-[#dbdbdb97] rounded-[5px] py-1 lg:text-[1rem] text-[0.7rem]'>Disponible</p>
+        )}
+        {dat.stock === 0 && (
+          <button onClick={()=>{openModal(), setId(dat._id)}} disabled className='bg-[#d8d8d8] text-white py-1 rounded-[5px] lg:text-[1rem] text-danger text-[0.7rem]'>Rentar equipo</button>
+        )}
+        {dat.stock > 0 && (
+          <a href={'https://wa.link/fcsk88'} target='_blank' className='bg-[#F59600] text-white text-center py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Rentar equipo</a>
+        )}
+        <button onClick={()=>{openModal(), setId(dat._id)}} className='bg-primary text-white py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Ficha técnica</button>
+      </div>
+    ))}
+  </div>
+
+  <div className="flex justify-center gap-2 mt-4">
+    {generatePaginationButtons().map((button, index) =>
+      button === "..." ? (
+        <span key={index} className="px-3 py-1 text-gray-500">
+          ...
+        </span>
+      ) : (
+        <button
+          key={index}
+          className={`px-3 py-1 rounded ${
+            current_page === button ? 'bg-blue-500 text-white' : 'bg-gray-300'
+          }`}
+          onClick={() => changePage(button)}
+        >
+          {button}
+        </button>
+      )
+    )}
+  </div>
+</div>
+    </div>
+    {/* FOOTER */}
+    <div className='w-full flex flex-col'>
+      <div className='bg-[#F59600] py-[2rem] flex items-center px-[0.5rem] lg:gap-0 gap-2 lg:flex-row flex-col lg:px-[4rem] justify-between'>
+        <img className='w-[10rem]' src="https://rentame-carmen.gob4.mx/assets/logo_blanco-65d9facc.png" alt="" />
+        <a href={'https://wa.link/fcsk88'} target='_blank' className='text-white flex items-end lg:text-[1.2rem] font-semibold gap-2'>
+          <p>Habla con nosotros</p>
+          <img className='w-[2rem] lg:w-[4rem]' src={icons} alt="" />
+        </a>
+      </div>
+      <div className='text-[0.8rem] bg-[#2D76B5] flex justify-center items-center py-[0.5rem] text-white'>
+        Rentame®-todos los derechos reservados 2025
+      </div>
+    </div>
+    </div>
+   </>
+  );
+}
