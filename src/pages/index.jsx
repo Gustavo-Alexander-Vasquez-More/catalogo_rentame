@@ -359,7 +359,7 @@ async function enviar(){
         </a>
       </div>
       <div className='text-[0.5rem] lg:text-[0.8rem] bg-[#0000DB] flex justify-center items-center text-center py-[0.5rem] text-white'>
-      RentameCarmen.mx - Todos Los Derechos Reservados. 2025 - 2026
+      RentameCarmen.com.mx - Todos Los Derechos Reservados. 2025 - 2026
       </div>
     </div>
     </div>
