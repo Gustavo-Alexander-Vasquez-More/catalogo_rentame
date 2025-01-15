@@ -110,6 +110,24 @@ function buscar(){
   setFilteredDatas(filtered)
 }
 
+
+function buscar_boton(){
+if(searchTerm){
+  setShow_paginados(false)
+  setShow_filter_products(true)
+
+const filtered = all_products.filter((dat) =>
+dat.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+);
+setFilteredDatas(filtered)
+}
+else{
+  
+  setShow_paginados(true)
+      setShow_filter_products(false)
+}
+}
+
 //FUNCION CUANDO LIMPIAS EL BUSCADOR CON LA X
 function clear() {
   setSearchTerm('');
@@ -216,7 +234,7 @@ function clear() {
               </div>
               <button
                 className="px-[1rem] lg:px-[2rem] bg-[#0000DB] text-white font-semibold rounded-r-[10px]"
-                onClick={''} // Ejecutar la búsqueda al hacer clic
+                onClick={buscar_boton} // Ejecutar la búsqueda al hacer clic
               >
                 <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className="bi bi-search w-3 lg:w-5" viewBox="0 0 16 16">
                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
@@ -270,7 +288,7 @@ function clear() {
               </div>
               <button
                 className="px-[1rem] lg:px-[2rem] bg-[#0000DB] text-white font-semibold rounded-r-[10px]"
-                onClick={''} // Ejecutar la búsqueda al hacer clic
+                onClick={buscar} // Ejecutar la búsqueda al hacer clic
               >
                 <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className="bi bi-search w-3 lg:w-5" viewBox="0 0 16 16">
                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
