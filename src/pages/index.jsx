@@ -4,11 +4,19 @@ import icons from '../images/icons.png'
 import Ficha_tecnica from './ficha_tecnica';
 import logo from '../images/logo_blanco.png'
 export default function index() {
-  const [datas, setDatas] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [current_page, setCurrent_page]=useState(parseInt(localStorage.getItem('products_list_current_page')))
-  const [itemsPerPage] = useState(8);
+  const [productos_paginados, setProductos_paginados] = useState([]);
+  const [all_products, setAll_products] = useState([]);
+  const [show_paginados, setShow_paginados]=useState(true)
+  const [show_filter_products,setShow_filter_products]=useState(false)
   const [filteredDatas, setFilteredDatas] = useState([]);
+  const [loadingImages, setLoadingImages] = useState(true);
+  const [paginacion, setPaginacion]=useState()
+  const [total_pages, setTotal_pages]=useState()
+  const [current_page, setCurrent_page] = useState(() => {
+  const savedPage = localStorage.getItem('products_current_page');
+    return savedPage ? parseInt(savedPage, 10) : 1;
+  });
+  const [searchTerm, setSearchTerm] = useState();
   const [loading, setLoading] = useState(true); // Estado de carga
   const [modal, setModal]=useState(false)
   const [formulario, setFormulario]=useState(false)
@@ -20,7 +28,9 @@ export default function index() {
   const input_nombre=useRef()
   const input_mensaje=useRef()
   const input_telefono=useRef()
-
+  const handleImageLoad = () => {
+    setLoadingImages(false);  // Una vez que la imagen se haya cargado
+  };
 function captureNombre(){
 setNombre(input_nombre.current.value)
 }
@@ -65,11 +75,22 @@ async function enviar(){
   }
   }
   
-  async function get() {
+  async function get_all_products() {
     try {
       const { data } = await axios.get('https://backrecordatoriorenta-production.up.railway.app/api/products/');
-      setDatas(data.response);
-      setFilteredDatas(data.response); // Al principio mostramos todos los datos
+      setAll_products(data.response)
+      setLoading(false); // Datos cargados, actualizamos el estado de carga
+    } catch (error) {
+      console.error('Error fetching image data:', error);
+      setLoading(false); // Si hay un error, dejamos de mostrar el estado de carga
+    }
+  }
+  async function get_products_paginates(page = current_page) {
+    try {
+      const { data } = await axios.get(`https://backrecordatoriorenta-production.up.railway.app/api/products/read_pag?page=${page}`);
+      setPaginacion(data)
+      setTotal_pages(data?.totalPages)
+      setProductos_paginados(data.response);// Al principio mostramos todos los datos
       setLoading(false); // Datos cargados, actualizamos el estado de carga
     } catch (error) {
       console.error('Error fetching image data:', error);
@@ -78,88 +99,48 @@ async function enviar(){
   }
 
   useEffect(() => {
-    get();
+    get_all_products();
+    get_products_paginates()
   }, []);
 
-  function handleSearch() {
-    // Filtra_ids según el término de búsqueda
-    const filtered = datas.filter((dat) =>
-      dat.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      dat.codigo.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  
-    // Establece la página actual a la primera si la búsqueda produce resultados diferentes
-    setFilteredDatas(filtered);
-    setCurrent_page(1); // Restablece la página actual a la 1
-  }
-  // Limpiar el término de búsqueda
-  function clear() {
-    setSearchTerm('');
-  }
+function buscar(){
+  const filtered = all_products.filter((dat) =>
+    dat.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  setFilteredDatas(filtered)
+}
 
-  // Ejecutar handleSearch cuando searchTerm se vacíe
-  useEffect(() => {
-    if (searchTerm === '') {
-      handleSearch();
-    }
-  }, [searchTerm]);
-
-
+//FUNCION CUANDO LIMPIAS EL BUSCADOR CON LA X
+function clear() {
+  setSearchTerm('');
+  setShow_paginados(true)
+  setShow_filter_products(false)
+}
+//FUNCION CUANDO DAS ENTER EN EL BUSCADOR
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      handleSearch(); // Ejecutar la búsqueda al presionar Enter
+    if (e.key === 'Enter' && searchTerm) {
+      setShow_paginados(false)
+      setShow_filter_products(true)
+      buscar()
+    }
+    if (e.key === 'Enter' && !searchTerm) {
+      setShow_paginados(true)
+      setShow_filter_products(false)
     }
   };
-     const indexOfLastItem = current_page * itemsPerPage;
-        const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-        const currentItems = filteredDatas?.slice(indexOfFirstItem, indexOfLastItem);
-        
-        const totalPages = Math.ceil(filteredDatas.length / itemsPerPage);
-        
-        // Cambiar página
-        const changePage = (page) => {
-          if (page >= 1 && page <= totalPages) {
-            setCurrent_page(page);
-          }
-        };
-    const generatePaginationButtons = () => {
-      let buttons = [];
+  function handlePageChange(pageNumber) {
+    setLoadingImages(true)
+    // Guardamos la página seleccionada en localStorage
+    setCurrent_page(pageNumber);
+    localStorage.setItem('products_current_page', pageNumber);
+  
+    // Llamamos a la función para obtener los productos de la página seleccionada
+    get_products_paginates(pageNumber);
+  }
     
-      if (totalPages <= 4) {
-        // Mostrar todas las páginas si son pocas
-        for (let i = 1; i <= totalPages; i++) {
-          buttons.push(i);
-        }
-      } else {
-        const startPage = Math.max(2, current_page - 1); // Páginas antes de la actual
-        const endPage = Math.min(totalPages - 1, current_page + 1); // Páginas después de la actual
-    
-        buttons.push(1); // Primera página
-    
-        if (startPage > 2) {
-          buttons.push("..."); // Puntos suspensivos antes
-        }
-    
-        for (let i = startPage; i <= endPage; i++) {
-          buttons.push(i);
-        }
-    
-        if (endPage < totalPages - 1) {
-          buttons.push("..."); // Puntos suspensivos después
-        }
-    
-        buttons.push(totalPages); // Última página
-      }
-    
-      return buttons;
-    };
-    useEffect(() => {
-      if (current_page) {
-        localStorage.setItem('products_current_page', current_page); // Guardar en localStorage
-      }
-    }, [current_page]);
   return (
    <>
+   
    {formulario && (
 <div className="fixed inset-0 bg-black bg-opacity-75 flex  justify-center items-center z-50">
     <div className="bg-white p-8 rounded-lg shadow-lg w-[90%] max-w-[500px]">
@@ -213,7 +194,7 @@ async function enviar(){
           </div>
         </div>
         <div className='w-full bg-[#C70000] py-[1rem] lg:gap-0 gap-2 px-[0.5rem] lg:px-[5rem] hidden lg:flex justify-between items-center'>
-          <img className='lg:w-[10rem] w-[5rem] lg:h-[8vh]' src={logo} alt="" />
+          <button onClick={()=>{localStorage.setItem('products_current_page',1), window.location.reload()}}><img className='lg:w-[10rem] w-[5rem] lg:h-[8vh]' src={logo} alt="" /></button>
           
           <div className="flex lg:w-[50%] w-[90%] lg:h-[5.5vh]">
               <div className="relative w-full flex justify-center items-center">
@@ -235,7 +216,7 @@ async function enviar(){
               </div>
               <button
                 className="px-[1rem] lg:px-[2rem] bg-[#0000DB] text-white font-semibold rounded-r-[10px]"
-                onClick={handleSearch} // Ejecutar la búsqueda al hacer clic
+                onClick={''} // Ejecutar la búsqueda al hacer clic
               >
                 <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className="bi bi-search w-3 lg:w-5" viewBox="0 0 16 16">
                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
@@ -289,7 +270,7 @@ async function enviar(){
               </div>
               <button
                 className="px-[1rem] lg:px-[2rem] bg-[#0000DB] text-white font-semibold rounded-r-[10px]"
-                onClick={handleSearch} // Ejecutar la búsqueda al hacer clic
+                onClick={''} // Ejecutar la búsqueda al hacer clic
               >
                 <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className="bi bi-search w-3 lg:w-5" viewBox="0 0 16 16">
                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
@@ -305,12 +286,53 @@ async function enviar(){
   Catálogo de productos
 </p>
         <div className="flex flex-col w-full lg:w-[100%]">
+        {loadingImages && (
+    <div className=" w-full text-center  h-[50vh] gap-3 flex-col flex items-center justify-center"> {/* Aquí iría el loader, por ejemplo un spinner */}
+      <div class="spinner-border text-primary w-[3rem] h-[3rem]" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+<p className='text-primary font-semibold'>Cargando productos</p>
+    </div>)}
   <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full justify-items-center">
-    {currentItems.map((dat, index) => (
-      <div key={index} className="bg-white w-full px-2 py-2 rounded-lg flex flex-col gap-2">
-        <img className='w-full' src={dat.foto} alt="" />
+    {show_filter_products === true && filteredDatas.map((dat, index) => (
+        <div key={index} className="bg-white w-full px-2 py-2 rounded-lg flex flex-col gap-2">
+        <img className='w-full h-[35vh] object-contain' src={dat.foto} alt="" />
         <p className='lg:text-[1rem] text-[0.7rem] text-center font-semibold text-danger'>{dat.nombre.toUpperCase()}</p>
-        <p className='text-center text-secondary font-semibold'>${dat.precio} MXN</p>
+        {dat.visibilidad_precio === 'VISIBLE' && (
+  <p className="text-center text-secondary font-semibold">${dat.precio} MXN</p>
+)}
+{dat.visibilidad_precio === 'NO VISIBLE' && (
+  <p className="text-center text-danger font-semibold  bg-[#e3e3e3a9]">PRECIO NO DISPONIBLE</p>
+)}
+        {dat.stock === 0 && (
+          <p className='text-center text-danger font-semibold  rounded-[5px] py-1 lg:text-[1rem] text-[0.7rem]'>Rentado</p>
+        )}
+        {dat.stock > 0 && (
+          <p className='text-center text-primary font-semibold  rounded-[5px] py-1 lg:text-[1rem] text-[0.7rem]'>Disponible</p>
+        )}
+        {dat.stock === 0 && (
+          <button onClick={()=>{openModal(), setId(dat._id)}} disabled className='bg-[#a5a5a5] text-white py-1 rounded-[5px] lg:text-[1rem] text-danger text-[0.7rem]'>Rentar equipo</button>
+        )}
+        {dat.stock > 0 && (
+          <a href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`} target='_blank' className='bg-[#C70000] text-white text-center py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Rentar equipo</a>
+        )}
+        <button onClick={()=>{openModal(), setId(dat._id)}} className='bg-[#0000DB] text-white py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Ficha técnica</button>
+      </div>
+    ))}
+    {productos_paginados.map((dat, index) => (
+       <img className='w-full h-[35vh] object-contain hidden' src={dat.foto} alt="" onLoad={()=>{setLoadingImages(false)}}/>
+    ))}
+    
+    {show_paginados === true && loadingImages === false  && productos_paginados.map((dat, index) => (
+      <div key={index} className="bg-white w-full px-2 py-2 rounded-lg flex flex-col gap-2">
+        <img className='w-full h-[35vh] object-contain' src={dat.foto} alt="" onLoad={handleImageLoad}/>
+        <p className='lg:text-[1rem] text-[0.7rem] text-center font-semibold text-danger'>{dat.nombre.toUpperCase()}</p>
+        {dat.visibilidad_precio === 'VISIBLE' && (
+  <p className="text-center text-secondary font-semibold">${dat.precio} MXN</p>
+)}
+{dat.visibilidad_precio === 'NO VISIBLE' && (
+  <p className="text-center text-danger font-semibold  bg-[#e3e3e3a9]">PRECIO NO DISPONIBLE</p>
+)}
         {dat.stock === 0 && (
           <p className='text-center text-danger font-semibold  rounded-[5px] py-1 lg:text-[1rem] text-[0.7rem]'>Rentado</p>
         )}
@@ -327,32 +349,105 @@ async function enviar(){
       </div>
     ))}
   </div>
+  {show_paginados === true && loadingImages === false && (
+    <div className="w-full py-[2rem] flex items-center justify-center gap-2">
+  <nav aria-label="Page navigation example">
+    <ul className="pagination">
+      {/* Botón para ir a la página anterior */}
+      {current_page > 1 && (
+        <li className="page-item">
+          <a
+            className="page-link"
+            href="#"
+            aria-label="Previous"
+            onClick={() => handlePageChange(current_page - 1)}
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+      )}
 
-  <div className="flex justify-center gap-2 mt-4">
-    {generatePaginationButtons().map((button, index) =>
-      button === "..." ? (
-        <span key={index} className="px-3 py-1 text-gray-500">
-          ...
-        </span>
-      ) : (
-        <button
-          key={index}
-          className={`px-3 py-1 rounded ${
-            current_page === button ? 'bg-blue-500 text-white' : 'bg-gray-300'
-          }`}
-          onClick={() => changePage(button)}
-        >
-          {button}
-        </button>
-      )
-    )}
-  </div>
+      {/* Primera página */}
+      {current_page > 3 && (
+        <li className="page-item">
+          <a
+            className="page-link"
+            href="#"
+            onClick={() => handlePageChange(1)}
+          >
+            1
+          </a>
+        </li>
+      )}
+
+      {/* Puntos suspensivos si hay un salto entre páginas */}
+      {current_page > 4 && <li className="page-item disabled"><span className="page-link">...</span></li>}
+
+      {/* Mostrar páginas cercanas a la actual */}
+      {Array.from({ length: 5 }, (_, i) => {
+        const pageNumber = current_page - 2 + i; // Crea el rango de páginas alrededor de la actual
+        if (pageNumber >= 1 && pageNumber <= total_pages) {
+          return (
+            <li
+              key={pageNumber}
+              className={`page-item ${current_page === pageNumber ? 'active' : ''}`}
+            >
+              <a
+                className="page-link"
+                href="#"
+                onClick={() => handlePageChange(pageNumber)}
+              >
+                {pageNumber}
+              </a>
+            </li>
+          );
+        }
+        return null;
+      })}
+
+      {/* Puntos suspensivos si hay un salto entre páginas */}
+      {current_page < total_pages - 2 && <li className="page-item disabled"><span className="page-link">...</span></li>}
+
+      {/* Última página */}
+      {current_page < total_pages - 2 && (
+        <li className="page-item">
+          <a
+            className="page-link"
+            href="#"
+            onClick={() => handlePageChange(total_pages)}
+          >
+            {total_pages}
+          </a>
+        </li>
+      )}
+
+      {/* Botón para ir a la página siguiente */}
+      {current_page < total_pages && (
+        <li className="page-item">
+          <a
+            className="page-link"
+            href="#"
+            aria-label="Next"
+            onClick={() => handlePageChange(current_page + 1)}
+          >
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      )}
+    </ul>
+  </nav>
+</div>
+  )}
+  
+
+
+
 </div>
     </div>
     {/* FOOTER */}
     <div className='w-full flex flex-col'>
       <div className='bg-[#C70000] py-[2rem] flex items-center px-[0.5rem] lg:gap-0 gap-2 lg:flex-row flex-col lg:px-[4rem] justify-between'>
-        <img className='w-[10rem]' src={logo} alt="" />
+        <button onClick={()=>{localStorage.setItem('products_current_page',1), window.location.reload()}}><img className='w-[10rem]' src={logo} alt="" /></button>
         <a href={'https://wa.link/fcsk88'} target='_blank' className='text-white flex items-end lg:text-[1.2rem] font-semibold gap-2'>
           <p>Habla con nosotros</p>
           <img className='w-[2rem] lg:w-[4rem]' src={icons} alt="" />
