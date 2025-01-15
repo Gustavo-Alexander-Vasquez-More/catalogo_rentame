@@ -296,13 +296,13 @@ function clear() {
   <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full justify-items-center">
     {show_filter_products === true && filteredDatas.map((dat, index) => (
         <div key={index} className="bg-white w-full px-2 py-2 rounded-lg flex flex-col gap-2">
-        <img className='w-full h-[35vh] object-contain' src={dat.foto} alt="" />
+        <img className='w-full h-[10vh] lg:h-[35vh]  object-contain' src={dat.foto} alt="" />
         <p className='lg:text-[1rem] text-[0.7rem] text-center font-semibold text-danger'>{dat.nombre.toUpperCase()}</p>
         {dat.visibilidad_precio === 'VISIBLE' && (
   <p className="text-center text-secondary font-semibold">${dat.precio} MXN</p>
 )}
 {dat.visibilidad_precio === 'NO VISIBLE' && (
-  <p className="text-center text-danger font-semibold  bg-[#e3e3e3a9]">PRECIO NO DISPONIBLE</p>
+  <p className="text-center text-danger font-semibold  bg-[#e3e3e3a9] lg:text-[1rem] text-[0.5rem]">PRECIO NO DISPONIBLE</p>
 )}
         {dat.stock === 0 && (
           <p className='text-center text-danger font-semibold  rounded-[5px] py-1 lg:text-[1rem] text-[0.7rem]'>Rentado</p>
@@ -325,13 +325,13 @@ function clear() {
     
     {show_paginados === true && loadingImages === false  && productos_paginados.map((dat, index) => (
       <div key={index} className="bg-white w-full px-2 py-2 rounded-lg flex flex-col gap-2">
-        <img className='w-full h-[35vh] object-contain' src={dat.foto} alt="" onLoad={handleImageLoad}/>
+        <img className='w-full h-[10vh] lg:h-[35vh] object-contain' src={dat.foto} alt="" onLoad={handleImageLoad}/>
         <p className='lg:text-[1rem] text-[0.7rem] text-center font-semibold text-danger'>{dat.nombre.toUpperCase()}</p>
         {dat.visibilidad_precio === 'VISIBLE' && (
   <p className="text-center text-secondary font-semibold">${dat.precio} MXN</p>
 )}
 {dat.visibilidad_precio === 'NO VISIBLE' && (
-  <p className="text-center text-danger font-semibold  bg-[#e3e3e3a9]">PRECIO NO DISPONIBLE</p>
+  <p className="text-center text-danger font-semibold lg:text-[1rem] text-[0.5rem] bg-[#e3e3e3a9]">PRECIO NO DISPONIBLE</p>
 )}
         {dat.stock === 0 && (
           <p className='text-center text-danger font-semibold  rounded-[5px] py-1 lg:text-[1rem] text-[0.7rem]'>Rentado</p>
