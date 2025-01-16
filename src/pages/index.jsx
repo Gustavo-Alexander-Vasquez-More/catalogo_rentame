@@ -7,6 +7,7 @@ export default function index() {
   const [productos_paginados, setProductos_paginados] = useState([]);
   const [all_products, setAll_products] = useState([]);
   const [show_paginados, setShow_paginados]=useState(true)
+  const [visibleCount, setVisibleCount] = useState(6);
   const [show_filter_products,setShow_filter_products]=useState(false)
   const [filteredDatas, setFilteredDatas] = useState([]);
   const [loadingImages, setLoadingImages] = useState(true);
@@ -155,7 +156,9 @@ function clear() {
     // Llamamos a la función para obtener los productos de la página seleccionada
     get_products_paginates(pageNumber);
   }
-    
+  const handleShowMore = () => {
+    setVisibleCount((prev) => prev + 6); // Incrementa la cantidad visible en 6
+  };
   return (
    <>
    
@@ -189,7 +192,7 @@ function clear() {
     )}
     <div className='flex flex-col w-full h-auto'>
       <div className='w-full flex flex-col'>
-        <div className='bg-[#0000DB] w-full flex lg:flex-row flex-col lg:gap-0 gap-1 items-center  text-white justify-between lg:px-[5rem] py-[0.5rem]'>
+        <div className='bg-[#323B75] w-full flex lg:flex-row flex-col lg:gap-0 gap-1 items-center  text-white justify-between lg:px-[5rem] py-[0.5rem]'>
           <div className='flex gap-1'>
             <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path d="M2.038 5.61A2.01 2.01 0 0 0 2 6v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6c0-.12-.01-.238-.03-.352l-.866.65-7.89 6.032a2 2 0 0 1-2.429 0L2.884 6.288l-.846-.677Z"/>
@@ -201,7 +204,7 @@ function clear() {
             <svg class="w-6 h-6 lg:flex hidden text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path fill-rule="evenodd" d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.309-.38l-.133-.163a.999.999 0 0 1-.13-.202 7.995 7.995 0 0 1 6.498-12.518ZM15 9.997a3 3 0 1 1-5.999 0 3 3 0 0 1 5.999 0Z" clip-rule="evenodd"/>
             </svg>
-            <a target='_blank' href='https://www.google.com/maps/place/C.+38+128,+Tecolutla,+24178+Cdad.+del+Carmen,+Camp./@18.6431141,-91.8326058,19z/data=!3m1!4b1!4m6!3m5!1s0x85f1a827f4354cff:0x2e862782e8f54cd4!8m2!3d18.6431128!4d-91.8319621!16s%2Fg%2F11c0_k4w5y?hl=es&entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D' className='hover:underline lg:flex hidden'>Calle 38 No: 128 entre 35 y 37 Col. Tecolutla CP: 24100 Cd. Del Carmen Campeche.</a>
+            <a target='_blank' href='https://www.google.com/maps/place/Rentame+Carmen/@18.6457946,-91.8356274,17z/data=!3m1!4b1!4m6!3m5!1s0x85f1a96be3422151:0x9ae784434576f1b4!8m2!3d18.6457895!4d-91.8330525!16s%2Fg%2F11x1bzgm_3?hl=es&entry=ttu&g_ep=EgoyMDI1MDExMC4wIKXMDSoASAFQAw%3D%3D' className='hover:underline lg:flex hidden'>Calle 38 No: 128 entre 35 y 37 Col. Tecolutla CP: 24100 Cd. Del Carmen Campeche.</a>
           </div>
           <div className='flex gap-1'>
           <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -233,7 +236,7 @@ function clear() {
                 )}
               </div>
               <button
-                className="px-[1rem] lg:px-[2rem] bg-[#0000DB] text-white font-semibold rounded-r-[10px]"
+                className="px-[1rem] lg:px-[2rem] bg-[#323B75] text-white font-semibold rounded-r-[10px]"
                 onClick={buscar_boton} // Ejecutar la búsqueda al hacer clic
               >
                 <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className="bi bi-search w-3 lg:w-5" viewBox="0 0 16 16">
@@ -287,7 +290,7 @@ function clear() {
                 )}
               </div>
               <button
-                className="px-[1rem] lg:px-[2rem] bg-[#0000DB] text-white font-semibold rounded-r-[10px]"
+                className="px-[1rem] lg:px-[2rem] bg-[#323B75] text-white font-semibold rounded-r-[10px]"
                 onClick={buscar} // Ejecutar la búsqueda al hacer clic
               >
                 <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className="bi bi-search w-3 lg:w-5" viewBox="0 0 16 16">
@@ -312,7 +315,7 @@ function clear() {
 <p className='text-primary font-semibold'>Cargando productos</p>
     </div>)}
   <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full justify-items-center">
-    {show_filter_products === true && filteredDatas.map((dat, index) => (
+    {show_filter_products === true && filteredDatas.slice(0, visibleCount).map((dat, index) => (
         <div key={index} className="bg-white w-full px-2 py-2 rounded-lg flex flex-col gap-2">
         <img className='w-full h-[10vh] lg:h-[35vh]  object-contain' src={dat.foto} alt="" />
         <p className='lg:text-[1rem] text-[0.7rem] text-center font-semibold text-danger'>{dat.nombre.toUpperCase()}</p>
@@ -334,9 +337,10 @@ function clear() {
         {dat.stock > 0 && (
           <a href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`} target='_blank' className='bg-[#C70000] text-white text-center py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Rentar equipo</a>
         )}
-        <button onClick={()=>{openModal(), setId(dat._id)}} className='bg-[#0000DB] text-white py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Ficha técnica</button>
+        <button onClick={()=>{openModal(), setId(dat._id)}} className='bg-[#323B75] text-white py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Ficha técnica</button>
       </div>
     ))}
+    
     {productos_paginados.map((dat, index) => (
        <img className='w-full h-[35vh] object-contain hidden' src={dat.foto} alt="" onLoad={()=>{setLoadingImages(false)}}/>
     ))}
@@ -363,7 +367,7 @@ function clear() {
         {dat.stock > 0 && (
           <a href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`} target='_blank' className='bg-[#C70000] text-white text-center py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Rentar equipo</a>
         )}
-        <button onClick={()=>{openModal(), setId(dat._id)}} className='bg-[#0000DB] text-white py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Ficha técnica</button>
+        <button onClick={()=>{openModal(), setId(dat._id)}} className='bg-[#323B75] text-white py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Ficha técnica</button>
       </div>
     ))}
   </div>
@@ -455,8 +459,21 @@ function clear() {
     </ul>
   </nav>
 </div>
+
   )}
-  
+{visibleCount < filteredDatas.length && (
+  <div className="text-center mt-6">
+    <p className="text-gray-600 text-sm mb-3">
+      Mostrando {visibleCount} de {filteredDatas.length} resultados
+    </p>
+    <button
+      onClick={handleShowMore}
+      className="bg-blue-600 text-white py-3 px-6 rounded-lg font-medium text-base shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300"
+    >
+      Mostrar más resultados
+    </button>
+  </div>
+)}
 
 
 
@@ -471,7 +488,7 @@ function clear() {
           <img className='w-[2rem] lg:w-[4rem]' src={icons} alt="" />
         </a>
       </div>
-      <div className='text-[0.5rem] lg:text-[0.8rem] bg-[#0000DB] flex justify-center items-center text-center py-[0.5rem] text-white'>
+      <div className='text-[0.5rem] lg:text-[0.8rem] bg-[#323B75] flex justify-center items-center text-center py-[0.5rem] text-white'>
       RentameCarmen.com.mx - Todos Los Derechos Reservados. 2025 - 2026
       </div>
     </div>
