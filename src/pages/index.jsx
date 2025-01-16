@@ -3,7 +3,19 @@ import React, { useEffect, useRef, useState } from 'react';
 import icons from '../images/icons.png'
 import Ficha_tecnica from './ficha_tecnica';
 import logo from '../images/logo_blanco.png'
+import icon from '../images/rentame_icon.png'
+import { useLocation } from 'react-router-dom';
 export default function index() {
+  const location = useLocation(); 
+  useEffect(() => {
+    // Encontrar el link con rel="icon" y cambiar su href
+    const favicon = document.querySelector("link[rel='icon']");
+
+    // Si el favicon existe, cambiamos el href
+    if (favicon) {
+      favicon.href = icon; // Actualizamos el favicon con la nueva imagen
+    }
+  }, []); 
   const [productos_paginados, setProductos_paginados] = useState([]);
   const [all_products, setAll_products] = useState([]);
   const [show_paginados, setShow_paginados]=useState(true)
@@ -13,6 +25,8 @@ export default function index() {
   const [loadingImages, setLoadingImages] = useState(true);
   const [paginacion, setPaginacion]=useState()
   const [total_pages, setTotal_pages]=useState()
+  const [isOpen, setIsOpen] = useState(false);
+
   const [current_page, setCurrent_page] = useState(() => {
   const savedPage = localStorage.getItem('products_current_page');
     return savedPage ? parseInt(savedPage, 10) : 1;
@@ -94,6 +108,8 @@ async function enviar(){
       setProductos_paginados(data.response);// Al principio mostramos todos los datos
       setLoading(false); // Datos cargados, actualizamos el estado de carga
     } catch (error) {
+      localStorage.setItem('products_current_page', 1)
+      window.location.reload()
       console.error('Error fetching image data:', error);
       setLoading(false); // Si hay un error, dejamos de mostrar el estado de carga
     }
@@ -159,6 +175,7 @@ function clear() {
   const handleShowMore = () => {
     setVisibleCount((prev) => prev + 6); // Incrementa la cantidad visible en 6
   };
+  const handleToggleMenu = () => setIsOpen(!isOpen);
   return (
    <>
    
@@ -214,97 +231,122 @@ function clear() {
             <a href='tel:+529381958284' className='font-semibold hover:underline'>938-195-8284</a>
           </div>
         </div>
-        <div className='w-full bg-[#C70000] py-[1rem] lg:gap-0 gap-2 px-[0.5rem] lg:px-[5rem] hidden lg:flex justify-between items-center'>
-          <button onClick={()=>{localStorage.setItem('products_current_page',1), window.location.reload()}}><img className='lg:w-[10rem] w-[5rem] lg:h-[8vh]' src={logo} alt="" /></button>
-          
-          <div className="flex lg:w-[50%] w-[90%] lg:h-[5.5vh]">
-              <div className="relative w-full flex justify-center items-center">
-                <input
-                  type="text"
-                  placeholder="Buscar producto ..."
-                  className="w-full lg:text-[1rem] text-[0.8rem] py-2 px-[1rem] border border-gray-300 rounded-l-[10px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)} // Actualizar el término de búsqueda
-                  onKeyDown={handleKeyDown} // Detectar presionar Enter
-                />
-                {searchTerm && (
-                  <button onClick={clear} className="absolute right-2 top-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
-                      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-                    </svg>
-                  </button>
-                )}
-              </div>
-              <button
-                className="px-[1rem] lg:px-[2rem] bg-[#323B75] text-white font-semibold rounded-r-[10px]"
-                onClick={buscar_boton} // Ejecutar la búsqueda al hacer clic
-              >
-                <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className="bi bi-search w-3 lg:w-5" viewBox="0 0 16 16">
-                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+        <div className="w-full bg-[#C70000] py-[1rem] px-[0.5rem] lg:px-[5rem]">
+      {/* Navbar para pantallas grandes */}
+      <div className="hidden lg:flex justify-between items-center">
+        {/* Logo */}
+        <button onClick={() => { localStorage.setItem('products_current_page', 1), window.location.reload(); }}>
+          <img className="lg:w-[10rem] w-[5rem] lg:h-[8vh]" src={logo} alt="Rentame Carmen" />
+        </button>
+
+        {/* Barra de búsqueda */}
+        <div className="flex lg:w-[40%] w-[70%] lg:h-[5.5vh]">
+          <div className="relative w-full flex justify-center items-center">
+            <input
+              type="text"
+              placeholder="Buscar producto ..."
+              onKeyDown={handleKeyDown}
+              className="w-full lg:text-[1rem] text-[0.8rem] py-2 px-[1rem] border border-gray-300 rounded-l-[10px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)} // Actualizar el término de búsqueda
+            />
+            {searchTerm && (
+              <button onClick={clear}  className="absolute right-2 top-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
                 </svg>
               </button>
-            </div>
-            <a 
-  onClick={openFormulario} 
-  className="text-white font-bold text-[1.2rem] flex  items-center gap-1 px-4 py-2 rounded-md shadow-md hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 border border-white"
->
-<svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-  <path fill-rule="evenodd" d="M12 2a7 7 0 0 0-7 7 3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1a1 1 0 0 0 1-1V9a5 5 0 1 1 10 0v7.083A2.919 2.919 0 0 1 14.083 19H14a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1a2 2 0 0 0 1.732-1h.351a4.917 4.917 0 0 0 4.83-4H19a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3 7 7 0 0 0-7-7Zm1.45 3.275a4 4 0 0 0-4.352.976 1 1 0 0 0 1.452 1.376 2.001 2.001 0 0 1 2.836-.067 1 1 0 1 0 1.386-1.442 4 4 0 0 0-1.321-.843Z" clip-rule="evenodd"/>
-</svg>
-
-  Contacto
-</a>
-        </div>
-        {/* navbar en celu */}
-        <div className='w-full bg-[#C70000] py-[1rem] lg:gap-0 gap-3 px-[0.5rem]  lg:hidden flex flex-col  justify-between items-center'>
-          <div className='flex gap-4'>
-          <img className='w-[8rem] ' src={logo} alt="" />
-          <a 
-  onClick={openFormulario} 
-  className="text-white font-bold text-[0.8rem] flex  items-center gap-1 px-3 rounded-md shadow-md hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 border border-white"
->
-<svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-  <path fill-rule="evenodd" d="M12 2a7 7 0 0 0-7 7 3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1a1 1 0 0 0 1-1V9a5 5 0 1 1 10 0v7.083A2.919 2.919 0 0 1 14.083 19H14a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1a2 2 0 0 0 1.732-1h.351a4.917 4.917 0 0 0 4.83-4H19a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3 7 7 0 0 0-7-7Zm1.45 3.275a4 4 0 0 0-4.352.976 1 1 0 0 0 1.452 1.376 2.001 2.001 0 0 1 2.836-.067 1 1 0 1 0 1.386-1.442 4 4 0 0 0-1.321-.843Z" clip-rule="evenodd"/>
-</svg>
-
-  Contacto
-</a>
+            )}
           </div>
-          
-          <div className="flex lg:w-[50%] w-[90%] lg:h-[5.5vh]">
-              <div className="relative w-full flex justify-center items-center">
-                <input
-                  type="text"
-                  placeholder="Buscar producto ..."
-                  className="w-full lg:text-[1rem] text-[0.8rem] py-2 px-[1rem] border border-gray-300 rounded-l-[10px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)} // Actualizar el término de búsqueda
-                  onKeyDown={handleKeyDown} // Detectar presionar Enter
-                />
-                {searchTerm && (
-                  <button onClick={clear} className="absolute right-2 top-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
-                      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-                    </svg>
-                  </button>
-                )}
-              </div>
-              <button
-                className="px-[1rem] lg:px-[2rem] bg-[#323B75] text-white font-semibold rounded-r-[10px]"
-                onClick={buscar} // Ejecutar la búsqueda al hacer clic
-              >
-                <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className="bi bi-search w-3 lg:w-5" viewBox="0 0 16 16">
-                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                </svg>
-              </button>
-            </div>
+          <button
+            className="px-[1rem] lg:px-[2rem] bg-[#323B75] text-white font-semibold rounded-r-[10px]"
+            onClick={buscar_boton}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi bi-search w-3 lg:w-5" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+            </svg>
+          </button>
         </div>
 
+        {/* Enlaces de navegación */}
+        <div className="flex items-center gap-4">
+          <a href="/" className={`text-white font-bold text-[1rem] ${
+          location.pathname === "/" ? "bg-[#A50000] px-[1rem] py-[0.3rem] rounded-md" : ""
+        }`} >Renta de Equipos</a>
+          <a href="/venta_equipos" className={`text-white font-bold text-[1rem] ${
+          location.pathname === "/venta_equipos" ? "bg-[#A50000] px-[1rem] py-[0.3rem] rounded-md" : ""
+        }`}>Venta de Equipos</a>
+          <a 
+            onClick={openFormulario} 
+            className="text-white font-bold text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md shadow-md hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 border border-white">
+            <svg className="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" d="M12 2a7 7 0 0 0-7 7 3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1a1 1 0 0 0 1-1V9a5 5 0 1 1 10 0v7.083A2.919 2.919 0 0 1 14.083 19H14a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1a2 2 0 0 0 1.732-1h.351a4.917 4.917 0 0 0 4.83-4H19a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3 7 7 0 0 0-7-7Zm1.45 3.275a4 4 0 0 0-4.352.976 1 1 0 0 0 1.452 1.376 2.001 2.001 0 0 1 2.836-.067 1 1 0 1 0 1.386-1.442 4 4 0 0 0-1.321-.843Z" clip-rule="evenodd"/>
+            </svg>
+            Contacto
+          </a>
+        </div>
       </div>
+
+      {/* Menú hamburguesa para pantallas pequeñas */}
+      <div className="lg:hidden flex justify-between items-center gap-3">
+        <button onClick={handleToggleMenu}>
+        <svg class="w-10 h-10 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
+</svg>
+
+        </button>
+        <div className="flex lg:hidden  w-[100%] lg:h-[5.5vh]">
+          <div className="relative w-full flex justify-center items-center">
+            <input
+              type="text"
+              placeholder="Buscar producto ..."
+              onKeyDown={handleKeyDown}
+              className="w-full lg:text-[1rem] text-[0.8rem] py-2 px-[1rem] border border-gray-300 rounded-l-[10px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)} // Actualizar el término de búsqueda
+            />
+            {searchTerm && (
+              <button onClick={clear} className="absolute right-2 top-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                </svg>
+              </button>
+            )}
+          </div>
+          <button
+            className="px-[1rem] lg:px-[2rem] bg-[#323B75] text-white font-semibold rounded-r-[10px]"
+            onClick={buscar_boton}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi bi-search w-3 lg:w-5" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Menú desplegable en pantallas pequeñas */}
+      {isOpen && (
+        <div className="lg:hidden flex flex-col items-center gap-2 py-2 bg-[#C70000] border-t-[1px] mt-[1rem] border-solid ">
+          <a href="/" className={`text-white font-bold text-[0.8rem] ${
+           location.pathname === "/" ? "bg-[#A50000] px-[1rem] py-[0.3rem] rounded-md" : ""
+         }`}>Renta de Equipos</a>
+          <a href="/venta_equipos" className={`text-white font-bold text-[0.8rem] ${
+           location.pathname === "/venta_equipos" ? "bg-[#A50000] px-[1rem] py-[0.3rem] rounded-md" : ""
+         }`}>Venta de Equipos</a>
+          <a 
+            onClick={openFormulario} 
+            className="text-white   text-[0.8rem] px-[1.8rem] flex gap-2"><svg className="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" d="M12 2a7 7 0 0 0-7 7 3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1a1 1 0 0 0 1-1V9a5 5 0 1 1 10 0v7.083A2.919 2.919 0 0 1 14.083 19H14a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1a2 2 0 0 0 1.732-1h.351a4.917 4.917 0 0 0 4.83-4H19a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3 7 7 0 0 0-7-7Zm1.45 3.275a4 4 0 0 0-4.352.976 1 1 0 0 0 1.452 1.376 2.001 2.001 0 0 1 2.836-.067 1 1 0 1 0 1.386-1.442 4 4 0 0 0-1.321-.843Z" clip-rule="evenodd"/>
+          </svg>Contacto</a>
+        </div>
+      )}
+    </div>
+    </div>
+ 
+
+
       {/* ESTO ES EL BODY */}
       <div className='w-full bg-[#e3e2e294] px-[0.5rem] lg:px-[5rem] py-[2rem] gap-3 flex flex-col'>
-      <p className='font-bold text-[1.3rem] lg:text-[2rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md'>
-  Catálogo de productos
+      <p className='font-bold text-[1rem] lg:text-[1.7rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md'>
+  Catálogo de equipos en renta
 </p>
         <div className="flex flex-col w-full lg:w-[100%]">
         {loadingImages && (
@@ -474,15 +516,26 @@ function clear() {
     </button>
   </div>
 )}
-
-
-
 </div>
     </div>
     {/* FOOTER */}
     <div className='w-full flex flex-col'>
       <div className='bg-[#C70000] py-[2rem] flex items-center px-[0.5rem] lg:gap-0 gap-2 lg:flex-row flex-col lg:px-[4rem] justify-between'>
         <button onClick={()=>{localStorage.setItem('products_current_page',1), window.location.reload()}}><img className='w-[10rem]' src={logo} alt="" /></button>
+        <div className='flex gap-3 text-white'>
+          <a href="/" className='flex gap-2 items-center hover:underline'><svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/>
+</svg>
+Renta de equipos</a>
+          <a href="/venta_equipos" className='flex gap-2 items-center hover:underline'><svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/>
+</svg>
+Venta de equipos</a>
+          <button onClick={openFormulario} className='flex gap-2 items-center hover:underline'><svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/>
+</svg>
+Contacto</button>
+        </div>
         <a href={'https://wa.link/fcsk88'} target='_blank' className='text-white flex items-end lg:text-[1.2rem] font-semibold gap-2'>
           <p>Habla con nosotros</p>
           <img className='w-[2rem] lg:w-[4rem]' src={icons} alt="" />
