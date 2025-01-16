@@ -103,21 +103,20 @@ export default function venta_equipos() {
     async function get_products_paginates(page = current_page) {
       try {
         const { data } = await axios.get(`https://backrecordatoriorenta-production.up.railway.app/api/products/read_pag_venta?page=${page}`);
-        
-        // Validamos si la página solicitada excede el total de páginas
-        if (page > data?.totalPages) {
-          page = data.totalPages; // Ajustamos a la última página
-          localStorage.setItem('products_venta_current_page', page); // Actualizamos localStorage
-        }
-    
-        setPaginacion(data);
-        setTotal_pages(data?.totalPages);
-        setProductos_paginados(data.response); // Mostramos los datos de la página ajustada
-        setLoading(false); // Datos cargados, actualizamos el estado de carga
+        setPaginacion(data)
+        console.log(data);
+      setTotal_pages(data?.totalPages)
+      setProductos_paginados(data.response);// Al principio mostramos todos los datos
+      setLoading(false); // Datos cargados, actualizamos el estado de carga
       } catch (error) {
-        localStorage.setItem('products_venta_current_page', 1)
-        window.location.reload()
-        console.error('Error fetching image data:', error);
+        if(error.response.data.message === 'No hay productos disponibles para \'venta\'.'){
+          setLoadingImages(false)
+        }
+        if(error.response.data.message === 'Página fuera de rango. Por favor, selecciona una página válida.'){
+          localStorage.setItem('products_venta_current_page', 1)
+          window.location.reload()
+        }
+        
         setLoading(false); // Si hay un error, dejamos de mostrar el estado de carga
       }
     }
@@ -351,19 +350,38 @@ export default function venta_equipos() {
  
  
        {/* ESTO ES EL BODY */}
-       <div className='w-full bg-[#e3e2e294] px-[0.5rem] lg:px-[5rem] py-[2rem] gap-3 flex flex-col'>
+       <div className='w-full bg-[#e3e2e294] px-[0.5rem] lg:px-[5rem] min-h-[80vh] py-[2rem] gap-3 flex flex-col'>
        <p className='font-bold text-[1rem] lg:text-[1.7rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md'>
    Catálogo de equipos en venta
  </p>
          <div className="flex flex-col w-full lg:w-[100%]">
-         {loadingImages && (
+         {loadingImages && productos_paginados.length > 0 && (
      <div className=" w-full text-center  h-[50vh] gap-3 flex-col flex items-center justify-center"> {/* Aquí iría el loader, por ejemplo un spinner */}
        <div class="spinner-border text-primary w-[3rem] h-[3rem]" role="status">
    <span class="visually-hidden">Loading...</span>
  </div>
  <p className='text-primary font-semibold'>Cargando productos</p>
      </div>)}
+     { show_filter_products === false && show_paginados === true && loadingImages === false && productos_paginados.length === 0 && (
+      <div className=" w-full text-center h-[50vh] gap-3 flex-col flex items-center justify-center">
+        <svg class="w-10 h-10 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+</svg>
+
+        <p>En este momento no estan disponibles equipos para la venta</p>
+      </div>
+     )}
+     { show_filter_products === true && searchTerm && filteredDatas.length === 0 && (
+      <div className=" w-full text-center h-[50vh] gap-3 flex-col flex items-center justify-center">
+        <svg class="w-10 h-10 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+</svg>
+
+        <p>No se han encontrado resultados relacionados con su busqueda,por favor intentelo nuevamente</p>
+      </div>
+     )}
    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full justify-items-center">
+   
      {show_filter_products === true && filteredDatas.slice(0, visibleCount).map((dat, index) => (
          <div key={index} className="bg-white w-full px-2 py-2 rounded-lg flex flex-col gap-2">
          <img className='w-full h-[10vh] lg:h-[35vh]  object-contain' src={dat.foto} alt="" />
@@ -528,19 +546,33 @@ export default function venta_equipos() {
  
  </div>
      </div>
-     {/* FOOTER */}
-     <div className='w-full flex flex-col'>
-       <div className='bg-[#C70000] py-[2rem] flex items-center px-[0.5rem] lg:gap-0 gap-2 lg:flex-row flex-col lg:px-[4rem] justify-between'>
-         <button onClick={()=>{localStorage.setItem('products_venta_current_page',1), window.location.reload()}}><img className='w-[10rem]' src={logo} alt="" /></button>
-         <a href={'https://wa.link/fcsk88'} target='_blank' className='text-white flex items-end lg:text-[1.2rem] font-semibold gap-2'>
-           <p>Habla con nosotros</p>
-           <img className='w-[2rem] lg:w-[4rem]' src={icons} alt="" />
-         </a>
-       </div>
-       <div className='text-[0.5rem] lg:text-[0.8rem] bg-[#323B75] flex justify-center items-center text-center py-[0.5rem] text-white'>
-       RentameCarmen.com.mx - Todos Los Derechos Reservados. 2025 - 2026
-       </div>
-     </div>
+    {/* FOOTER */}
+        <div className='w-full flex flex-col'>
+          <div className='bg-[#C70000] py-[2rem] flex items-center px-[0.5rem] lg:gap-0 gap-2 lg:flex-row flex-col lg:px-[4rem] justify-between'>
+            <button onClick={()=>{localStorage.setItem('products_current_page',1), window.location.reload()}}><img className='w-[10rem]' src={logo} alt="" /></button>
+            <div className='flex lg:flex-row flex-col gap-3 text-white'>
+              <a href="/" className='flex gap-2 items-center hover:underline'><svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/>
+    </svg>
+    Renta de equipos</a>
+              <a href="/venta_equipos" className='flex gap-2 items-center hover:underline'><svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/>
+    </svg>
+    Venta de equipos</a>
+              <button onClick={openFormulario} className='flex gap-2 items-center hover:underline'><svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/>
+    </svg>
+    Contacto</button>
+            </div>
+            <a href={'https://wa.link/fcsk88'} target='_blank' className='text-white flex items-end lg:text-[1.2rem] font-semibold gap-2'>
+              <p>Habla con nosotros</p>
+              <img className='w-[2rem] lg:w-[4rem]' src={icons} alt="" />
+            </a>
+          </div>
+          <div className='text-[0.5rem] lg:text-[0.8rem] bg-[#323B75] flex justify-center items-center text-center py-[0.5rem] text-white'>
+          RentameCarmen.com.mx - Todos Los Derechos Reservados. 2025 - 2026
+          </div>
+        </div>
      </div>
     </>
    );
