@@ -285,9 +285,7 @@ function clear() {
 
         {/* Enlaces de navegación */}
         <div className="lg:flex items-center gap-4 hidden">
-          <a href="/" className={`text-white font-bold text-[1rem] ${
-          location.pathname === "/" ? "bg-[#A50000] px-[1rem] py-[0.3rem] rounded-md" : ""
-        }`} >Catálogo de Equipos</a>
+        
           <a 
             onClick={openFormulario} 
             className="text-white font-bold text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md shadow-md hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 border border-white">
