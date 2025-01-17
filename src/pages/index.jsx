@@ -4,6 +4,8 @@ import icons from '../images/icons.png'
 import Ficha_tecnica from './ficha_tecnica';
 import logo from '../images/logo_blanco.png'
 import icon from '../images/rentame_icon.png'
+import google from '../images/google.png'
+import facebook from '../images/facebook.png'
 import { useLocation } from 'react-router-dom';
 export default function index() {
   const location = useLocation(); 
@@ -237,14 +239,24 @@ function clear() {
         </div>
         <div className="w-full bg-[#C70000] py-[1rem] px-[0.5rem] lg:px-[5rem]">
       {/* Navbar para pantallas grandes */}
-      <div className="hidden lg:flex justify-between items-center">
+      <div className="flex lg:flex-row flex-col lg:gap-0 gap-3 justify-between items-center">
         {/* Logo */}
         <button onClick={() => { localStorage.setItem('products_current_page', 1), window.location.reload(); }}>
-          <img className="lg:w-[10rem] w-[5rem] lg:h-[8vh]" src={logo} alt="Rentame Carmen" />
+          <img className="lg:w-[10rem] w-[5rem] lg:h-[8vh] lg:flex hidden" src={logo} alt="Rentame Carmen" />
         </button>
-
+        <div className='lg:hidden flex gap-3'>
+        <img className="w-[7rem]" src={logo} alt="Rentame Carmen" />
+        <a 
+            onClick={openFormulario} 
+            className="text-white font-bold text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md shadow-md hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 border border-white">
+            <svg className="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" d="M12 2a7 7 0 0 0-7 7 3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1a1 1 0 0 0 1-1V9a5 5 0 1 1 10 0v7.083A2.919 2.919 0 0 1 14.083 19H14a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1a2 2 0 0 0 1.732-1h.351a4.917 4.917 0 0 0 4.83-4H19a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3 7 7 0 0 0-7-7Zm1.45 3.275a4 4 0 0 0-4.352.976 1 1 0 0 0 1.452 1.376 2.001 2.001 0 0 1 2.836-.067 1 1 0 1 0 1.386-1.442 4 4 0 0 0-1.321-.843Z" clip-rule="evenodd"/>
+            </svg>
+            Contacto
+          </a>
+        </div>
         {/* Barra de búsqueda */}
-        <div className="flex lg:w-[40%] w-[70%] lg:h-[5.5vh]">
+        <div className="flex lg:w-[40%] w-[100%] lg:h-[5.5vh]">
           <div className="relative w-full flex justify-center items-center">
             <input
               type="text"
@@ -272,13 +284,10 @@ function clear() {
         </div>
 
         {/* Enlaces de navegación */}
-        <div className="flex items-center gap-4">
+        <div className="lg:flex items-center gap-4 hidden">
           <a href="/" className={`text-white font-bold text-[1rem] ${
           location.pathname === "/" ? "bg-[#A50000] px-[1rem] py-[0.3rem] rounded-md" : ""
-        }`} >Renta de Equipos</a>
-          <a href="/venta_equipos" className={`text-white font-bold text-[1rem] ${
-          location.pathname === "/venta_equipos" ? "bg-[#A50000] px-[1rem] py-[0.3rem] rounded-md" : ""
-        }`}>Venta de Equipos</a>
+        }`} >Catálogo de Equipos</a>
           <a 
             onClick={openFormulario} 
             className="text-white font-bold text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md shadow-md hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 border border-white">
@@ -289,68 +298,16 @@ function clear() {
           </a>
         </div>
       </div>
-
-      {/* Menú hamburguesa para pantallas pequeñas */}
-      <div className="lg:hidden flex justify-between items-center gap-3">
-        <button onClick={handleToggleMenu}>
-        <svg class="w-10 h-10 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
-</svg>
-
-        </button>
-        <div className="flex lg:hidden  w-[100%] lg:h-[5.5vh]">
-          <div className="relative w-full flex justify-center items-center">
-            <input
-              type="text"
-              placeholder="Buscar producto ..."
-              onKeyDown={handleKeyDown}
-              className="w-full lg:text-[1rem] text-[0.8rem] py-2 px-[1rem] border border-gray-300 rounded-l-[10px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)} // Actualizar el término de búsqueda
-            />
-            {searchTerm && (
-              <button onClick={clear} className="absolute right-2 top-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-x" viewBox="0 0 16 16">
-                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-                </svg>
-              </button>
-            )}
-          </div>
-          <button
-            className="px-[1rem] lg:px-[2rem] bg-[#323B75] text-white font-semibold rounded-r-[10px]"
-            onClick={buscar_boton}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi bi-search w-3 lg:w-5" viewBox="0 0 16 16">
-              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-            </svg>
-          </button>
-        </div>
+      </div>
       </div>
 
-      {/* Menú desplegable en pantallas pequeñas */}
-      {isOpen && (
-        <div className="lg:hidden flex flex-col items-center gap-2 py-2 bg-[#C70000] border-t-[1px] mt-[1rem] border-solid ">
-          <a href="/" className={`text-white font-bold text-[0.8rem] ${
-           location.pathname === "/" ? "bg-[#A50000] px-[1rem] py-[0.3rem] rounded-md" : ""
-         }`}>Renta de Equipos</a>
-          <a href="/venta_equipos" className={`text-white font-bold text-[0.8rem] ${
-           location.pathname === "/venta_equipos" ? "bg-[#A50000] px-[1rem] py-[0.3rem] rounded-md" : ""
-         }`}>Venta de Equipos</a>
-          <a 
-            onClick={openFormulario} 
-            className="text-white   text-[0.8rem] px-[1.8rem] flex gap-2"><svg className="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd" d="M12 2a7 7 0 0 0-7 7 3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1a1 1 0 0 0 1-1V9a5 5 0 1 1 10 0v7.083A2.919 2.919 0 0 1 14.083 19H14a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1a2 2 0 0 0 1.732-1h.351a4.917 4.917 0 0 0 4.83-4H19a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3 7 7 0 0 0-7-7Zm1.45 3.275a4 4 0 0 0-4.352.976 1 1 0 0 0 1.452 1.376 2.001 2.001 0 0 1 2.836-.067 1 1 0 1 0 1.386-1.442 4 4 0 0 0-1.321-.843Z" clip-rule="evenodd"/>
-          </svg>Contacto</a>
-        </div>
-      )}
-    </div>
-    </div>
  
 
 
       {/* ESTO ES EL BODY */}
       <div className='w-full bg-[#e3e2e294] px-[0.5rem]  min-h-[80vh]  lg:px-[5rem] py-[2rem] gap-3 flex flex-col'>
       <p className='font-bold text-[1rem] lg:text-[1.7rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md'>
-  Catálogo de equipos en renta
+  Catálogo de equipos
 </p>
         <div className="flex flex-col w-full lg:w-[100%]">
         {loadingImages && productos_paginados.length > 0 && (
@@ -366,7 +323,7 @@ function clear() {
   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
 </svg>
 
-        <p>En este momento no estan disponibles equipos para la venta</p>
+        <p>En este momento no estan disponibles equipos para la renta</p>
       </div>
      )}
      { show_filter_products === true && searchTerm && filteredDatas.length === 0 && (
@@ -378,13 +335,13 @@ function clear() {
         <p>No se han encontrado resultados relacionados con su busqueda,por favor intentelo nuevamente</p>
       </div>
      )}
-  <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full justify-items-center">
+  <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full justify-items-center ">
     {show_filter_products === true && filteredDatas.slice(0, visibleCount).map((dat, index) => (
         <div key={index} className="bg-white w-full px-2 py-2 rounded-lg flex flex-col gap-2">
         <img className='w-full h-[10vh] lg:h-[35vh]  object-contain' src={dat.foto} alt="" />
-        <p className='lg:text-[1rem] text-[0.7rem] text-center font-semibold text-danger'>{dat.nombre.toUpperCase()}</p>
+        <p className='lg:text-[1rem] text-[0.7rem] text-center font-semibold text-danger lg:h-auto h-[40px] line-clamp-2 lg:line-clamp-1'>{dat.nombre.toUpperCase()}</p>
         {dat.visibilidad_precio === 'VISIBLE' && (
-  <p className="text-center text-secondary font-semibold">${dat.precio} MXN</p>
+  <p className="text-center text-secondary lg:text-[1rem] text-[0.8rem] font-semibold">${dat.precio} MXN</p>
 )}
 {dat.visibilidad_precio === 'NO VISIBLE' && (
   <p className="text-center text-danger font-semibold  bg-[#e3e3e3a9] lg:text-[1rem] text-[0.5rem]">PRECIO NO DISPONIBLE</p>
@@ -395,13 +352,19 @@ function clear() {
         {dat.stock > 0 && (
           <p className='text-center text-primary font-semibold  rounded-[5px] py-1 lg:text-[1rem] text-[0.7rem]'>Disponible</p>
         )}
+          <button onClick={()=>{openModal(), setId(dat._id)}} className='  py-1 rounded-[5px] lg:text-[0.9rem] flex gap-1 font-semibold underline text-secondary text-[0.7rem] items-center justify-center text-center'><svg class="w-4 h-4 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/>
+</svg>
+Ver ficha técnica</button>
         {dat.stock === 0 && (
           <button onClick={()=>{openModal(), setId(dat._id)}} disabled className='bg-[#a5a5a5] text-white py-1 rounded-[5px] lg:text-[1rem] text-danger text-[0.7rem]'>Rentar equipo</button>
         )}
         {dat.stock > 0 && (
-          <a href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`} target='_blank' className='bg-[#C70000] text-white text-center py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Rentar equipo</a>
+          <a href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`} target='_blank' className='bg-[#323B75] text-white text-center py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Rentar equipo</a>
         )}
-        <button onClick={()=>{openModal(), setId(dat._id)}} className='bg-[#323B75] text-white py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Ficha técnica</button>
+         {dat.tipo_uso === 'venta' && (
+           <a href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en comprar el siguiente equipo: ${dat.nombre}`} target='_blank' className='bg-[#C70000] text-white text-center py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Comprar equipo</a>
+        )}
       </div>
     ))}
     
@@ -410,28 +373,37 @@ function clear() {
     ))}
     
     {show_paginados === true && loadingImages === false  && productos_paginados.map((dat, index) => (
-      <div key={index} className="bg-white w-full px-2 py-2 rounded-lg flex flex-col gap-2">
+      <div key={index} className="bg-white w-full px-2 py-2 rounded-lg flex flex-col gap-2 ">
         <img className='w-full h-[10vh] lg:h-[35vh] object-contain' src={dat.foto} alt="" onLoad={handleImageLoad}/>
-        <p className='lg:text-[1rem] text-[0.7rem] text-center font-semibold text-danger'>{dat.nombre.toUpperCase()}</p>
+        <p className='lg:text-[1rem] text-[0.7rem] text-center font-semibold text-danger lg:h-auto h-[40px] line-clamp-2 lg:line-clamp-1'>{dat.nombre.toUpperCase()}</p>
         {dat.visibilidad_precio === 'VISIBLE' && (
-  <p className="text-center text-secondary font-semibold">${dat.precio} MXN</p>
+  <p className="text-center lg:text-[1rem] text-[0.8rem] text-secondary font-semibold">${dat.precio} MXN</p>
 )}
 {dat.visibilidad_precio === 'NO VISIBLE' && (
   <p className="text-center text-danger font-semibold lg:text-[1rem] text-[0.5rem] bg-[#e3e3e3a9]">PRECIO NO DISPONIBLE</p>
 )}
+
         {dat.stock === 0 && (
           <p className='text-center text-danger font-semibold  rounded-[5px] py-1 lg:text-[1rem] text-[0.7rem]'>Rentado</p>
         )}
         {dat.stock > 0 && (
           <p className='text-center text-primary font-semibold  rounded-[5px] py-1 lg:text-[1rem] text-[0.7rem]'>Disponible</p>
         )}
+         <button onClick={()=>{openModal(), setId(dat._id)}} className='  py-1 rounded-[5px] lg:text-[0.9rem] flex gap-1 font-semibold underline text-secondary text-[0.7rem] items-center justify-center text-center'><svg class="w-4 h-4 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/>
+</svg>
+Ver ficha técnica</button>
         {dat.stock === 0 && (
           <button onClick={()=>{openModal(), setId(dat._id)}} disabled className='bg-[#a5a5a5] text-white py-1 rounded-[5px] lg:text-[1rem] text-danger text-[0.7rem]'>Rentar equipo</button>
         )}
         {dat.stock > 0 && (
-          <a href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`} target='_blank' className='bg-[#C70000] text-white text-center py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Rentar equipo</a>
+          <a href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`} target='_blank' className='bg-[#323B75] text-white text-center py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Rentar equipo</a>
         )}
-        <button onClick={()=>{openModal(), setId(dat._id)}} className='bg-[#323B75] text-white py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Ficha técnica</button>
+        
+        {dat.tipo_uso === 'venta' && (
+           <a href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en comprar el siguiente equipo: ${dat.nombre}`} target='_blank' className='bg-[#C70000] text-white text-center py-1 rounded-[5px] lg:text-[1rem] text-[0.7rem]'>Comprar equipo</a>
+        )}
+       
       </div>
     ))}
   </div>
@@ -542,23 +514,20 @@ function clear() {
     </div>
     {/* FOOTER */}
     <div className='w-full flex flex-col'>
-      <div className='bg-[#C70000] py-[2rem] flex items-center px-[0.5rem] lg:gap-0 gap-2 lg:flex-row flex-col lg:px-[4rem] justify-between'>
-        <button onClick={()=>{localStorage.setItem('products_current_page',1), window.location.reload()}}><img className='w-[10rem]' src={logo} alt="" /></button>
-        <div className='flex lg:flex-row flex-col gap-3 text-white'>
-          <a href="/" className='flex gap-2 items-center hover:underline'><svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/>
-</svg>
-Renta de equipos</a>
-          <a href="/venta_equipos" className='flex gap-2 items-center hover:underline'><svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/>
-</svg>
-Venta de equipos</a>
-          <button onClick={openFormulario} className='flex gap-2 items-center hover:underline'><svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/>
-</svg>
-Contacto</button>
+      <div className='bg-[#C70000] py-[2rem] flex items-center px-[0.5rem] lg:gap-0 gap-4 lg:flex-row flex-col lg:px-[4rem] justify-between'>
+        <button onClick={()=>{localStorage.setItem('products_current_page',1), window.location.reload()}}><img className='w-[7rem] lg:w-[10rem]' src={logo} alt="" /></button>
+        <div className='flex lg:flex-row flex-col lg:h-[2rem] lg:w-auto w-full justify-center gap-4 lg:gap-5 text-white'>
+          <a href='https://www.facebook.com/p/Rentame-Carmen-100094870352555/' target='_blank' className='flex flex-col items-center'>
+            <img className='object-contain lg:w-auto w-[2.3rem]  h-full' src={facebook} alt="" />
+<p className='text-[0.9rem] hover:underline font-semibold'>Síguenos en facebook</p>
+</a>
+<a href='https://search.google.com/local/writereview?placeid=ChIJUSFC42up8YURtPF2RUOE55o' target='_blank' className='flex flex-col items-center'>
+<img className='object-contain  h-full lg:w-auto w-[3.5rem]' src={google} alt="" />
+<p className='text-[0.9rem] hover:underline font-semibold'>Déjanos tu opinión en google</p>
+</a>
         </div>
-        <a href={'https://wa.link/fcsk88'} target='_blank' className='text-white flex items-end lg:text-[1.2rem] font-semibold gap-2'>
+
+        <a href={'https://wa.link/fcsk88'} target='_blank' className='text-white flex items-end lg:text-[1rem] font-semibold gap-2'>
           <p>Habla con nosotros</p>
           <img className='w-[2rem] lg:w-[4rem]' src={icons} alt="" />
         </a>
