@@ -342,7 +342,7 @@ function clear() {
   <p className="text-center text-secondary lg:text-[1rem] text-[0.8rem] font-semibold">${dat.precio} MXN</p>
 )}
 {dat.visibilidad_precio === 'NO VISIBLE' && (
-  <p className="text-center text-danger font-semibold  bg-[#e3e3e3a9] lg:text-[1rem] text-[0.5rem]">PRECIO NO DISPONIBLE</p>
+  <p className="text-center text-white invisible font-semibold lg:text-[1rem] text-[0.5rem]">MXN</p>
 )}
         {dat.stock === 0 && (
           <p className='text-center text-danger font-semibold  rounded-[5px] py-1 lg:text-[1rem] text-[0.7rem]'>Rentado</p>
@@ -378,7 +378,7 @@ Ver ficha técnica</button>
   <p className="text-center lg:text-[1rem] text-[0.8rem] text-secondary font-semibold">${dat.precio} MXN</p>
 )}
 {dat.visibilidad_precio === 'NO VISIBLE' && (
-  <p className="text-center text-danger font-semibold lg:text-[1rem] text-[0.5rem] bg-[#e3e3e3a9]">PRECIO NO DISPONIBLE</p>
+  <p className="text-center text-white invisible font-semibold lg:text-[1rem] text-[0.5rem]">MXN</p>
 )}
 
         {dat.stock === 0 && (
