@@ -4,6 +4,7 @@ import icons from '../images/icons.png'
 import Ficha_tecnica from './ficha_tecnica';
 import logo from '../images/logo_blanco.png'
 import icon from '../images/rentame_icon.png'
+import compramos from '../images/compramos.png'
 import google from '../images/google.png'
 import facebook from '../images/facebook.png'
 import { useLocation } from 'react-router-dom';
@@ -511,24 +512,25 @@ Ver ficha técnica</button>
 </div>
     </div>
     {/* FOOTER */}
-    <div className='w-full flex flex-col'>
-      <div className='bg-[#C70000] py-[2rem] flex items-center px-[0.5rem] lg:gap-0 gap-4 lg:flex-row flex-col lg:px-[4rem] justify-between'>
-        <button onClick={()=>{localStorage.setItem('products_current_page',1), window.location.reload()}}><img className='w-[7rem] lg:w-[10rem]' src={logo} alt="" /></button>
-        <div className='flex lg:flex-row flex-col lg:h-[2rem] lg:w-auto w-full justify-center gap-4 lg:gap-5 text-white'>
+    <div className='w-full flex flex-col overflow-x-hidden'>
+      <div className='bg-[#C70000] flex items-center px-[0.5rem] lg:py-0 py-[2rem] h-auto lg:gap-0 gap-4 lg:flex-row flex-col lg:px-[0rem] justify-between '>
+        <a href='https://wa.link/w31sh7' target='_blank'><img className='w-full lg:w-[40rem] h-full' src={compramos} alt="" /></a>
+        <div className='flex lg:flex-row flex-col justify-between items-center text-center lg:items-end  w-full lg:px-[4rem] gap-4 lg:gap-5 text-white'>
           <a href='https://www.facebook.com/p/Rentame-Carmen-100094870352555/' target='_blank' className='flex flex-col items-center'>
-            <img className='object-contain lg:w-auto w-[2.3rem]  h-full' src={facebook} alt="" />
+            <img className='object-contain lg:w-auto w-[2.3rem]  h-[2rem]' src={facebook} alt="" />
 <p className='text-[0.9rem] hover:underline font-semibold'>Síguenos en facebook</p>
 </a>
 <a href='https://search.google.com/local/writereview?placeid=ChIJUSFC42up8YURtPF2RUOE55o' target='_blank' className='flex flex-col items-center'>
-<img className='object-contain  h-full lg:w-auto w-[3.5rem]' src={google} alt="" />
-<p className='text-[0.9rem] hover:underline font-semibold'>Déjanos tu opinión en google</p>
+<img className='object-contain  lg:w-auto w-[3.5rem] h-[1.8rem]' src={google} alt="" />
+<p className='text-[0.9rem] hover:underline font-semibold '>Déjanos tu opinión en google</p>
 </a>
-        </div>
-
-        <a href={'https://wa.link/fcsk88'} target='_blank' className='text-white flex items-end lg:text-[1rem] font-semibold gap-2'>
+<a href={'https://wa.link/fcsk88'} target='_blank' className='text-white flex items-end lg:text-[1rem] font-semibold gap-2'>
           <p>Habla con nosotros</p>
           <img className='w-[2rem] lg:w-[4rem]' src={icons} alt="" />
         </a>
+        </div>
+
+        
       </div>
       <div className='text-[0.5rem] lg:text-[0.8rem] bg-[#323B75] flex justify-center items-center text-center py-[0.5rem] text-white'>
       RentameCarmen.com.mx - Todos Los Derechos Reservados. 2025 - 2026
