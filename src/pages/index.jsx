@@ -4,7 +4,7 @@ import icons from '../images/icons.png'
 import Ficha_tecnica from './ficha_tecnica';
 import logo from '../images/logo_blanco.png'
 import icon from '../images/rentame_icon.png'
-import compramos from '../images/compramos.png'
+import compramos from '../images/compramos.jpg'
 import google from '../images/google.png'
 import facebook from '../images/facebook.png'
 import { useLocation } from 'react-router-dom';
