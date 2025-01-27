@@ -183,6 +183,55 @@ function clear() {
     setVisibleCount((prev) => prev + 6); // Incrementa la cantidad visible en 6
   };
   const handleToggleMenu = () => setIsOpen(!isOpen);
+
+  function nextPage(){
+    if(current_page < total_pages){
+      window.scrollTo(0,0)
+      setLoadingImages(true)
+      setCurrent_page(current_page + 1)
+      get_products_paginates(current_page + 1);
+      localStorage.setItem('products_current_page', current_page + 1)
+    }
+  }
+  function prevPage(){
+    if(current_page > 1){
+      window.scrollTo(0,0)
+      setLoadingImages(true)
+      setCurrent_page(current_page - 1)
+      get_products_paginates(current_page - 1);
+      localStorage.setItem('products_current_page', current_page - 1)
+    }
+  }
+
+  function generatePageNumbers(currentPage, totalPages, maxPagesToShow = 7) {
+    const pages = [];
+    const halfRange = Math.floor(maxPagesToShow / 2);
+  
+    // Determinar inicio y fin del rango
+    let start = Math.max(currentPage - halfRange, 1);
+    let end = Math.min(start + maxPagesToShow - 1, totalPages);
+  
+    // Ajustar el rango si está al final
+    if (end - start + 1 < maxPagesToShow) {
+      start = Math.max(end - maxPagesToShow + 1, 1);
+    }
+  
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+  
+    return pages;
+  }
+  function goToPage(page) {
+    if (page >= 1 && page <= total_pages) {
+      window.scrollTo(0, 0);
+      setLoadingImages(true);
+      setCurrent_page(page);
+      get_products_paginates(page);
+      localStorage.setItem('products_current_page', page);
+    }
+  }
+  
   return (
    <>
    
@@ -335,7 +384,7 @@ function clear() {
       </div>
      )}
   <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full justify-items-center ">
-    {show_filter_products === true && filteredDatas.slice(0, visibleCount).map((dat, index) => (
+    {show_filter_products === true && filteredDatas.map((dat, index) => (
         <div key={index} className="bg-white w-full px-2 py-2 rounded-lg flex flex-col gap-2">
         <img className='w-full h-[10vh] lg:h-[35vh]  object-contain' src={dat.foto} alt="" />
         <p className='lg:text-[1rem] text-[0.7rem] text-center font-semibold text-danger lg:h-auto h-[40px] line-clamp-2 lg:line-clamp-1'>{dat.nombre.toUpperCase()}</p>
@@ -407,108 +456,47 @@ Ver ficha técnica</button>
     ))}
   </div>
   {show_paginados === true && loadingImages === false && (
-    <div className="w-full py-[2rem] flex items-center justify-center gap-2">
-  <nav aria-label="Page navigation example">
-    <ul className="pagination">
-      {/* Botón para ir a la página anterior */}
-      {current_page > 1 && (
-        <li className="page-item">
-          <a
-            className="page-link"
-            href="#"
-            aria-label="Previous"
-            onClick={() => handlePageChange(current_page - 1)}
+  <div className="w-full py-[2rem] flex items-center justify-center gap-2">
+    <div className="flex gap-3 items-center">
+      {/* Botón "Anterior" */}
+      <button
+        onClick={prevPage}
+        disabled={current_page === 1}
+        className="bg-[#0D6EFD] disabled:bg-[gray] text-white px-[1rem] py-[0.3rem] lg:text-[1rem] text-[0.8rem] rounded-[5px]"
+      >
+        Anterior
+      </button>
+
+      {/* Números de página dinámicos */}
+      <div className="flex gap-2">
+        {generatePageNumbers(current_page, total_pages).map((page) => (
+          <button
+            key={page}
+            disabled={current_page === page} 
+            onClick={() => goToPage(page)}
+            className={`lg:px-3 lg:text-[1rem] text-[0.8rem]  py-1 rounded-lg ${
+              current_page === page
+                ? "lg:bg-[#0D6EFD] text-[blue] lg:text-[white]"
+                : "lg:bg-white text-black lg:border lg:border-gray-300"
+            }`}
           >
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-      )}
+            {page}
+          </button>
+        ))}
+      </div>
 
-      {/* Primera página */}
-      {current_page > 3 && (
-        <li className="page-item">
-          <a
-            className="page-link"
-            href="#"
-            onClick={() => handlePageChange(1)}
-          >
-            1
-          </a>
-        </li>
-      )}
-
-      {/* Puntos suspensivos si hay un salto entre páginas */}
-      {current_page > 4 && <li className="page-item disabled"><span className="page-link">...</span></li>}
-
-      {/* Mostrar páginas cercanas a la actual */}
-      {Array.from({ length: 5 }, (_, i) => {
-        const pageNumber = current_page - 2 + i; // Crea el rango de páginas alrededor de la actual
-        if (pageNumber >= 1 && pageNumber <= total_pages) {
-          return (
-            <li
-              key={pageNumber}
-              className={`page-item ${current_page === pageNumber ? 'active' : ''}`}
-            >
-              <a
-                className="page-link"
-                href="#"
-                onClick={() => handlePageChange(pageNumber)}
-              >
-                {pageNumber}
-              </a>
-            </li>
-          );
-        }
-        return null;
-      })}
-
-      {/* Puntos suspensivos si hay un salto entre páginas */}
-      {current_page < total_pages - 2 && <li className="page-item disabled"><span className="page-link">...</span></li>}
-
-      {/* Última página */}
-      {current_page < total_pages - 2 && (
-        <li className="page-item">
-          <a
-            className="page-link"
-            href="#"
-            onClick={() => handlePageChange(total_pages)}
-          >
-            {total_pages}
-          </a>
-        </li>
-      )}
-
-      {/* Botón para ir a la página siguiente */}
-      {current_page < total_pages && (
-        <li className="page-item">
-          <a
-            className="page-link"
-            href="#"
-            aria-label="Next"
-            onClick={() => handlePageChange(current_page + 1)}
-          >
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      )}
-    </ul>
-  </nav>
-</div>
-
-  )}
-{visibleCount < filteredDatas.length && (
-  <div className="text-center mt-6">
-    <p className="text-gray-600 text-sm mb-3">
-      Mostrando {visibleCount} de {filteredDatas.length} resultados
-    </p>
-    <button
-      onClick={handleShowMore}
-      className="bg-blue-600 text-white py-3 px-6 rounded-lg font-medium text-base shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300"
-    >
-      Mostrar más resultados
-    </button>
+      {/* Botón "Siguiente" */}
+      <button
+        onClick={nextPage}
+        disabled={current_page >= total_pages}
+        className="bg-[#0D6EFD] disabled:bg-[gray] text-white px-[1rem] py-[0.3rem] lg:text-[1rem] text-[0.8rem] rounded-[5px]"
+      >
+        Siguiente
+      </button>
+    </div>
   </div>
 )}
+
 </div>
     </div>
     {/* FOOTER */}
