@@ -1,0 +1,245 @@
+import React, { useEffect, useState } from "react";
+import Navbar from "../components/navbar";
+import { useLocation } from "react-router-dom";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import axios from "axios";
+import {Helmet} from "react-helmet";
+import Footer from "../components/footer";
+import Ficha_tecnica from "./ficha_tecnica";
+import FichaTecnica from "./PDF/ficha_tecnica.jsx";
+export default function PageProduct() {
+  const location = useLocation();
+  const [modal, setModal] = useState(false);
+  const [id, setId] = useState(null);
+//   const [relacionados, setRelacionados]=useState([])
+const [loading, setLoading]=useState()
+const [datas, setDatas]=useState([])
+// const [datas_full, setDatas_full]=useState([])
+// console.log(datas_full);
+function openModal() {
+    window.scrollTo(0, 0);
+    setModal(true);
+    document.body.style.overflow = "hidden";
+  }
+  function closeModal() {
+    setModal(false);
+    document.body.style.overflow = "auto";
+  }
+  // Obtenemos el valor de los parámetros de la URL
+  const queryParams = new URLSearchParams(location.search);
+  const productId = queryParams.get("id");
+
+  // Suponiendo que tienes una función o API que obtiene el producto por su ID
+  const product = {
+    id: productId,
+    name: "Taladro Eléctrico",
+    description: "Este es un potente taladro eléctrico ideal para trabajos en casa o profesionales. Ligero, duradero y fácil de usar.",
+    price: 3500,
+    image: "https://via.placeholder.com/300",
+  };
+  async function get_product() {
+    try {
+      const { data } = await axios.get(
+        `https://backrecordatoriorenta-production.up.railway.app/api/products/read_especific?_id=${productId}`
+      );
+      setDatas(data.response);
+      setLoading(false); // Datos cargados, actualizamos el estado de carga
+    } catch (error) {
+      console.error("Error fetching image data:", error);
+      setLoading(false); // Si hay un error, dejamos de mostrar el estado de carga
+    }
+  }
+  async function get_products() {
+    try {
+      const { data } = await axios.get(
+        `https://backrecordatoriorenta-production.up.railway.app/api/products/`
+      );
+      await setDatas_full(data.response);
+      setLoading(false); // Datos cargados, actualizamos el estado de carga
+    } catch (error) {
+      console.error("Error fetching image data:", error);
+      setLoading(false); // Si hay un error, dejamos de mostrar el estado de carga
+    }
+  }
+//   async function productos_relacionados() {
+//    try {
+//     const { data } = await axios.get(
+//         `https://backrecordatoriorenta-production.up.railway.app/api/products/read_especific?_id=${productId}`
+//       );
+//     const producto = data?.response[0].nombre  // Nombre del producto actual
+//     console.log(producto);
+  
+//     if (data.length > 0) {
+//       // Dividir el nombre del producto en palabras individuales
+//       const palabrasProducto = producto.toLowerCase().split(/\s+/);
+  
+//       // Filtrar productos cuyo nombre contenga alguna de las palabras del producto actual
+//       const encontrar_productos_relacionados = datas_full.filter(dat => {
+//         // Dividir el nombre del producto en palabras
+//         const palabrasProductoRelacionado = dat.nombre.toLowerCase().split(/\s+/);
+  
+//         // Verificar si alguna palabra del producto actual está en el nombre del producto relacionado
+//         return palabrasProducto.some(palabra =>
+//           palabrasProductoRelacionado.some(palabraRelacionado =>
+//             palabraRelacionado.includes(palabra)
+//           )
+//         );
+//       });
+  
+//       setRelacionados(encontrar_productos_relacionados)
+//     }
+//    } catch (error) {
+//     console.log(error);
+//    }
+//   }
+  
+
+  useEffect(() => {
+   get_product()
+   get_products()
+// productos_relacionados()
+  }, [productId]);
+
+  const descriptionLimit = 250;
+
+  // Limitar la descripción
+  const descriptionPreview = datas[0]?.descripcion.length > descriptionLimit
+    ? datas[0]?.descripcion.slice(0, descriptionLimit) + "..."
+    : datas[0]?.descripcion;
+
+  return (
+    <>
+    {datas?.length > 0 && (
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>{datas[0]?.nombre} - Rentame Carmen</title>
+          <link rel="canonical" href={`https://www.rentamecarmen.com.mx/detalle-producto?id=${datas[0]?.id}`} />
+          <meta name="description" content={datas[0].descripcion}/>
+          <link rel="shortcut icon" href={datas[0]?.foto} type="../images/logo.png" />
+        </Helmet>
+      )}
+     {modal && <Ficha_tecnica closeModal={closeModal} id={id} />}
+    <div className="flex flex-col w-full h-auto">
+      <Navbar />
+     <div className="w-full flex-col">
+     <div className="flex flex-col md:flex-row mt-10 min-h-[60vh] w-full justify-center items-center px-4">
+       {datas.map(dat=> dat && (
+        <>
+         {/* Columna de imagen */}
+         <div className="w-full md:w-1/2 mb-6 max-h-[60vh]  md:mb-0 flex justify-center">
+          <img
+            src={dat.foto}
+            alt={dat.name}
+            className="w-full md:w-[60%] bg-[white] p-5 object-contain  shadow-lg"
+          />
+        </div>
+
+        {/* Columna de detalles del producto */}
+        <div className="w-full md:w-1/2 pl-0 lg:pr-[8rem] lg::pl-6 flex flex-col justify-center items-start">
+        <div className="flex items-center gap-1 text-gray-700 text-[0.9rem] font-semibold">
+  <svg className="w-6 h-6 text-[#323B75]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+    <path fillRule="evenodd" d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z" clipRule="evenodd"/>
+  </svg>
+  <a href="/" className="hover:text-blue-600 transition-colors underline">Inicio</a>
+  <span className="text-gray-500">/</span>
+  <p className="text-gray-900">Productos</p>
+</div>
+
+          <h1 className="text-3xl font-bold text-[#323B75] mb-4">{dat.nombre}</h1>
+        
+         <PDFDownloadLink
+          className="py-2 mb-3 px-3 rounded-[5px] lg:text-[1rem] font-semibold text-white bg-[#323B75] transition duration-300 ease-in-out text-[0.8rem] flex gap-2 items-center justify-center"
+                      document={<FichaTecnica _id={productId} />}
+                      fileName={`Ficha_Tecnica-${dat.nombre}.pdf`}
+                    >
+                      {({ loading }) =>
+                        loading ? (
+                          <div className="w-full flex justify-center items-center">
+                            <div className="flex gap-2 items-center">
+                              <div className="spinner-border w-4 h-4 text-[white]" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                              </div>
+                              <p>Generando Ficha técnica...</p>
+                            </div>
+                          </div>
+                        ) : (
+                          <button className="flex items-center gap-2">
+                            <svg
+                              className="w-5 h-5"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"
+                              />
+                            </svg>
+                            Descargar Ficha Técnica
+                          </button>
+                        )
+                      }
+                    </PDFDownloadLink>
+           {/* Mostrar la descripción limitada */}
+        <p className="lg:text-[1rem] text-gray-700 ">
+          {descriptionPreview} 
+          {dat.descripcion.length > descriptionLimit && (
+           <PDFDownloadLink
+           className="py-2 mb-3 px-4 rounded-[5px] lg:text-[1rem] font-semibold text-[#4A90E2]  hover:text-[#2f619a] transition duration-300 ease-in-out text-[0.8rem] flex gap-2 items-center justify-center"
+                       document={<FichaTecnica _id={productId} />}
+                       fileName={`Ficha_Tecnica-${dat.nombre}.pdf`}
+                     >
+                       {({ loading }) =>
+                         loading ? (
+                           <div className="w-full flex justify-center items-center">
+                             <div className="flex gap-2 items-center">
+                               <div className="spinner-border w-4 h-4 text-primary" role="status">
+                                 <span className="visually-hidden">Loading...</span>
+                               </div>
+                             </div>
+                           </div>
+                         ) : (
+                           <button className="flex items-center gap-2 text-[0.9rem] underline">
+                             Ver más detalles ...
+                           </button>
+                         )
+                       }
+                     </PDFDownloadLink>
+        )}
+        </p>
+
+        {/* Mostrar el botón "Ver más" si la descripción excede el límite */}
+        
+          <p className="text-xl font-semibold text-secondary mb-4">${product.price} MXN</p>
+          <a href="/" className="text-[1rem] font-semibold text-secondary mb-4 underline flex gap-2 items-center"><svg class="w-5 h-5 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 14v4.833A1.166 1.166 0 0 1 16.833 20H5.167A1.167 1.167 0 0 1 4 18.833V7.167A1.166 1.166 0 0 1 5.167 6h4.618m4.447-2H20v5.768m-7.889 2.121 7.778-7.778"/>
+</svg>
+
+Regresar al catálogo</a>
+          <div className="flex gap-4 mt-4">
+            <button className="bg-[#323B75] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#2a2e56] transition-colors">
+              Rentar equipo
+            </button>
+            <button className="bg-[#C70000] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#b12c2c] transition-colors">
+              Comprar equipo
+            </button>
+          </div>
+        </div>
+        </>
+       ))}
+       
+      </div>
+  
+     </div>
+      
+
+      <div className="w-full pt-[5rem]">
+      <Footer/>
+      </div> 
+    </div>
+    </>
+  );
+}

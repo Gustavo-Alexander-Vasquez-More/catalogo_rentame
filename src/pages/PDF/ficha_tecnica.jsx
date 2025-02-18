@@ -10,8 +10,10 @@ import logo from "../../images/logo.png";
 import axios from "axios";
 
 const FichaTecnica = ({ _id }) => {
+  console.log(_id);
   const [loading, setLoading] = useState(null);
   const [datas, setDatas] = useState([]);
+  console.log(datas);
 
   async function get() {
     try {

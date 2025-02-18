@@ -4,13 +4,14 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import Lightbox from "./ligthbox";
 import Ficha from "../pages/PDF/ficha_tecnica";
 import ficha_tecnica from "../images/ficha_tecnica.jpg";
-export default function detalle_productos({ closeModal, id }) {
+
+export default function DetalleProducto({ closeModal, id }) {
   const [datas, setDatas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [nombre, setNombre] = useState();
-  console.log(nombre);
   const [isOpen, setIsOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState("");
+
   async function get() {
     try {
       const { data } = await axios.get(
@@ -18,16 +19,17 @@ export default function detalle_productos({ closeModal, id }) {
       );
       setDatas(data.response);
       setNombre(data?.response[0].nombre);
-      setLoading(false); // Desactivar el loader cuando los datos se han cargado
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
-      setLoading(false); // Desactivar el loader también en caso de error
+      setLoading(false);
     }
   }
 
   useEffect(() => {
     get();
   }, []);
+
   const openLightbox = (imageSrc) => {
     setCurrentImage(imageSrc);
     setIsOpen(true);
@@ -36,6 +38,7 @@ export default function detalle_productos({ closeModal, id }) {
   const closeLightbox = () => {
     setIsOpen(false);
   };
+
   return (
     <>
       {isOpen && (
@@ -45,55 +48,49 @@ export default function detalle_productos({ closeModal, id }) {
           currentImage={currentImage}
         />
       )}
-      <div className="w-full h-screen absolute z-40 bg-[#d9d9d97b] flex justify-center items-center">
-        <div className="bg-white rounded-[10px] w-[90%] lg:w-[30%] overflow-y-auto flex flex-col gap-2 pt-[1rem] px-[1rem]">
-          <div className="flex justify-between">
+
+      <div className="w-full h-screen fixed top-0 left-0 bg-[#00000075] flex justify-center items-center">
+        <div className="bg-white rounded-lg w-[90%] lg:w-[60%] overflow-y-auto max-h-[90vh] flex flex-col gap-4 pt-6 px-6">
+          <div className="flex justify-between items-center mb-4">
             <PDFDownloadLink
-              className=""
               document={<Ficha _id={id} />}
-              fileName={`Ficha tecnica-${nombre}.pdf`}
+              fileName={`Ficha_Tecnica-${nombre}.pdf`}
             >
               {({ loading }) =>
                 loading ? (
-                  <div className="w-full  flex justify-center items-center">
+                  <div className="w-full flex justify-center items-center">
                     <div className="flex flex-col gap-2 items-center">
-                      <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading...</span>
+                      <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Loading...</span>
                       </div>
-                      <p>Generando PDF</p>
+                      <p>Generando PDF...</p>
                     </div>
                   </div>
                 ) : (
-                  <>
-                    {id && (
-                      <div className="w-full  flex justify-center items-center">
-                        <button className="bg-[#004AAD] px-[1rem] hover:bg-[#4590f1] py-[0.3rem] flex gap-1 text-[0.8rem] items-center text-white font-semibold rounded-[5px]">
-                          <svg
-                            class="w-4 h-4 text-gray-800 dark:text-white"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"
-                            />
-                          </svg>
-                          Descargar Ficha técnica
-                        </button>
-                      </div>
-                    )}
-                  </>
+                  <button className="bg-[#004AAD] text-white px-4 py-2 rounded-lg hover:bg-[#4590f1] flex items-center gap-2">
+                    <svg
+                      className="w-4 h-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"
+                      />
+                    </svg>
+                    Descargar Ficha Técnica
+                  </button>
                 )
               }
             </PDFDownloadLink>
-            <button onClick={closeModal}>
+            <button
+              onClick={closeModal}
+              className="text-red-500 hover:text-red-700 transition-colors"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="25"
@@ -107,9 +104,8 @@ export default function detalle_productos({ closeModal, id }) {
             </button>
           </div>
 
-          {/* Mostrar loader mientras se cargan los datos */}
           {loading ? (
-            <div className="flex justify-center items-center h-full">
+            <div className="flex justify-center items-center h-32">
               <div className="spinner-border text-primary" role="status">
                 <span className="visually-hidden">Loading...</span>
               </div>
@@ -117,34 +113,27 @@ export default function detalle_productos({ closeModal, id }) {
           ) : (
             <>
               {datas.map((dat) => (
-                <div className="flex flex-col gap-3  text-[0.9rem] items-center pt-[1rem] ">
-                  <div className="relative w-full">
+                <div key={dat._id} className="flex flex-col gap-6 text-sm">
+                  <div className="relative">
                     <img
-                      className="w-full"
                       src={ficha_tecnica}
-                      alt={`Renta de ${dat.nombre} en ciudad del carmen campeche`}
+                      alt={`Renta de ${dat.nombre} en Ciudad del Carmen`}
+                      className="w-full h-64 object-cover rounded-lg"
                     />
-                    <div className="w-[85%] absolute top-[13.8%] left-[7%] h-[5.8%] flex justify-center items-center text-[0.3rem] lg:text-[0.7rem]">
-                      <p className="font-semibold">
-                        {dat.nombre.toUpperCase()}
-                      </p>
+                    <div className="absolute top-4 left-6 text-white font-semibold text-lg">
+                      {dat.nombre.toUpperCase()}
                     </div>
-                    <div className="w-[43%] absolute top-[22.7%] left-[49%] h-[21%]">
-                      <img
-                        className="w-full h-[100%]"
-                        src={dat.foto}
-                        alt={`Renta de ${dat.nombre} en ciudad del carmen campeche`}
-                      />
+
+                    <div className="absolute top-24 left-6 text-white text-sm bg-opacity-70 bg-black p-2 rounded-lg">
+                      <p className="font-bold">Código del Producto:</p>
+                      <p>{dat.codigo}</p>
+                      <p className="font-bold mt-2">Precio del Producto:</p>
+                      <p>${dat.precio} MXN</p>
                     </div>
-                    <div className="absolute top-[29%] w-[38.5%] h-[15%] pl-1 flex flex-col justify-center lg:gap-1 left-[6.8%] text-[0.4rem] lg:text-[0.6rem] font-bold">
-                      <p className="font-bold">CODIGO DEL PRODUCTO:</p>
-                      <p className="">{dat.codigo}</p>
-                      <p className="font-bold">PRECIO DEL PRODUCTO:</p>
-                      <p className="">${dat.precio} MXN</p>
-                    </div>
-                    <div className="w-[85%] absolute overflow-y-auto px-1 py-1 top-[54.5%] left-[6.8%] text-[0.5rem] lg:text-[0.8rem] font-semibold h-[39.5%]">
-                      <p>{dat.descripcion.toUpperCase()}</p>
-                    </div>
+                  </div>
+
+                  <div className="text-sm text-gray-700 bg-gray-100 p-4 rounded-lg shadow-md">
+                    <p>{dat.descripcion}</p>
                   </div>
                 </div>
               ))}
