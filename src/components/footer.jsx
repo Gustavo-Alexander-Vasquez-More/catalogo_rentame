@@ -5,7 +5,7 @@ import facebook from "../images/facebook.png";
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-r from-[#323B75] via-[#4a5b9f] to-[#1f2b57] text-white w-full py-8">
+    <footer className="bg-gradient-to-r from-[#323B75] lg:px-0 px-[1rem] via-[#4a5b9f] to-[#1f2b57] text-white w-full py-8">
       <div className="container mx-auto px-4 grid md:grid-cols-3 gap-6 items-center">
         
         {/* Sección del Logo */}

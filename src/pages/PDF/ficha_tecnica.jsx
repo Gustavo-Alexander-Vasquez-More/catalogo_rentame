@@ -4,17 +4,15 @@ import {
   Document,
   Image,
   View,
-  Text,
+  Text
 } from "@react-pdf/renderer";
-import logo from "../../images/logo.png";
+import logo from "../../images/RENTAME-FICHA_page-0001.jpg";
+import banner from "../../images/banner.png";
 import axios from "axios";
-
-const FichaTecnica = ({ _id }) => {
-  console.log(_id);
+const FichaTecnica = ({_id}) => {
+  
   const [loading, setLoading] = useState(null);
   const [datas, setDatas] = useState([]);
-  console.log(datas);
-
   async function get() {
     try {
       const { data } = await axios.get(
@@ -38,48 +36,22 @@ const FichaTecnica = ({ _id }) => {
         <Page
           key={dat._id}
           size="A4"
-          style={{ position: "relative", paddingTop: 20 }}
+          style={{ position: "relative", marginTop:20 }}
         >
+          
+            <Image style={{ width: "100%",  position:'absolute' }} source={logo} />
+         
           <View
             style={{
               position: "absolute",
+              top: 95,
               width: "100%",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingHorizontal: 40,
-              paddingTop: 20,
-            }}
-          >
-            <Image style={{ width: "20%" }} source={logo} />
-            <View
-              style={{
-                width: "70%",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#004AAD",
-                color: "white",
-                border: 1,
-                borderColor: "black",
-              }}
-            >
-              <Text>FICHA TÉCNICA</Text>
-            </View>
-          </View>
-          <View
-            style={{
-              position: "absolute",
-              top: 110,
-              left: "6.8%",
-              height: 47,
-              width: "85.2%",
               flexDirection: "row",
               justifyContent: "center",
               alignItems: "center",
-              fontSize: 11,
-              border: 1,
-              borderColor: "black",
-              paddingHorizontal: 4,
+              fontSize: 9,
+              color:'white',
+              fontFamily:'Helvetica-Bold'
             }}
           >
             <Text>{dat.nombre.toUpperCase()}</Text>
@@ -87,70 +59,38 @@ const FichaTecnica = ({ _id }) => {
           <View
             style={{
               position: "absolute",
-              top: 186.2,
-              left: "48.7%",
-              height: 178.7,
-              width: "43.5%",
-              border: 1,
-              borderColor: "black",
+              top: 120,
+              left: "46.3%",
+              height: 209,
+              width: "49.5%",
             }}
           >
-            <Image src={{ uri: `${dat.foto}`, method: "GET" }} />
+            <Image style={{width:'100%', objectFit:'container'}} src={{ uri: `${dat.foto}`, method: "GET" }} />
           </View>
-          <View
-            style={{
-              position: "absolute",
-              top: 186.2,
-              border: 1,
-              borderColor: "black",
-              left: 40,
-              width: "38.7%",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "#004AAD",
-              color: "white",
-              paddingVertical: 7,
-            }}
-          >
-            <Text>Datos Básicos</Text>
-          </View>
-          <View
-            style={{
-              position: "absolute",
-              top: 230,
-              left: 40,
-              width: "38.7%",
-              fontSize: 13,
-              flexDirection: "column",
-              justifyContent: "center",
-              gap: 10,
-              paddingLeft: 6,
-              border: 1,
-              borderColor: "black",
-              height: 134,
-            }}
-          >
-            <Text>CODIGO DEL PRODUCTO</Text>
-            <Text>{dat.codigo}</Text>
-            <Text>PRECIO DEL PRODUCTO</Text>
-            <Text>${dat.precio} MXN</Text>
-          </View>
+        <Text style={{fontSize:11, position:'absolute', top:'25.8%', left:34}}>{dat.codigo}</Text>
+        {dat.precio != '0' && (
+          <Text style={{fontSize:11, position:'absolute', top:'31.5%', left:34}}>${dat.precio} MXN</Text>
+        )}
+          {dat.precio === '0' && (
+          <Text style={{fontSize:11, position:'absolute', top:'31.5%', left:34}}>PRECIO NO DISPONIBLE</Text>
+        )}
           {/* La descripción ahora fluye automáticamente a otra página si es necesario */}
           <View
             style={{
-              marginTop: 370,
-              width: "85.2%",
-              paddingHorizontal: 6,
-              left: 40,
-              padding: 10,
-              border: 1,
-              borderColor: "black",
+              marginTop: 340,
+              width: "93.35%",
+              left: 20,
+              padding:7,
+              backgroundColor:'#E6E6E6'
             }}
           >
-            <Text style={{ fontSize: 12, textAlign: "justify" }}>
+          <View style={{width:'100%', flexDirection:'column', gap:10}}>
+            <Text style={{fontSize:13, fontFamily:'Helvetica-Bold'}}>DESCRIPCION DEL PRODUCTO</Text>
+          <Text style={{ fontSize: 10, textAlign: "justify", lineHeight:1.5 }}>
               {dat.descripcion.toUpperCase()}
             </Text>
+            <Image style={{width:'100%'}} source={banner}/>
+          </View>
           </View>
         </Page>
       ))}

@@ -122,11 +122,11 @@ function openModal() {
     <div className="flex flex-col w-full h-auto">
       <Navbar />
      <div className="w-full flex-col">
-     <div className="flex flex-col md:flex-row mt-10 min-h-[60vh] w-full justify-center items-center px-4">
+     <div className="flex flex-col md:flex-row mt-10 lg:min-h-[60vh] w-full justify-center items-center px-[1.5rem] lg:px-4 ">
        {datas.map(dat=> dat && (
         <>
          {/* Columna de imagen */}
-         <div className="w-full md:w-1/2 mb-6 max-h-[60vh]  md:mb-0 flex justify-center">
+         <div className="w-full  mb-6 max-h-[60vh]  md:mb-0 flex justify-center">
           <img
             src={dat.foto}
             alt={dat.name}
@@ -135,30 +135,30 @@ function openModal() {
         </div>
 
         {/* Columna de detalles del producto */}
-        <div className="w-full md:w-1/2 pl-0 lg:pr-[8rem] lg::pl-6 flex flex-col justify-center items-start">
+        <div className="w-full   lg:pr-[8rem] lg:pl-6 flex flex-col justify-center items-start">
         <div className="flex items-center gap-1 text-gray-700 text-[0.9rem] font-semibold">
   <svg className="w-6 h-6 text-[#323B75]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
     <path fillRule="evenodd" d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z" clipRule="evenodd"/>
   </svg>
   <a href="/" className="hover:text-blue-600 transition-colors underline">Inicio</a>
   <span className="text-gray-500">/</span>
-  <p className="text-gray-900">Productos</p>
+  <p className="text-gray-900">Equipos</p>
 </div>
 
-          <h1 className="text-3xl font-bold text-[#323B75] mt-2 mb-2">{dat.nombre}</h1>
+          <h1 className="lg:text-3xl text-xl font-bold text-[#323B75] mt-2 mb-2">{dat.nombre}</h1>
           {dat.stock === 0 && (
-      <p className="text-center text-[#D9534F] font-semibold rounded-[5px] lg:text-[1.2rem] text-[0.7rem]">
+      <p className="text-center text-[#D9534F] font-semibold rounded-[5px] lg:text-[1.2rem] text-[1rem]">
         Rentado
       </p>
     )}
     {dat.stock > 0 && (
-      <p className="text-center text-[#28A745] font-semibold rounded-[5px]  lg:text-[1.2rem] text-[0.7rem]">
+      <p className="text-center text-[#28A745] font-semibold rounded-[5px]  lg:text-[1.2rem] text-[1rem]">
         Disponible
       </p>
     )}
     
          <PDFDownloadLink
-          className="py-2 mb-3 px-3 rounded-[5px] lg:text-[1rem] font-semibold mt-3 text-white bg-[#323B75] transition duration-300 ease-in-out text-[0.8rem] flex gap-2 items-center justify-center"
+          className="py-2 mb-3 px-3 rounded-[5px]  lg:text-[1rem] font-semibold mt-3 text-white bg-[#323B75] transition duration-300 ease-in-out text-[0.8rem] flex gap-2 items-center justify-center"
                       document={<FichaTecnica _id={productId} />}
                       fileName={`Ficha_Tecnica-${dat.nombre}.pdf`}
                     >
@@ -194,32 +194,6 @@ function openModal() {
                       }
                     </PDFDownloadLink>
            {/* Mostrar la descripción limitada */}
-        <p className="lg:text-[1rem] text-gray-700 ">
-          {descriptionPreview} 
-          {dat.descripcion.length > descriptionLimit && (
-           <PDFDownloadLink
-           className="py-2 mb-1 px-4 rounded-[5px] lg:text-[1rem] font-semibold text-[#4A90E2]  hover:text-[#2f619a] transition duration-300 ease-in-out text-[0.8rem] flex gap-2 items-center justify-center"
-                       document={<FichaTecnica _id={productId} />}
-                       fileName={`Ficha_Tecnica-${dat.nombre}.pdf`}
-                     >
-                       {({ loading }) =>
-                         loading ? (
-                           <div className="w-full flex justify-center items-center">
-                             <div className="flex gap-2 items-center">
-                               <div className="spinner-border w-4 h-4 text-primary" role="status">
-                                 <span className="visually-hidden">Loading...</span>
-                               </div>
-                             </div>
-                           </div>
-                         ) : (
-                           <button className="flex items-center gap-2 text-[0.9rem] underline">
-                             Ver más detalles ...
-                           </button>
-                         )
-                       }
-                     </PDFDownloadLink>
-        )}
-        </p>
 
         {/* Mostrar el botón "Ver más" si la descripción excede el límite */}
         {dat.tipo_uso === 'renta' && (
@@ -286,11 +260,19 @@ Regresar al catálogo</a>
           </div>
           )}
         </div>
+      
         </>
        ))}
-       
+      
       </div>
-  
+      <div className=" w-full lg:pl-[10.5rem] pl-[1.5rem] pr-[1.5rem] lg:pr-[21rem] mt-3 flex flex-col gap-2">
+        <p className="font-bold text-[1.25rem] lg:no-underline underline lg:text-[1.5rem] text-[#323B75]">Descripción del equipo</p>
+      {datas.map(dat=>dat && (
+          <p className="lg:text-[1rem] text-[0.75rem] text-[#6C757D] ">
+          {dat.descripcion}
+        </p>
+       ))}
+      </div>
      </div>
       
 

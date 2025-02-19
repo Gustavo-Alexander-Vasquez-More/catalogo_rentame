@@ -4,6 +4,7 @@ import Page_products from "../src/pages/page_products";
 import About_us from "../src/pages/about_us";
 import Refacciones from '../src/pages/refacciones.jsx'
 import Equipos_venta from "../src/pages/equipos_venta.jsx";
+import FichaTecnica from "../src/pages/PDF/ficha_tecnica.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/venta-equipos",
     element: <Equipos_venta/>,
+  },
+  {
+    path: "/ficha_tecnica/:_id",
+    element: <FichaTecnica/>,
   },
 ]);
 export default router;
