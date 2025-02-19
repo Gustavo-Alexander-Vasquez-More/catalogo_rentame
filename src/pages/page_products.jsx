@@ -268,8 +268,8 @@ Regresar al catálogo</a>
       <div className=" w-full lg:pl-[10.5rem] pl-[1.5rem] pr-[1.5rem] lg:pr-[21rem] mt-3 flex flex-col gap-2">
         <p className="font-bold text-[1.25rem] lg:no-underline underline lg:text-[1.5rem] text-[#323B75]">Descripción del equipo</p>
       {datas.map(dat=>dat && (
-          <p className="lg:text-[1rem] text-[0.75rem] text-[#6C757D] ">
-          {dat.descripcion}
+          <p className="lg:text-[1rem] text-[0.9rem] text-[#6C757D] ">
+          {dat.descripcion.toUpperCase()}
         </p>
        ))}
       </div>
