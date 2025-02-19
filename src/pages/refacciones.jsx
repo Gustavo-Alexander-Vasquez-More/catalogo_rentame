@@ -17,7 +17,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
 function RefaccionesPage() {
-  
+    const [isOpen, setIsOpen] = useState(false);
   // Definir las imágenes
   const images = [
     img1, img2, img3, img4, img5, img6, img7, img8, img9, img10
@@ -53,11 +53,13 @@ console.log(images);
         <title>Refacciones | Rentame Carmen</title>
         <link rel="canonical" href={`https://www.rentamecarmen.com.mx/refacciones`} />
       </Helmet>
-      <div className="bg-gray-100 min-h-screen">
-        <Navbar />
+      <div className="bg-[#323B75] min-h-screen">
+        <Navbar isOpen={isOpen} setIsOpen={setIsOpen}/>
 
         {/* Título y descripción */}
-        <section className="relative  flex justify-center flex-col text-white px-4 lg:px-2 py-4 text-center bg-no-repeat bg-cover bg-bottom"
+        <section className={`relative flex justify-center flex-col text-white px-4 lg:px-2 py-4 text-center bg-no-repeat bg-cover bg-bottom transition-all duration-500 ${
+          isOpen ? 'mt-[20px]' : 'mt-0' // Animación para mover el main hacia abajo con duración de 500ms
+        }`}
           style={{ backgroundImage: "url('https://www.firestone.com.mx/content/dam/consumer/fst/la/mx/tips/cuidado-de-llantas/AutoRefacciones_Big.jpg')" }}
         >
           {/* Overlay para oscurecer el fondo */}

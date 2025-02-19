@@ -1,11 +1,10 @@
 import React, { useRef, useState } from "react";
 import logo from "../images/logo_blanco.png";
-export default function navbar() {
+export default function navbar({ isOpen, setIsOpen }) {
   const [formulario, setFormulario] = useState(false);
   const [nombre, setNombre] = useState();
   const [telefono, setTelefono] = useState();
   const [mensaje, setMensaje] = useState();
-  const [isOpen, setIsOpen] = useState(false);
   const input_nombre = useRef();
   const input_mensaje = useRef();
   const input_telefono = useRef();
@@ -128,7 +127,7 @@ export default function navbar() {
             </svg>
             <a
               href="mailto:info@RentameCarmen.com.mx"
-              target="_blank"
+              
               className="font-semibold  hover:underline"
             >
               info@RentameCarmen.com.mx
@@ -151,7 +150,7 @@ export default function navbar() {
               />
             </svg>
             <a
-              target="_blank"
+              
               href="https://www.google.com/maps/place/Rentame+Carmen/@18.6457946,-91.8356274,17z/data=!3m1!4b1!4m6!3m5!1s0x85f1a96be3422151:0x9ae784434576f1b4!8m2!3d18.6457895!4d-91.8330525!16s%2Fg%2F11x1bzgm_3?hl=es&entry=ttu&g_ep=EgoyMDI1MDExMC4wIKXMDSoASAFQAw%3D%3D"
               className="hover:underline lg:flex hidden"
             >
@@ -180,7 +179,7 @@ export default function navbar() {
             </a>
           </div>
         </div>
-        <div className="w-full bg-[#C70000] lg:py-3  drop-shadow-xl shadow-xl  lg:px-[5rem]">
+        <div className="w-full bg-[#C70000] lg:py-3  lg:px-[5rem]">
           {/* Navbar para pantallas grandes */}
           
           <div className="flex lg:flex-row flex-col  lg:gap-0  justify-between  items-center">
@@ -198,64 +197,65 @@ export default function navbar() {
               />
             </button>
             <div className="lg:hidden flex  flex-col gap-2 justify-between w-full items-center">
-      {/* Botón de menú */}
-    
-      <button
-              onClick={() => {
-                localStorage.setItem("products_current_page", 1),
-                  window.location.href='/';
-              }}
-            >
-              <img
-                className="lg:w-[10rem] pt-4 w-[5rem] lg:h-[8vh] lg:hidden"
-                src={logo}
-                alt="Rentame Carmen tu solución para la renta de equipos en ciudad del carmen campeche, rentamos maquinaria como taladros, plantas de luz, sierras, motosierras, equipos para la construccion y más."
-              />
-            </button>
-      <button
+     {/* Botón de menú */}
+
+<button
+  onClick={() => {
+    localStorage.setItem("products_current_page", 1),
+      window.location.href='/';
+  }}
+>
+  <img
+    className="lg:w-[10rem] pt-4 w-[5rem] lg:h-[8vh] lg:hidden"
+    src={logo}
+    alt="Rentame Carmen tu solución para la renta de equipos en ciudad del carmen campeche, rentamos maquinaria como taladros, plantas de luz, sierras, motosierras, equipos para la construccion y más."
+  />
+</button>
+
+<button
         onClick={() => setIsOpen(!isOpen)}
         className="text-white text-3xl py-2 focus:outline-none"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-8 w-8"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
-      </button>
-      {/* Menú desplegable */}
-      <div
-        className={`${
-          isOpen ? 'block' : 'hidden'
-        } mt-1 w-full bg-[#323B75] text-white py-3 shadow-2xl`}
-      >
-        <ul className="space-y-2 px-4">
-          <li>
-            <a href="/" className="hover:text-[#28a745]">Inicio</a>
-          </li>
-          <li>
-            <a href="/venta-equipos" className="hover:text-[#28a745]">Equipos en venta</a>
-          </li>
-          <li>
-            <a href="/refacciones" className="hover:text-[#28a745]">Refacciones</a>
-          </li>
-          <li>
-            <a href="/about_us" className="hover:text-[#28a745]">Sobre GrupoRM</a>
-          </li>
-          <li>
-            <button onClick={openFormulario} className="hover:text-[#28a745]">Contacto</button>
-          </li>
-        </ul>
-      </div>
-    </div>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-8 w-8"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M4 6h16M4 12h16M4 18h16"
+    />
+  </svg>
+</button>
 
+{/* Menú desplegable */}
+<div
+  className={`${
+    isOpen ? 'block' : 'hidden'
+  } mt-1 w-full bg-[#323B75] text-white py-3  transform transition-all duration-300 ease-in-out`}
+>
+  <ul className="space-y-2 px-4">
+    <li>
+      <a href="/" className="hover:text-[#28a745]">Inicio</a>
+    </li>
+    <li>
+      <a href="/venta-equipos" className="hover:text-[#28a745]">Equipos en venta</a>
+    </li>
+    <li>
+      <a href="/refacciones" className="hover:text-[#28a745]">Refacciones</a>
+    </li>
+    <li>
+      <a href="/about_us" className="hover:text-[#28a745]">Sobre GrupoRM</a>
+    </li>
+    <li>
+      <button onClick={openFormulario} className="hover:text-[#28a745]">Contacto</button>
+    </li>
+  </ul>
+  </div>
+  </div>
             {/* Enlaces de navegación */}
             <div className="w-full justify-end lg:flex gap-2 hidden">
             <div className="lg:flex items-center hidden">

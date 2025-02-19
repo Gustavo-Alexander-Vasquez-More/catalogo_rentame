@@ -136,10 +136,12 @@ export default function equipos_venta() {
     notyf.success('Enlace copiado')
   };
   return (
-    <>
+    <div className="bg-[#323B75]">
       
-      <Navbar />
-      <div className="flex flex-col items-center w-full h-auto bg-[#e3e2e294]">
+      <Navbar isOpen={isOpen} setIsOpen={setIsOpen}/>
+      <div className={`flex flex-col items-center w-full h-auto bg-[#e3e2e2] transition-transform duration-500 ${
+          isOpen ? 'transform translate-y-[30px]' : 'transform translate-y-0'
+        }`}>
      
         {/* ESTO ES EL BODY */}
         <div className="w-full   min-h-[80vh]  lg:px-[5rem] py-[2rem] gap-3 flex flex-col">
@@ -261,22 +263,22 @@ className="mt-2 text-blue-600 hover:text-blue-800 transition-colors flex justify
 Copy URL
 </button>
     {dat.visibilidad_precio === "VISIBLE" && (
-      <p className="text-center text-[#1E3A8A] lg:text-[1rem] text-[0.7rem] font-semibold">
+      <p className="text-center text-[#1E3A8A] lg:text-[1rem] text-[0.9rem] font-semibold">
         ${dat.precio} MXN
       </p>
     )}
     {dat.visibilidad_precio === "NO VISIBLE" && (
-      <p className="text-center text-gray-400 font-semibold lg:text-[1rem] text-[0.7rem]">
+      <p className="text-center text-gray-400 font-semibold lg:text-[1rem] text-[0.9rem]">
         Precio a consultar
       </p>
     )}
     {dat.stock === 0 && (
-      <p className="text-center text-[#D9534F] font-semibold rounded-[5px] lg:text-[1rem] text-[0.7rem]">
+      <p className="text-center text-[#D9534F] font-semibold rounded-[5px] lg:text-[1rem] text-[0.9rem]">
         Rentado
       </p>
     )}
     {dat.stock > 0 && (
-      <p className="text-center text-[#28A745] font-semibold rounded-[5px]  lg:text-[0.9rem] text-[0.7rem]">
+      <p className="text-center text-[#28A745] font-semibold rounded-[5px]  lg:text-[0.9rem] text-[0.9rem]">
         Disponible
       </p>
     )}
@@ -284,7 +286,7 @@ Copy URL
     
       <a
         href={`/detalle-producto?id=${dat._id}`}
-        target="_blank"
+        
         className="bg-[#323B75] text-white py-[0.3rem] lg:py-[0.5rem] mt-2 px-4 rounded-[5px] lg:text-[0.9rem] text-[0.7rem] text-center hover:bg-[#5F75B8] transition duration-300 ease-in-out"
       >
         Ver equipo
@@ -349,22 +351,22 @@ Copy URL
         Copy URL
       </button>
                   {dat.visibilidad_precio === "VISIBLE" && (
-                    <p className="text-center text-[#1E3A8A] lg:text-[1rem] text-[0.7rem] font-semibold">
+                    <p className="text-center text-[#1E3A8A] lg:text-[1rem] text-[0.9rem] font-semibold">
                       ${dat.precio} MXN
                     </p>
                   )}
                   {dat.visibilidad_precio === "NO VISIBLE" && (
-                    <p className="text-center text-gray-400 font-semibold lg:text-[1rem] text-[0.7rem]">
+                    <p className="text-center text-gray-400 font-semibold lg:text-[1rem] text-[0.9rem]">
                       Precio a consultar
                     </p>
                   )}
                   {dat.stock === 0 && (
-                    <p className="text-center text-[#D9534F] font-semibold rounded-[5px] lg:text-[1rem] text-[0.7rem]">
+                    <p className="text-center text-[#D9534F] font-semibold rounded-[5px] lg:text-[1rem] text-[0.9rem]">
                       Rentado
                     </p>
                   )}
                   {dat.stock > 0 && (
-                    <p className="text-center text-[#28A745] font-semibold rounded-[5px]  lg:text-[0.9rem] text-[0.7rem]">
+                    <p className="text-center text-[#28A745] font-semibold rounded-[5px]  lg:text-[0.9rem] text-[0.9rem]">
                       Disponible
                     </p>
                   )}
@@ -372,7 +374,7 @@ Copy URL
                   
                     <a
                       href={`/detalle-producto?id=${dat._id}`}
-                      target="_blank"
+                      
                       className="bg-[#323B75] text-white py-[0.3rem] lg:py-[0.5rem] mt-2 px-4 rounded-[5px] lg:text-[0.9rem] text-[0.7rem] text-center hover:bg-[#5F75B8] transition duration-300 ease-in-out"
                     >
                       Ver equipo
@@ -433,6 +435,6 @@ Copy URL
         </div>
         <Footer/>
       </div>
-    </>
+    </div>
   );
 }

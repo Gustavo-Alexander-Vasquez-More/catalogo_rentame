@@ -7,6 +7,7 @@ export default function AboutUs() {
       const [nombre, setNombre] = useState();
       const [telefono, setTelefono] = useState();
       const [mensaje, setMensaje] = useState();
+      const [isOpen, setIsOpen] = useState(false);
       const input_nombre = useRef();
       const input_mensaje = useRef();
       const input_telefono = useRef();
@@ -118,13 +119,16 @@ export default function AboutUs() {
         <link rel="canonical" href="https://www.rentamecarmen.com.mx/about_us" />
       </Helmet>
 
-      <div className="w-full h-auto bg-gray-50">
-        <Navbar />
+     <div className='bg-[#323B75]'>
+        <Navbar isOpen={isOpen} setIsOpen={setIsOpen}/>
+     <div className="w-full h-auto bg-gray-50">
 
         {/* Sección de Introducción */}
-        <section className="text-center flex flex-col items-center h-[40vh] py-16 bg-[url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center relative text-white">
+        <section className={`text-center lg:px-0 px-3 flex flex-col items-center py-16 bg-[url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center relative text-white transition-all duration-500 ${
+          isOpen ? 'mt-[30px]' : 'mt-0' // Desplazamiento del contenido con la animación
+        }`}>
   {/* Capa de fondo con opacidad */}
-  <div className="absolute inset-0 bg-black opacity-50"></div>
+  <div className="absolute inset-0  bg-black opacity-50"></div>
   
   <h1 className="text-4xl font-bold relative">Sobre Nosotros</h1>
   <p className="mt-4 text-lg relative">Conoce quiénes somos y cómo trabajamos para ofrecerte la mejor experiencia en renta de maquinaria.</p>
@@ -183,6 +187,7 @@ export default function AboutUs() {
 
         <Footer/>
       </div>
+     </div>
     </>
   );
 }
