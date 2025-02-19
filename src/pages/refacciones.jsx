@@ -57,14 +57,14 @@ console.log(images);
         <Navbar />
 
         {/* Título y descripción */}
-        <section className="relative h-[40vh] flex justify-center flex-col text-white px-4 lg:px-2 py-4 text-center bg-no-repeat bg-cover bg-bottom"
+        <section className="relative  flex justify-center flex-col text-white px-4 lg:px-2 py-4 text-center bg-no-repeat bg-cover bg-bottom"
           style={{ backgroundImage: "url('https://www.firestone.com.mx/content/dam/consumer/fst/la/mx/tips/cuidado-de-llantas/AutoRefacciones_Big.jpg')" }}
         >
           {/* Overlay para oscurecer el fondo */}
           <div className="absolute inset-0 bg-black/50"></div>
 
           {/* Contenido con mejor contraste */}
-          <div className="relative z-10">
+          <div className="relative z-10 ">
             <h1 className="text-3xl lg:text-5xl font-bold mb-3">Refacciones</h1>
             <p className="text-[0.8rem] lg:text-[1.1rem]  lg:px-[7rem]">
               Contamos con un extenso surtido en refacciones para sus máquinas eléctricas y a gasolina como

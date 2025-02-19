@@ -241,6 +241,9 @@ export default function navbar() {
             <a href="/" className="hover:text-[#28a745]">Inicio</a>
           </li>
           <li>
+            <a href="/venta-equipos" className="hover:text-[#28a745]">Equipos en venta</a>
+          </li>
+          <li>
             <a href="/refacciones" className="hover:text-[#28a745]">Refacciones</a>
           </li>
           <li>
