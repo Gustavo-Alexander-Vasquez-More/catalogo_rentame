@@ -135,7 +135,7 @@ export default function AboutUs() {
   <div className="max-w-7xl mx-auto">
     <h2 className="text-3xl font-semibold text-blue-900">Sobre Rentame Carmen</h2>
     <p className="mt-4 text-lg text-gray-700">
-      <a href="https://www.rentamecarmen.com.mx" className="text-blue-600 hover:underline">
+      <a href="https://www.rentamecarmen.com.mx" className="text-blue-600 font-bold hover:underline">
         Rentamecarmen.com.mx
       </a> es una empresa especializada en la renta y venta de equipos en general. Para el área de Construcción, Jardinería, Carpintería, Soldadura, Aluminio, Pintura, Fumigación, Tecnología. 
       Contamos con más rubros, si no ves en nuestro catálogo lo que necesitas, contáctanos, seguramente tendremos una solución para ti.
@@ -179,7 +179,6 @@ export default function AboutUs() {
         <section className="py-8 bg-[#28a745] text-white text-center">
     <h2 className="text-2xl font-semibold">¿Te gustaría saber más?</h2>
     <p className="mt-4 text-lg">Contáctanos y descubre cómo podemos ayudarte con nuestras soluciones de maquinaria.</p>
-    <button onClick={openFormulario} className="mt-4 inline-block bg-[white] text-[#28a745] py-2 px-6 rounded-md hover:bg-[#28a745] hover:text-[white] transition duration-300">Contáctanos</button>
 </section>
 
         <Footer/>

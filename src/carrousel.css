@@ -1,0 +1,9 @@
+.carousel-image {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .carousel-image:hover {
+    transform: translateY(-10px) scale(1.05); /* Se eleva hacia arriba y aumenta un poco el tamaño */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Sombra para el efecto de profundidad */
+  }
+  

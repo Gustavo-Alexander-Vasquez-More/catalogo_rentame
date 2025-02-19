@@ -145,10 +145,20 @@ function openModal() {
   <p className="text-gray-900">Productos</p>
 </div>
 
-          <h1 className="text-3xl font-bold text-[#323B75] mb-4">{dat.nombre}</h1>
-        
+          <h1 className="text-3xl font-bold text-[#323B75] mt-2 mb-2">{dat.nombre}</h1>
+          {dat.stock === 0 && (
+      <p className="text-center text-[#D9534F] font-semibold rounded-[5px] lg:text-[1.2rem] text-[0.7rem]">
+        Rentado
+      </p>
+    )}
+    {dat.stock > 0 && (
+      <p className="text-center text-[#28A745] font-semibold rounded-[5px]  lg:text-[1.2rem] text-[0.7rem]">
+        Disponible
+      </p>
+    )}
+    
          <PDFDownloadLink
-          className="py-2 mb-3 px-3 rounded-[5px] lg:text-[1rem] font-semibold text-white bg-[#323B75] transition duration-300 ease-in-out text-[0.8rem] flex gap-2 items-center justify-center"
+          className="py-2 mb-3 px-3 rounded-[5px] lg:text-[1rem] font-semibold mt-3 text-white bg-[#323B75] transition duration-300 ease-in-out text-[0.8rem] flex gap-2 items-center justify-center"
                       document={<FichaTecnica _id={productId} />}
                       fileName={`Ficha_Tecnica-${dat.nombre}.pdf`}
                     >
@@ -188,7 +198,7 @@ function openModal() {
           {descriptionPreview} 
           {dat.descripcion.length > descriptionLimit && (
            <PDFDownloadLink
-           className="py-2 mb-3 px-4 rounded-[5px] lg:text-[1rem] font-semibold text-[#4A90E2]  hover:text-[#2f619a] transition duration-300 ease-in-out text-[0.8rem] flex gap-2 items-center justify-center"
+           className="py-2 mb-1 px-4 rounded-[5px] lg:text-[1rem] font-semibold text-[#4A90E2]  hover:text-[#2f619a] transition duration-300 ease-in-out text-[0.8rem] flex gap-2 items-center justify-center"
                        document={<FichaTecnica _id={productId} />}
                        fileName={`Ficha_Tecnica-${dat.nombre}.pdf`}
                      >
@@ -212,21 +222,69 @@ function openModal() {
         </p>
 
         {/* Mostrar el botón "Ver más" si la descripción excede el límite */}
-        
-          <p className="text-xl font-semibold text-secondary mb-4">${product.price} MXN</p>
+        {dat.tipo_uso === 'renta' && (
+          <>
+        {dat.precio != '0' && (
+           <p className="text-xl font-semibold text-secondary mb-4">${dat.precio} MXN</p>
+        )}
+        {dat.precio === '0' && (
+           <p className="text-md font-semibold text-secondary mb-4">CONSULTAR PRECIO</p>
+        )}
+          </>
+        )}
+        {dat.tipo_uso === 'venta' && (
+          <>
+          <div className="flex flex-col  py-2">
+         <p className="text-lg font-semibold text-secondary underline">Precio de renta:</p>
+         <p className="text-xl font-semibold text-secondary">${product.price} MXN</p>
+         </div>
+         <div className="flex flex-col  py-2">
+         <p className="text-lg font-semibold text-secondary underline">Precio de venta:</p>
+        {dat.precio_venta != '0' && (
+           <p className="text-xl font-semibold text-secondary">${dat.precio_venta} MXN</p>
+        )}
+        {dat.precio_venta === '0' && (
+           <p className="text-md font-semibold text-secondary">CONSULTAR PRECIO</p>
+        )}
+         </div>
+          </>
+        )}
           <a href="/" className="text-[1rem] font-semibold text-secondary mb-4 underline flex gap-2 items-center"><svg class="w-5 h-5 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 14v4.833A1.166 1.166 0 0 1 16.833 20H5.167A1.167 1.167 0 0 1 4 18.833V7.167A1.166 1.166 0 0 1 5.167 6h4.618m4.447-2H20v5.768m-7.889 2.121 7.778-7.778"/>
 </svg>
 
 Regresar al catálogo</a>
-          <div className="flex gap-4 mt-4">
-            <button className="bg-[#323B75] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#2a2e56] transition-colors">
+          {dat.tipo_uso === 'venta' && (
+            <div className="flex gap-4 mt-2">
+            {dat.stock > 0 && (
+              <a href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`} className="bg-[#323B75] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#2a2e56] transition-colors">
+              Rentar equipo
+            </a>
+            )}
+            {dat.stock === 0 && (
+              <a href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`} disabled className="bg-[#a7a7a7] text-white px-4 py-2 rounded-lg font-semibold transition-colors">
+              Rentar equipo
+            </a>
+            )}
+            <a href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en comprar el siguiente equipo: ${dat.nombre}`} className="bg-[#C70000] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#b12c2c] transition-colors">
+              Comprar equipo
+            </a>
+          </div>
+          )}
+           {dat.tipo_uso === 'renta' && (
+            <div className="flex gap-4 mt-2">
+            {dat.stock > 0 && (
+              <button className="bg-[#323B75] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#2a2e56] transition-colors">
               Rentar equipo
             </button>
-            <button className="bg-[#C70000] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#b12c2c] transition-colors">
-              Comprar equipo
+            )}
+            {dat.stock === 0 && (
+              <button disabled className="bg-[#a7a7a7] text-white px-4 py-2 rounded-lg font-semibold  transition-colors">
+              Rentar equipo
             </button>
+            )}
           </div>
+          )}
         </div>
         </>
        ))}

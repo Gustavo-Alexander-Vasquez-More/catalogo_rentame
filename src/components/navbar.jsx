@@ -112,7 +112,7 @@ export default function navbar() {
         </div>
       )}
       <div className="w-full flex flex-col">
-        <div className="bg-[#323B75] w-full flex lg:flex-row flex-col lg:gap-0 gap-1 items-center  text-white justify-between lg:px-[5rem] py-[0.5rem]">
+        <div className="bg-gradient-to-r from-[#323B75] via-[#4a5b9f] to-[#1f2b57] w-full flex lg:flex-row flex-col lg:gap-0 gap-1 items-center  text-white justify-between lg:px-[5rem] py-[0.5rem]">
           <div className="flex gap-1">
             <svg
               class="w-6 h-6 text-white"
@@ -180,7 +180,7 @@ export default function navbar() {
             </a>
           </div>
         </div>
-        <div className="w-full bg-[#C70000] py-[1rem] drop-shadow-xl shadow-xl px-[0.5rem] lg:px-[5rem]">
+        <div className="w-full bg-[#C70000] lg:py-3  drop-shadow-xl shadow-xl  lg:px-[5rem]">
           {/* Navbar para pantallas grandes */}
           
           <div className="flex lg:flex-row flex-col  lg:gap-0  justify-between  items-center">
@@ -207,14 +207,14 @@ export default function navbar() {
               }}
             >
               <img
-                className="lg:w-[10rem] w-[5rem] lg:h-[8vh] lg:hidden"
+                className="lg:w-[10rem] pt-4 w-[5rem] lg:h-[8vh] lg:hidden"
                 src={logo}
                 alt="Rentame Carmen tu solución para la renta de equipos en ciudad del carmen campeche, rentamos maquinaria como taladros, plantas de luz, sierras, motosierras, equipos para la construccion y más."
               />
             </button>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="text-white text-3xl focus:outline-none"
+        className="text-white text-3xl py-2 focus:outline-none"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -234,7 +234,7 @@ export default function navbar() {
       <div
         className={`${
           isOpen ? 'block' : 'hidden'
-        } mt-1 w-full bg-[#003366] text-white py-3 rounded-lg shadow-lg`}
+        } mt-1 w-full bg-[#323B75] text-white py-3 shadow-2xl`}
       >
         <ul className="space-y-2 px-4">
           <li>
@@ -244,7 +244,7 @@ export default function navbar() {
             <a href="/refacciones" className="hover:text-[#28a745]">Refacciones</a>
           </li>
           <li>
-            <a href="/about_us" className="hover:text-[#28a745]">Sobre Nosotros</a>
+            <a href="/about_us" className="hover:text-[#28a745]">Sobre GrupoRM</a>
           </li>
           <li>
             <button onClick={openFormulario} className="hover:text-[#28a745]">Contacto</button>
@@ -254,48 +254,42 @@ export default function navbar() {
     </div>
 
             {/* Enlaces de navegación */}
-            <div className="w-full justify-end lg:flex gap-4 hidden">
+            <div className="w-full justify-end lg:flex gap-2 hidden">
             <div className="lg:flex items-center hidden">
               <a href="/"
-                className="text-white font-bold text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md shadow-md hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 border border-white"
+                className="text-white  text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md  hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 "
               >
                 Inicio
               </a>
+              
+            </div>
+            <div className="lg:flex items-center hidden">
+              <a href="/venta-equipos"
+                className="text-white  text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md  hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 "
+              >
+                Equipos en venta
+              </a>
+              
             </div>
             <div className="lg:flex items-center hidden">
               <a href="/refacciones"
-                className="text-white font-bold text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md shadow-md hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 border border-white"
+                className="text-white  text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md  hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 "
               >
                 Refaciones
               </a>
             </div>
             <div className="lg:flex items-center gap-4 hidden">
               <a href="/about_us"
-                className="text-white font-bold text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md shadow-md hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 border border-white"
+                className="text-white  text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md  hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 "
               >
-                Sobre Nosotros
+                Sobre GrupoRM
               </a>
             </div>
             <div className="lg:flex items-center gap-4 hidden">
               <button
                 onClick={openFormulario}
-                className="text-white font-bold text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md shadow-md hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 border border-white"
+                className="text-white  text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md  hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 "
               >
-                <svg
-                  className="w-6 h-6 text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M12 2a7 7 0 0 0-7 7 3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1a1 1 0 0 0 1-1V9a5 5 0 1 1 10 0v7.083A2.919 2.919 0 0 1 14.083 19H14a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1a2 2 0 0 0 1.732-1h.351a4.917 4.917 0 0 0 4.83-4H19a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3 7 7 0 0 0-7-7Zm1.45 3.275a4 4 0 0 0-4.352.976 1 1 0 0 0 1.452 1.376 2.001 2.001 0 0 1 2.836-.067 1 1 0 1 0 1.386-1.442 4 4 0 0 0-1.321-.843Z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
                 Contacto
               </button>
             </div>

@@ -3,6 +3,7 @@ import Index from "../src/pages";
 import Page_products from "../src/pages/page_products";
 import About_us from "../src/pages/about_us";
 import Refacciones from '../src/pages/refacciones.jsx'
+import Equipos_venta from "../src/pages/equipos_venta.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
   {
     path: "/refacciones",
     element: <Refacciones/>,
+  },
+  {
+    path: "/venta-equipos",
+    element: <Equipos_venta/>,
   },
 ]);
 export default router;

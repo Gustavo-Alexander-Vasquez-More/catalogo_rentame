@@ -3,11 +3,9 @@ import React, { useEffect, useRef, useState } from "react";
 import icon from "../images/rentame_icon.png";
 import Footer from "../components/footer";
 import Navbar from "../components/navbar";
-import banner_web from '../images/banners/banner_web.png'
-import banner_movil from '../images/banners/banner_movil.jpg'
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
-export default function index() {
+export default function equipos_venta() {
   useEffect(() => {
     // Encontrar el link con rel="icon" y cambiar su href
     const favicon = document.querySelector("link[rel='icon']");
@@ -36,7 +34,7 @@ export default function index() {
   const [isOpen, setIsOpen] = useState(false);
 
   const [current_page, setCurrent_page] = useState(() => {
-    const savedPage = localStorage.getItem("products_current_page");
+    const savedPage = localStorage.getItem("products_current_page_venta");
     return savedPage ? parseInt(savedPage, 10) : 1;
   });
   const [searchTerm, setSearchTerm] = useState();
@@ -50,22 +48,10 @@ export default function index() {
   };
 
 
-  async function get_all_products() {
-    try {
-      const { data } = await axios.get(
-        "https://backrecordatoriorenta-production.up.railway.app/api/products/"
-      );
-      setAll_products(data.response);
-      setLoading(false); // Datos cargados, actualizamos el estado de carga
-    } catch (error) {
-      console.error("Error fetching image data:", error);
-      setLoading(false); // Si hay un error, dejamos de mostrar el estado de carga
-    }
-  }
   async function get_products_paginates(page = current_page) {
     try {
       const { data } = await axios.get(
-        `https://backrecordatoriorenta-production.up.railway.app/api/products/read_pag?page=${page}`
+        `https://backrecordatoriorenta-production.up.railway.app/api/products/read_pag_venta?page=${page}`
       );
       setPaginacion(data);
       setTotal_pages(data?.totalPages);
@@ -90,63 +76,8 @@ export default function index() {
   }
 
   useEffect(() => {
-    get_all_products();
     get_products_paginates();
   }, []);
-
-  function buscar() {
-    const filtered = all_products.filter((dat) =>
-      dat.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredDatas(filtered);
-  }
-
-  function buscar_boton() {
-    if (searchTerm) {
-      setShow_paginados(false);
-      setShow_filter_products(true);
-
-      const filtered = all_products.filter((dat) =>
-        dat.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredDatas(filtered);
-    } else {
-      setShow_paginados(true);
-      setShow_filter_products(false);
-    }
-  }
-
-  //FUNCION CUANDO LIMPIAS EL BUSCADOR CON LA X
-  function clear() {
-    setSearchTerm("");
-    setShow_paginados(true);
-    setShow_filter_products(false);
-  }
-  //FUNCION CUANDO DAS ENTER EN EL BUSCADOR
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && searchTerm) {
-      setShow_paginados(false);
-      setShow_filter_products(true);
-      buscar();
-    }
-    if (e.key === "Enter" && !searchTerm) {
-      setShow_paginados(true);
-      setShow_filter_products(false);
-    }
-  };
-  function handlePageChange(pageNumber) {
-    setLoadingImages(true);
-    // Guardamos la página seleccionada en localStorage
-    setCurrent_page(pageNumber);
-    localStorage.setItem("products_current_page", pageNumber);
-
-    // Llamamos a la función para obtener los productos de la página seleccionada
-    get_products_paginates(pageNumber);
-  }
-  const handleShowMore = () => {
-    setVisibleCount((prev) => prev + 6); // Incrementa la cantidad visible en 6
-  };
-  const handleToggleMenu = () => setIsOpen(!isOpen);
 
   function nextPage() {
     if (current_page < total_pages) {
@@ -154,7 +85,7 @@ export default function index() {
       setLoadingImages(true);
       setCurrent_page(current_page + 1);
       get_products_paginates(current_page + 1);
-      localStorage.setItem("products_current_page", current_page + 1);
+      localStorage.setItem("products_current_page_venta", current_page + 1);
     }
   }
   function prevPage() {
@@ -163,7 +94,7 @@ export default function index() {
       setLoadingImages(true);
       setCurrent_page(current_page - 1);
       get_products_paginates(current_page - 1);
-      localStorage.setItem("products_current_page", current_page - 1);
+      localStorage.setItem("products_current_page_venta", current_page - 1);
     }
   }
 
@@ -192,7 +123,7 @@ export default function index() {
       setLoadingImages(true);
       setCurrent_page(page);
       get_products_paginates(page);
-      localStorage.setItem("products_current_page", page);
+      localStorage.setItem("products_current_page_venta", page);
     }
   }
   const [copied, setCopied] = useState(false);
@@ -209,72 +140,12 @@ export default function index() {
       
       <Navbar />
       <div className="flex flex-col items-center w-full h-auto bg-[#e3e2e294]">
-      <div className="w-full flex lg:hidden">
-        <a href="/venta-equipos">
-        <img className="w-full  object-cover " src={banner_movil} alt="" />
-        </a>
-      </div>
-      <div className="w-full  lg:flex hidden">
-        <a href="/venta-equipos">
-        <img className="w-full  object-cover " src={banner_web} alt="" />
-        </a>
-      </div>
-        {/* Barra de búsqueda */}
-        <div className="flex lg:w-[60%] w-[100%] lg:px-0 px-3 pt-[2rem] lg:pt-[2rem] justify-center">
-  <div className="relative w-full flex items-center">
-    <input
-      type="text"
-      placeholder="Que estas buscando?"
-      onKeyDown={handleKeyDown}
-      className="w-full lg:text-[1rem] text-[0.9rem] py-[0.7rem] px-4 border border-gray-300 rounded-l-[7px] focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md transition duration-300 ease-in-out transform hover:scale-105"
-      value={searchTerm}
-      onChange={(e) => setSearchTerm(e.target.value)} // Actualizar el término de búsqueda
-    />
-    {searchTerm && (
-      <button
-        onClick={clear}
-        className="absolute right-3 top-3 text-gray-500 hover:text-gray-700 transition duration-200"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="25"
-          height="25"
-          fill="currentColor"
-          className="bi bi-x"
-          viewBox="0 0 16 16"
-        >
-          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-        </svg>
-      </button>
-    )}
-  </div>
-  <button
-    className="px-[1.5rem] lg:px-[2.5rem] bg-[#4C63B6] text-white font-semibold rounded-r-[7px] shadow-lg hover:bg-[#3e53a0] transition duration-300 ease-in-out"
-    onClick={buscar_boton}
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="currentColor"
-      className="bi bi-search w-4 lg:w-6"
-      viewBox="0 0 16 16"
-    >
-      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-    </svg>
-  </button>
-</div>
-
+     
         {/* ESTO ES EL BODY */}
         <div className="w-full   min-h-[80vh]  lg:px-[5rem] py-[2rem] gap-3 flex flex-col">
-          {show_paginados === true && (
-            <p className="font-bold text-[1.3rem] px-[1.5rem] lg:pb-4 lg:text-[1.7rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md">
-              Nuestro catálogo
+          <p className="font-bold text-[1.3rem] px-[1.5rem] lg:pb-4 lg:text-[1.7rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md">
+              Equipos en venta
           </p>
-          )}
-          {show_paginados === false && (
-            <p className="font-bold text-[1rem] px-[1.5rem] lg:text-[1.7rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md">
-            Resultados ({filteredDatas.length})
-          </p>
-          )}
           <div className="flex flex-col w-full lg:w-[100%]">
             {loadingImages && productos_paginados.length > 0 && (
               <div className=" w-full text-center  h-[50vh] gap-3 flex-col flex items-center justify-center">
