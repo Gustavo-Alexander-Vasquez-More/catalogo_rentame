@@ -13,7 +13,7 @@ export default function PageProduct() {
   const [id, setId] = useState(null);
   const [loading, setLoading] = useState();
   const [datas, setDatas] = useState([]);
-const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   function openModal() {
     window.scrollTo(0, 0);
     setModal(true);
@@ -114,10 +114,12 @@ const [isOpen, setIsOpen] = useState(false);
       )}
       {modal && <Ficha_tecnica closeModal={closeModal} id={id} />}
       <div className="flex flex-col w-full h-auto bg-[#323B75]">
-        <Navbar isOpen={isOpen} setIsOpen={setIsOpen}/>
-        <div  className={`flex flex-col items-center w-full h-auto bg-[#e3e2e2] transition-transform duration-500 ${
-          isOpen ? "transform translate-y-[30px]" : "transform translate-y-0"
-        }`}>
+        <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
+        <div
+          className={`flex flex-col items-center w-full h-auto bg-[#e3e2e2] transition-transform duration-500 ${
+            isOpen ? "transform translate-y-[30px]" : "transform translate-y-0"
+          }`}
+        >
           <div className="flex flex-col md:flex-row mt-10 lg:min-h-[60vh] w-full justify-center items-center px-[1.5rem] lg:px-4 ">
             {datas.map(
               (dat) =>
