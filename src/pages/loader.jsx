@@ -1,7 +1,7 @@
 import React from "react";
 
 const Loader = () => (
-  <div className="inset-0 absolute bg-white bg-opacity-70 flex justify-center items-center z-50">
+  <div className="inset-0 absolute bg-opacity-70 flex justify-center items-center z-50">
     <div className="loader flex flex-col items-center gap-2">
       {/* Aquí puedes usar cualquier tipo de spinner */}
       <div className="spinner"></div>

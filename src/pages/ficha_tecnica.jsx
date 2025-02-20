@@ -60,7 +60,10 @@ export default function DetalleProducto({ closeModal, id }) {
                 loading ? (
                   <div className="w-full flex justify-center items-center">
                     <div className="flex flex-col gap-2 items-center">
-                      <div className="spinner-border text-primary" role="status">
+                      <div
+                        className="spinner-border text-primary"
+                        role="status"
+                      >
                         <span className="visually-hidden">Loading...</span>
                       </div>
                       <p>Generando PDF...</p>
