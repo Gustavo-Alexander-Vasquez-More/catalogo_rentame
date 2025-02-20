@@ -11,11 +11,9 @@ export default function PageProduct() {
   const location = useLocation();
   const [modal, setModal] = useState(false);
   const [id, setId] = useState(null);
-  //   const [relacionados, setRelacionados]=useState([])
   const [loading, setLoading] = useState();
   const [datas, setDatas] = useState([]);
-  // const [datas_full, setDatas_full]=useState([])
-  // console.log(datas_full);
+const [isOpen, setIsOpen] = useState(false);
   function openModal() {
     window.scrollTo(0, 0);
     setModal(true);
@@ -50,18 +48,7 @@ export default function PageProduct() {
       setLoading(false); // Si hay un error, dejamos de mostrar el estado de carga
     }
   }
-  async function get_products() {
-    try {
-      const { data } = await axios.get(
-        `https://backrecordatoriorenta-production.up.railway.app/api/products/`
-      );
-      await setDatas_full(data.response);
-      setLoading(false); // Datos cargados, actualizamos el estado de carga
-    } catch (error) {
-      console.error("Error fetching image data:", error);
-      setLoading(false); // Si hay un error, dejamos de mostrar el estado de carga
-    }
-  }
+
   //   async function productos_relacionados() {
   //    try {
   //     const { data } = await axios.get(
@@ -96,7 +83,6 @@ export default function PageProduct() {
 
   useEffect(() => {
     get_product();
-    get_products();
     // productos_relacionados()
   }, [productId]);
 
@@ -127,9 +113,11 @@ export default function PageProduct() {
         </Helmet>
       )}
       {modal && <Ficha_tecnica closeModal={closeModal} id={id} />}
-      <div className="flex flex-col w-full h-auto">
-        <Navbar />
-        <div className="w-full flex-col">
+      <div className="flex flex-col w-full h-auto bg-[#323B75]">
+        <Navbar isOpen={isOpen} setIsOpen={setIsOpen}/>
+        <div  className={`flex flex-col items-center w-full h-auto bg-[#e3e2e2] transition-transform duration-500 ${
+          isOpen ? "transform translate-y-[30px]" : "transform translate-y-0"
+        }`}>
           <div className="flex flex-col md:flex-row mt-10 lg:min-h-[60vh] w-full justify-center items-center px-[1.5rem] lg:px-4 ">
             {datas.map(
               (dat) =>
