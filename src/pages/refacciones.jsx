@@ -15,7 +15,7 @@ import img10 from "../images/refacciones/10.jpg";
 import Footer from "../components/footer";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
+import banner from '../images/banners/refacciones.jpg'
 function RefaccionesPage() {
   const [isOpen, setIsOpen] = useState(false);
   // Definir las imágenes
@@ -59,16 +59,15 @@ function RefaccionesPage() {
 
         {/* Título y descripción */}
         <section
-          className={`relative flex justify-center flex-col text-white px-4 lg:px-2 py-4 text-center bg-no-repeat bg-cover bg-bottom transition-all duration-500 ${
+          className={`relative flex justify-center flex-col h-auto text-white px-4 lg:px-2 py-4 text-center bg-no-repeat bg-cover bg-bottom transition-all duration-500 ${
             isOpen ? "mt-[20px]" : "mt-0" // Animación para mover el main hacia abajo con duración de 500ms
           }`}
           style={{
-            backgroundImage:
-              "url('https://www.firestone.com.mx/content/dam/consumer/fst/la/mx/tips/cuidado-de-llantas/AutoRefacciones_Big.jpg')",
+            backgroundImage: `url(${banner})`, // Asegúrate de poner `url()` correctamente
           }}
         >
           {/* Overlay para oscurecer el fondo */}
-          <div className="absolute inset-0 bg-black/50"></div>
+          <div className="absolute inset-0"></div>
 
           {/* Contenido con mejor contraste */}
           <div className="relative z-10 ">

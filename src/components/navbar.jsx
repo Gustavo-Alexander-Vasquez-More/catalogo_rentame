@@ -253,7 +253,7 @@ export default function navbar({ isOpen, setIsOpen }) {
                   </li>
                   <li>
                     <a href="/about_us" className="hover:text-[#28a745]">
-                      Sobre GrupoRM
+                      Sobre Nosotros
                     </a>
                   </li>
                   <li>
@@ -298,7 +298,7 @@ export default function navbar({ isOpen, setIsOpen }) {
                   href="/about_us"
                   className="text-white  text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md  hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 "
                 >
-                  Sobre GrupoRM
+                  Sobre Nosotros
                 </a>
               </div>
               <div className="lg:flex items-center gap-4 hidden">

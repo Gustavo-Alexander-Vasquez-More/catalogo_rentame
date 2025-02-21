@@ -113,14 +113,14 @@ export default function PageProduct() {
         </Helmet>
       )}
       {modal && <Ficha_tecnica closeModal={closeModal} id={id} />}
-      <div className="flex flex-col w-full h-auto bg-[#323B75]">
+      <div className="flex flex-col w-full h-auto bg-[#e3e2e2]">
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
         <div
           className={`flex flex-col items-center w-full h-auto bg-[#e3e2e2] transition-transform duration-500 ${
             isOpen ? "transform translate-y-[30px]" : "transform translate-y-0"
           }`}
         >
-          <div className="flex flex-col md:flex-row mt-10 lg:min-h-[60vh] w-full justify-center items-center px-[1.5rem] lg:px-4 ">
+          <div className="flex flex-col md:flex-row mt-10 lg:min-h-[50vh] w-full justify-center items-center px-[1.5rem] lg:px-4 ">
             {datas.map(
               (dat) =>
                 dat && (
@@ -221,12 +221,12 @@ export default function PageProduct() {
                       {dat.tipo_uso === "renta" && (
                         <>
                           {dat.precio != "0" && (
-                            <p className="text-xl font-semibold text-secondary mb-4">
+                            <p className="text-xl font-semibold text-[black] mb-4">
                               ${dat.precio} MXN
                             </p>
                           )}
                           {dat.precio === "0" && (
-                            <p className="text-md font-semibold text-secondary mb-4">
+                            <p className="text-md font-semibold text-[black] mb-4">
                               CONSULTAR PRECIO
                             </p>
                           )}
@@ -235,24 +235,24 @@ export default function PageProduct() {
                       {dat.tipo_uso === "venta" && (
                         <>
                           <div className="flex flex-col  py-2">
-                            <p className="text-lg font-semibold text-secondary underline">
+                            <p className="text-lg font-semibold text-[black] underline">
                               Precio de renta:
                             </p>
-                            <p className="text-xl font-semibold text-secondary">
+                            <p className="text-xl font-semibold text-[black]">
                               ${product.price} MXN
                             </p>
                           </div>
                           <div className="flex flex-col  py-2">
-                            <p className="text-lg font-semibold text-secondary underline">
+                            <p className="text-lg font-semibold text-[black] underline">
                               Precio de venta:
                             </p>
                             {dat.precio_venta != "0" && (
-                              <p className="text-xl font-semibold text-secondary">
+                              <p className="text-xl font-semibold text-[black]">
                                 ${dat.precio_venta} MXN
                               </p>
                             )}
                             {dat.precio_venta === "0" && (
-                              <p className="text-md font-semibold text-secondary">
+                              <p className="text-md font-semibold text-[black]">
                                 CONSULTAR PRECIO
                               </p>
                             )}
@@ -338,12 +338,35 @@ export default function PageProduct() {
             {datas.map(
               (dat) =>
                 dat && (
-                  <p className="lg:text-[1rem] text-[0.9rem] text-[#6C757D] ">
+                  <p className="lg:text-[1rem] text-[0.9rem] text-[black] ">
                     {dat.descripcion.toUpperCase()}
                   </p>
                 )
             )}
           </div>
+          {datas.map(dat => dat && (
+  <div className="w-full lg:pl-[10.5rem] pl-[1.5rem] pr-[1.5rem] lg:pr-[21rem] mt-3 flex flex-col ">
+    {/* Solo mostrar si 'dat.tags' existe */}
+    {dat.tags.length > 0 && (
+  <>
+    <p className="font-bold text-[1.25rem] lg:no-underline underline lg:text-[1.2rem] text-[#323B75]">
+      Tags
+    </p>
+    <p>
+      {dat.tags.map((tag, index) => (
+        <span key={index} className="underline text-blue-500 text-[0.9rem]">
+          {tag}{index < dat.tags.length - 1 && ', '}
+        </span>
+      ))}
+    </p>
+  </>
+)}
+
+
+  </div>
+))}
+
+
         </div>
 
         <div className="w-full pt-[5rem]">
