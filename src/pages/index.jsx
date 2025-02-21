@@ -310,7 +310,7 @@ export default function index() {
             <div className="w-full   min-h-[80vh]  lg:px-[5rem] py-[2rem] gap-3 flex flex-col">
               {show_paginados === true && (
                 <p className="font-bold text-[1.3rem] px-[1.5rem] lg:pb-4 lg:text-[1.7rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md">
-                  Nuestro catálogo
+                  Nuestros equipos :
                 </p>
               )}
               {show_paginados === false && (

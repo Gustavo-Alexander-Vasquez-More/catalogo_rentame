@@ -1,6 +1,9 @@
 import React, { useRef, useState } from "react";
 import logo from "../images/logo_blanco.png";
+import { useLocation } from "react-router-dom";
 export default function navbar({ isOpen, setIsOpen }) {
+  const location = useLocation();
+  
   const [formulario, setFormulario] = useState(false);
   const [nombre, setNombre] = useState();
   const [telefono, setTelefono] = useState();
@@ -268,48 +271,34 @@ export default function navbar({ isOpen, setIsOpen }) {
               </div>
             </div>
             {/* Enlaces de navegación */}
-            <div className="w-full justify-end lg:flex gap-2 hidden">
-              <div className="lg:flex items-center hidden">
-                <a
-                  href="/"
-                  className="text-white  text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md  hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 "
-                >
-                  Inicio
-                </a>
-              </div>
-              <div className="lg:flex items-center hidden">
-                <a
-                  href="/venta-equipos"
-                  className="text-white  text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md  hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 "
-                >
-                  Equipos en venta
-                </a>
-              </div>
-              <div className="lg:flex items-center hidden">
-                <a
-                  href="/refacciones"
-                  className="text-white  text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md  hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 "
-                >
-                  Refaciones
-                </a>
-              </div>
-              <div className="lg:flex items-center gap-4 hidden">
-                <a
-                  href="/about_us"
-                  className="text-white  text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md  hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 "
-                >
-                  Sobre Nosotros
-                </a>
-              </div>
-              <div className="lg:flex items-center gap-4 hidden">
-                <button
-                  onClick={openFormulario}
-                  className="text-white  text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md  hover:shadow-lg hover:bg-[#A50000] transition-all duration-300 "
-                >
-                  Contacto
-                </button>
-              </div>
-            </div>
+            <div className="w-full justify-end lg:flex gap-2 font-extrabold hidden">
+      {[
+        { path: "/", label: "Inicio" },
+        { path: "/venta-equipos", label: "Equipos en venta" },
+        { path: "/refacciones", label: "Refacciones" },
+        { path: "/about_us", label: "Sobre Nosotros" },
+      ].map((link) => (
+        <div key={link.path} className="lg:flex items-center hidden">
+          <a
+            href={link.path}
+            className={`text-white text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md transition-all duration-300
+              ${location.pathname === link.path ? "bg-[#A50000] shadow-lg" : "hover:shadow-lg hover:bg-[#A50000]"}`}
+          >
+            {link.label}
+          </a>
+        </div>
+      ))}
+
+      {/* Botón de contacto */}
+      <div className="lg:flex items-center gap-4 hidden">
+        <button
+          onClick={openFormulario}
+          className="text-white text-[1rem] flex items-center gap-1 px-4 py-2 rounded-md hover:shadow-lg hover:bg-[#A50000] transition-all duration-300"
+        >
+          Contacto
+        </button>
+      </div>
+    </div>
           </div>
         </div>
       </div>
