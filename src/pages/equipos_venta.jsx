@@ -277,12 +277,12 @@ export default function equipos_venta() {
                       </svg>
                       Copy URL
                     </button>
-                    {dat.visibilidad_precio === "VISIBLE" && (
+                    {dat.visibilidad_precio_venta === "VISIBLE" && (
                       <p className="text-center text-[#1E3A8A] lg:text-[1rem] text-[0.9rem] font-semibold">
-                        ${dat.precio} MXN
+                        ${dat.precio_venta} MXN
                       </p>
                     )}
-                    {dat.visibilidad_precio === "NO VISIBLE" && (
+                    {dat.visibilidad_precio_venta === "NO VISIBLE" && (
                       <p className="text-center text-gray-400 font-semibold lg:text-[1rem] text-[0.9rem]">
                         Precio a consultar
                       </p>
@@ -380,12 +380,12 @@ export default function equipos_venta() {
                       </svg>
                       Copy URL
                     </button>
-                    {dat.visibilidad_precio === "VISIBLE" && (
+                    {dat.visibilidad_precio_venta === "VISIBLE" && (
                       <p className="text-center text-[#1E3A8A] lg:text-[1rem] text-[0.9rem] font-semibold">
-                        ${dat.precio} MXN
+                        ${dat.precio_venta} MXN
                       </p>
                     )}
-                    {dat.visibilidad_precio === "NO VISIBLE" && (
+                    {dat.visibilidad_precio_venta === "NO VISIBLE" && (
                       <p className="text-center text-gray-400 font-semibold lg:text-[1rem] text-[0.9rem]">
                         Precio a consultar
                       </p>

@@ -27,15 +27,6 @@ export default function PageProduct() {
   const queryParams = new URLSearchParams(location.search);
   const productId = queryParams.get("id");
 
-  // Suponiendo que tienes una función o API que obtiene el producto por su ID
-  const product = {
-    id: productId,
-    name: "Taladro Eléctrico",
-    description:
-      "Este es un potente taladro eléctrico ideal para trabajos en casa o profesionales. Ligero, duradero y fácil de usar.",
-    price: 3500,
-    image: "https://via.placeholder.com/300",
-  };
   async function get_product() {
     try {
       const { data } = await axios.get(
@@ -48,39 +39,6 @@ export default function PageProduct() {
       setLoading(false); // Si hay un error, dejamos de mostrar el estado de carga
     }
   }
-
-  //   async function productos_relacionados() {
-  //    try {
-  //     const { data } = await axios.get(
-  //         `https://backrecordatoriorenta-production.up.railway.app/api/products/read_especific?_id=${productId}`
-  //       );
-  //     const producto = data?.response[0].nombre  // Nombre del producto actual
-  //     console.log(producto);
-
-  //     if (data.length > 0) {
-  //       // Dividir el nombre del producto en palabras individuales
-  //       const palabrasProducto = producto.toLowerCase().split(/\s+/);
-
-  //       // Filtrar productos cuyo nombre contenga alguna de las palabras del producto actual
-  //       const encontrar_productos_relacionados = datas_full.filter(dat => {
-  //         // Dividir el nombre del producto en palabras
-  //         const palabrasProductoRelacionado = dat.nombre.toLowerCase().split(/\s+/);
-
-  //         // Verificar si alguna palabra del producto actual está en el nombre del producto relacionado
-  //         return palabrasProducto.some(palabra =>
-  //           palabrasProductoRelacionado.some(palabraRelacionado =>
-  //             palabraRelacionado.includes(palabra)
-  //           )
-  //         );
-  //       });
-
-  //       setRelacionados(encontrar_productos_relacionados)
-  //     }
-  //    } catch (error) {
-  //     console.log(error);
-  //    }
-  //   }
-
   useEffect(() => {
     get_product();
     // productos_relacionados()
@@ -220,13 +178,13 @@ export default function PageProduct() {
                       {/* Mostrar el botón "Ver más" si la descripción excede el límite */}
                       {dat.tipo_uso === "renta" && (
                         <>
-                          {dat.precio != "0" && (
-                            <p className="text-xl font-semibold text-[black] mb-4">
-                              ${dat.precio} MXN
+                          {dat.precio != "0" && dat.visibilidad_precio === 'VISIBLE' &&(
+                            <p className="text-xl font-semibold text-[red] mb-4">
+                              Precio: ${dat.precio} por 24 Horas
                             </p>
                           )}
-                          {dat.precio === "0" && (
-                            <p className="text-md font-semibold text-[black] mb-4">
+                          {dat.precio === "0" || dat.visibilidad_precio === 'NO VISIBLE' &&(
+                            <p className="text-md font-semibold text-gray-500 mb-4">
                               CONSULTAR PRECIO
                             </p>
                           )}
@@ -238,21 +196,28 @@ export default function PageProduct() {
                             <p className="text-lg font-semibold text-[black] underline">
                               Precio de renta:
                             </p>
-                            <p className="text-xl font-semibold text-[black]">
-                              ${product.price} MXN
+                            {dat.precio != "0" && dat.visibilidad_precio === 'VISIBLE' && (
+                            <p className="text-xl font-semibold text-[red] mb-4">
+                              Precio: ${dat.precio} por 24 Horas
                             </p>
+                          )}
+                          {dat.precio === "0" || dat.visibilidad_precio === 'NO VISIBLE' && (
+                            <p className="text-md font-semibold text-gray-500 mb-4">
+                              CONSULTAR PRECIO
+                            </p>
+                          )}
                           </div>
                           <div className="flex flex-col  py-2">
                             <p className="text-lg font-semibold text-[black] underline">
                               Precio de venta:
                             </p>
                             {dat.precio_venta != "0" && (
-                              <p className="text-xl font-semibold text-[black]">
-                                ${dat.precio_venta} MXN
+                              <p className="text-xl font-semibold text-[red]">
+                                Precio: ${dat.precio_venta} MXN
                               </p>
                             )}
                             {dat.precio_venta === "0" && (
-                              <p className="text-md font-semibold text-[black]">
+                              <p className="text-md font-semibold text-gray-500">
                                 CONSULTAR PRECIO
                               </p>
                             )}
