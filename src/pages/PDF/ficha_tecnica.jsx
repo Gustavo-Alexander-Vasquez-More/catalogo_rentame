@@ -4,10 +4,9 @@ import logo from "../../images/RENTAME-FICHA_page-0001.jpg";
 import banner from "../../images/banner.png";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-const FichaTecnica = () => {
+const FichaTecnica = ({_id}) => {
   const [loading, setLoading] = useState(null);
   const [datas, setDatas] = useState([]);
-  const {_id}=useParams()
   async function get() {
     try {
       const { data } = await axios.get(
@@ -26,7 +25,6 @@ const FichaTecnica = () => {
   }, []);
 
   return (
-    <PDFViewer className="w-full h-screen">
     <Document title={`Ficha tecnica.pdf`}>
       {datas.map((dat) => (
         <Page
@@ -135,7 +133,6 @@ const FichaTecnica = () => {
         </Page>
       ))}
     </Document>
-    </PDFViewer>
   );
 };
 
