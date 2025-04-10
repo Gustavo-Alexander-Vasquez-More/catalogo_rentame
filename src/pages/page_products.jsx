@@ -173,57 +173,9 @@ export default function PageProduct() {
                           )
                         }
                       </PDFDownloadLink>
-                      {/* Mostrar la descripción limitada */}
-
-                      {/* Mostrar el botón "Ver más" si la descripción excede el límite */}
-                      {dat.tipo_uso === "renta" && (
-                        <>
-                          {dat.precio != "0" && dat.visibilidad_precio === 'VISIBLE' &&(
-                            <p className="text-xl font-semibold text-[red] mb-4">
-                              Precio: ${dat.precio} por 24 Horas
-                            </p>
-                          )}
-                          {dat.precio === "0" || dat.visibilidad_precio === 'NO VISIBLE' &&(
-                            <p className="text-md font-semibold text-gray-500 mb-4">
-                              CONSULTAR PRECIO
-                            </p>
-                          )}
-                        </>
-                      )}
-                      {dat.tipo_uso === "venta" && (
-                        <>
-                          <div className="flex flex-col  py-2">
-                            <p className="text-lg font-semibold text-[black] underline">
-                              Precio de renta:
-                            </p>
-                            {dat.precio != "0" && dat.visibilidad_precio === 'VISIBLE' && (
-                            <p className="text-xl font-semibold text-[red] mb-4">
-                              Precio: ${dat.precio} por 24 Horas
-                            </p>
-                          )}
-                          {dat.precio === "0" || dat.visibilidad_precio === 'NO VISIBLE' && (
-                            <p className="text-md font-semibold text-gray-500 mb-4">
-                              CONSULTAR PRECIO
-                            </p>
-                          )}
-                          </div>
-                          <div className="flex flex-col  py-2">
-                            <p className="text-lg font-semibold text-[black] underline">
-                              Precio de venta:
-                            </p>
-                            {dat.precio_venta != "0" && (
-                              <p className="text-xl font-semibold text-[red]">
-                                Precio: ${dat.precio_venta} MXN
-                              </p>
-                            )}
-                            {dat.precio_venta === "0" && (
-                              <p className="text-md font-semibold text-gray-500">
-                                CONSULTAR PRECIO
-                              </p>
-                            )}
-                          </div>
-                        </>
-                      )}
+                      <p className="text-md font-semibold text-gray-500 mb-4">
+                        PRECIO A CONSULTAR
+                      </p>
                       <a
                         href="/"
                         className="text-[1rem] font-semibold text-secondary mb-4 underline flex gap-2 items-center"
@@ -252,9 +204,9 @@ export default function PageProduct() {
                           {dat.stock > 0 && (
                             <a
                               href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`}
-                              className="bg-[#323B75] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#2a2e56] transition-colors"
+                              className="bg-[#198754] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#1a6341] transition-colors"
                             >
-                              Rentar equipo
+                              Rentar equipo!
                             </a>
                           )}
                           {dat.stock === 0 && (
@@ -263,31 +215,35 @@ export default function PageProduct() {
                               disabled
                               className="bg-[#a7a7a7] text-white px-4 py-2 rounded-lg font-semibold transition-colors"
                             >
-                              Rentar equipo
+                              Rentar equipo!
                             </a>
                           )}
                           <a
                             href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en comprar el siguiente equipo: ${dat.nombre}`}
                             className="bg-[#C70000] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#b12c2c] transition-colors"
                           >
-                            Comprar equipo
+                            Comprar equipo!
                           </a>
                         </div>
                       )}
                       {dat.tipo_uso === "renta" && (
                         <div className="flex gap-4 mt-2">
                           {dat.stock > 0 && (
-                            <button className="bg-[#323B75] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#2a2e56] transition-colors">
-                              Rentar equipo
-                            </button>
+                            <a
+                              href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`}
+                              className="bg-[#198754] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#1a6341] transition-colors"
+                            >
+                              Rentar equipo!
+                            </a>
                           )}
                           {dat.stock === 0 && (
-                            <button
+                            <a
+                              href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`}
                               disabled
-                              className="bg-[#a7a7a7] text-white px-4 py-2 rounded-lg font-semibold  transition-colors"
+                              className="bg-[#a7a7a7] text-white px-4 py-2 rounded-lg font-semibold transition-colors"
                             >
-                              Rentar equipo
-                            </button>
+                              Rentar equipo!
+                            </a>
                           )}
                         </div>
                       )}
@@ -309,31 +265,33 @@ export default function PageProduct() {
                 )
             )}
           </div>
-          {datas.map(dat => dat && (
-  <div className="w-full lg:pl-[10.5rem] pl-[1.5rem] pr-[1.5rem] lg:pr-[21rem] mt-3 flex flex-col ">
-    {/* Solo mostrar si 'dat.tags' existe */}
-    {dat.tags.length > 0 && (
-  <>
-    <p className="font-bold text-[1.25rem] lg:no-underline underline lg:text-[1.2rem] text-[#323B75]">
-      Tags
-    </p>
-    <p>
-      {dat.tags.map((tag, index) => (
-        <span key={index} className="underline text-blue-500 text-[0.9rem]">
-          {tag}{index < dat.tags.length - 1 && ', '}
-        </span>
-      ))}
-    </p>
-  </>
-)}
-
-
-  </div>
-))}
-
-
+          {datas.map(
+            (dat) =>
+              dat && (
+                <div className="w-full lg:pl-[10.5rem] pl-[1.5rem] pr-[1.5rem] lg:pr-[21rem] mt-3 flex flex-col ">
+                  {/* Solo mostrar si 'dat.tags' existe */}
+                  {dat.tags.length > 0 && (
+                    <>
+                      <p className="font-bold text-[1.25rem] lg:no-underline underline lg:text-[1.2rem] text-[#323B75]">
+                        Tags
+                      </p>
+                      <p>
+                        {dat.tags.map((tag, index) => (
+                          <span
+                            key={index}
+                            className="underline text-blue-500 text-[0.9rem]"
+                          >
+                            {tag}
+                            {index < dat.tags.length - 1 && ", "}
+                          </span>
+                        ))}
+                      </p>
+                    </>
+                  )}
+                </div>
+              )
+          )}
         </div>
-
         <div className="w-full pt-[5rem]">
           <Footer />
         </div>

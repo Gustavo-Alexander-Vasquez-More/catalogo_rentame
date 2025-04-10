@@ -277,16 +277,6 @@ export default function equipos_venta() {
                       </svg>
                       Copy URL
                     </button>
-                    {dat.visibilidad_precio_venta === "VISIBLE" && (
-                      <p className="text-center text-[#1E3A8A] lg:text-[1rem] text-[0.9rem] font-semibold">
-                        ${dat.precio_venta} MXN
-                      </p>
-                    )}
-                    {dat.visibilidad_precio_venta === "NO VISIBLE" && (
-                      <p className="text-center text-gray-400 font-semibold lg:text-[1rem] text-[0.9rem]">
-                        Precio a consultar
-                      </p>
-                    )}
                     {dat.stock === 0 && (
                       <p className="text-center text-[#D9534F] font-semibold rounded-[5px] lg:text-[1rem] text-[0.9rem]">
                         Rentado
@@ -380,16 +370,6 @@ export default function equipos_venta() {
                       </svg>
                       Copy URL
                     </button>
-                    {dat.visibilidad_precio_venta === "VISIBLE" && (
-                      <p className="text-center text-[#1E3A8A] lg:text-[1rem] text-[0.9rem] font-semibold">
-                        ${dat.precio_venta} MXN
-                      </p>
-                    )}
-                    {dat.visibilidad_precio_venta === "NO VISIBLE" && (
-                      <p className="text-center text-gray-400 font-semibold lg:text-[1rem] text-[0.9rem]">
-                        Precio a consultar
-                      </p>
-                    )}
                     {dat.stock === 0 && (
                       <p className="text-center text-[#D9534F] font-semibold rounded-[5px] lg:text-[1rem] text-[0.9rem]">
                         Rentado

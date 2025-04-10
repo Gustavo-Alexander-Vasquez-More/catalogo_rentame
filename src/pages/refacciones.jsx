@@ -15,7 +15,7 @@ import img10 from "../images/refacciones/10.jpg";
 import Footer from "../components/footer";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import banner from '../images/banners/refacciones.jpg'
+import banner from "../images/banners/refacciones.jpg";
 function RefaccionesPage() {
   const [isOpen, setIsOpen] = useState(false);
   // Definir las imágenes
