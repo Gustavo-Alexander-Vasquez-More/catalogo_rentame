@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Page, Document, Image, View, Text, PDFViewer } from "@react-pdf/renderer";
+import {
+  Page,
+  Document,
+  Image,
+  View,
+  Text,
+} from "@react-pdf/renderer";
 import logo from "../../images/RENTAME-FICHA_page-0001.jpg";
 import banner from "../../images/banner.png";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-const FichaTecnica = ({_id}) => {
+const FichaTecnica = ({ _id }) => {
   const [loading, setLoading] = useState(null);
   const [datas, setDatas] = useState([]);
   async function get() {
@@ -76,7 +81,7 @@ const FichaTecnica = ({_id}) => {
           >
             {dat.codigo}
           </Text>
-          {dat.precio != "0" && dat.visibilidad_precio === 'VISIBLE' && (
+          {dat.precio != "0" && dat.visibilidad_precio === "VISIBLE" && (
             <Text
               style={{
                 fontSize: 11,
@@ -88,7 +93,7 @@ const FichaTecnica = ({_id}) => {
               ${dat.precio} MXN
             </Text>
           )}
-          {(dat.precio === "0" || dat.visibilidad_precio === 'NO VISIBLE') && (
+          {(dat.precio === "0" || dat.visibilidad_precio === "NO VISIBLE") && (
             <Text
               style={{
                 fontSize: 11,
@@ -100,13 +105,21 @@ const FichaTecnica = ({_id}) => {
               PRECIO NO DISPONIBLE
             </Text>
           )}
-          {dat.tipo_uso === 'venta' && (
-  <View style={{flexDirection:'column', fontSize:8.3, top:'32.5%', left:'5.7%', gap:2.5}}>
-    <Text>COSTO VENTA</Text>
-    {dat.precio_venta !== '0' && <Text>${dat.precio_venta}</Text>}
-    {dat.precio_venta === '0' && <Text>PRECIO NO DISPNIBLE</Text>}
-  </View>
-)}
+          {dat.tipo_uso === "venta" && (
+            <View
+              style={{
+                flexDirection: "column",
+                fontSize: 8.3,
+                top: "32.5%",
+                left: "5.7%",
+                gap: 2.5,
+              }}
+            >
+              <Text>COSTO VENTA</Text>
+              {dat.precio_venta !== "0" && <Text>${dat.precio_venta}</Text>}
+              {dat.precio_venta === "0" && <Text>PRECIO NO DISPNIBLE</Text>}
+            </View>
+          )}
 
           {/* La descripción ahora fluye automáticamente a otra página si es necesario */}
           <View

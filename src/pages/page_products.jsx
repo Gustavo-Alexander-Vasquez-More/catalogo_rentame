@@ -14,11 +14,7 @@ export default function PageProduct() {
   const [loading, setLoading] = useState();
   const [datas, setDatas] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  function openModal() {
-    window.scrollTo(0, 0);
-    setModal(true);
-    document.body.style.overflow = "hidden";
-  }
+  
   function closeModal() {
     setModal(false);
     document.body.style.overflow = "auto";
@@ -73,11 +69,8 @@ export default function PageProduct() {
       {modal && <Ficha_tecnica closeModal={closeModal} id={id} />}
       <div className="flex flex-col w-full h-auto ">
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
-        <div className="w-full flex z-0 justify-center items-center h-[15vh]">
-  </div>
-        <div
-          className="w-full flex flex-col justify-center items-center "
-        >
+        <div className="w-full flex z-0 justify-center items-center h-[15vh]"></div>
+        <div className="w-full flex flex-col justify-center items-center ">
           <div className="flex flex-col md:flex-row mt-10 lg:min-h-[50vh] w-full justify-center items-center px-[1.5rem] lg:px-4 ">
             {datas.map(
               (dat) =>

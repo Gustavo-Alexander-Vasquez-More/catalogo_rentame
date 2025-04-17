@@ -25,9 +25,7 @@ export default function equipos_venta() {
     duration: 3500,
   });
   const [productos_paginados, setProductos_paginados] = useState([]);
-  const [all_products, setAll_products] = useState([]);
   const [show_paginados, setShow_paginados] = useState(true);
-  const [visibleCount, setVisibleCount] = useState(6);
   const [show_filter_products, setShow_filter_products] = useState(false);
   const [filteredDatas, setFilteredDatas] = useState([]);
   const [loadingImages, setLoadingImages] = useState(true);
@@ -43,11 +41,6 @@ export default function equipos_venta() {
   const [loading, setLoading] = useState(true); // Estado de carga
 
   const [id, setId] = useState(null);
-
-  const handleImageLoad = () => {
-    setLoadingImages(false); // Una vez que la imagen se haya cargado
-  };
-
   async function get_products_paginates(page = current_page) {
     try {
       const { data } = await axios.get(
@@ -137,21 +130,24 @@ export default function equipos_venta() {
   return (
     <div className="w-full flex flex-col relative items-center">
       <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
- <div className="w-full flex z-0 justify-center items-center h-[60vh]">
-    <img
-      loading="lazy"
-      className="h-[60vh] object-cover object-top w-full relative"
-      src={ventaImage}
-      alt=""
-    />
-    <div className="w-full h-[60vh] opacity-60 bg-black absolute"></div>
-    <div className="absolute z-40 w-full h-[60vh] flex justify-center items-center text-white flex-col text-center px-[15%]">
-    <h1 className="text-4xl font-bold relative">Catálogo de Herramientas en Venta</h1>
-            <p className="mt-4 text-lg relative">
-            Conoce Nuestros equipos disponibles nuevos o usados de las mejores marcas.
-            </p>
-    </div>
-  </div>
+      <div className="w-full flex z-0 justify-center items-center h-[60vh]">
+        <img
+          loading="lazy"
+          className="h-[60vh] object-cover object-top w-full relative"
+          src={ventaImage}
+          alt=""
+        />
+        <div className="w-full h-[60vh] opacity-60 bg-black absolute"></div>
+        <div className="absolute z-40 w-full h-[60vh] flex justify-center items-center text-white flex-col text-center px-[15%]">
+          <h1 className="text-4xl font-bold relative">
+            Catálogo de Herramientas en Venta
+          </h1>
+          <p className="mt-4 text-lg relative">
+            Conoce Nuestros equipos disponibles nuevos o usados de las mejores
+            marcas.
+          </p>
+        </div>
+      </div>
       <div
         className={`flex flex-col items-center w-full h-auto bg-[#e3e2e2] transition-transform duration-500 ${
           isOpen ? "transform translate-y-[30px]" : "transform translate-y-0"

@@ -1,6 +1,5 @@
 import React from "react";
 import compramos from "../images/compramos.jpg";
-import google from "../images/google-minimal-logo.png";
 import facebook from "../images/facebook.png";
 
 export default function Footer() {
@@ -24,9 +23,7 @@ export default function Footer() {
 
         {/* Sección Redes & Opiniones */}
         <div className="flex flex-col items-center">
-          <p className="text-lg font-semibold mb-2">
-            Síguenos en facebook
-          </p>
+          <p className="text-lg font-semibold mb-2">Síguenos en facebook</p>
           <div className="flex gap-4 items-center">
             <a
               href="https://www.facebook.com/p/Rentame-Carmen-100094870352555/"

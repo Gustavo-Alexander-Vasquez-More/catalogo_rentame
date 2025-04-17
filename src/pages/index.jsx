@@ -12,7 +12,7 @@ import Beneficios from "../components/beneficios";
 import icon from "../images/rentame_icon.png";
 export default function index() {
   const [isOpen, setIsOpen] = useState(false);
-useEffect(() => {
+  useEffect(() => {
     // Encontrar el link con rel="icon" y cambiar su href
     const favicon = document.querySelector("link[rel='icon']");
 
@@ -43,10 +43,16 @@ useEffect(() => {
             en Ciudad del Carmen.
           </h3>
           <div className="flex lg:flex-row flex-col justify-center gap-[2rem] lg:gap-[5rem] text-[1rem] lg:text-[1.2rem] font-semibold">
-            <a href="/renta-equipos" className="bg-[#222d72] hover:bg-[#11283D] transition-colors duration-500 py-3 px-4 rounded-3">
+            <a
+              href="/renta-equipos"
+              className="bg-[#222d72] hover:bg-[#11283D] transition-colors duration-500 py-3 px-4 rounded-3"
+            >
               Ver Equipos en Renta
             </a>
-            <a href="/venta-equipos" className="bg-[#222d72] hover:bg-[#11283D] transition-colors duration-500 py-3 px-4 rounded-3">
+            <a
+              href="/venta-equipos"
+              className="bg-[#222d72] hover:bg-[#11283D] transition-colors duration-500 py-3 px-4 rounded-3"
+            >
               Ver Equipos en Venta
             </a>
           </div>
@@ -142,7 +148,9 @@ useEffect(() => {
               />
             </div>
             <div className="lg:w-[50%] w-full">
-              <h1 className="lg:text-[1.6rem] text-[1.4rem] font-bold mb-2">Centro de Servicio</h1>
+              <h1 className="lg:text-[1.6rem] text-[1.4rem] font-bold mb-2">
+                Centro de Servicio
+              </h1>
               <p className="lg:text-[1.1rem] text-[0.9rem] font-semibold mb-2">
                 Contamos con un centro de servicio especializado en las marcas
                 más reconocidas del mercado, asegurando que los mantenimientos
