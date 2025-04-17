@@ -5,6 +5,7 @@ import Footer from "../components/footer";
 import Navbar from "../components/navbar";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
+import about from "../images/about.jpg";
 export default function equipos_venta() {
   useEffect(() => {
     // Encontrar el link con rel="icon" y cambiar su href
@@ -133,8 +134,23 @@ export default function equipos_venta() {
     notyf.success("Enlace copiado");
   };
   return (
-    <div className="bg-[#323B75]">
+    <div className="w-full flex flex-col relative items-center">
       <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
+ <div className="w-full flex z-0 justify-center items-center h-[60vh]">
+    <img
+      loading="lazy"
+      className="h-[60vh] object-cover object-top w-full relative"
+      src='https://www.revista.ferrepat.com/wp-content/uploads/2015/11/800x518xmartelo-demolidor-bosh-gsh-27-2.jpeg.pagespeed.ic_.dyJvYSW93P-e1447918275963.jpg'
+      alt=""
+    />
+    <div className="w-full h-[60vh] opacity-60 bg-black absolute"></div>
+    <div className="absolute z-40 w-full h-[60vh] flex justify-center items-center text-white flex-col text-center px-[15%]">
+    <h1 className="text-4xl font-bold relative">Catálogo de Herramientas en Venta</h1>
+            <p className="mt-4 text-lg relative">
+            Conoce Nuestros equipos disponibles nuevos o usados de las mejores marcas.
+            </p>
+    </div>
+  </div>
       <div
         className={`flex flex-col items-center w-full h-auto bg-[#e3e2e2] transition-transform duration-500 ${
           isOpen ? "transform translate-y-[30px]" : "transform translate-y-0"

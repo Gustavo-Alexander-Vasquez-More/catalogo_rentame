@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/navbar";
+import Navbar from "../components/navbar2";
 import { useLocation } from "react-router-dom";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import axios from "axios";
@@ -71,12 +71,12 @@ export default function PageProduct() {
         </Helmet>
       )}
       {modal && <Ficha_tecnica closeModal={closeModal} id={id} />}
-      <div className="flex flex-col w-full h-auto bg-[#e3e2e2]">
+      <div className="flex flex-col w-full h-auto ">
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
+        <div className="w-full flex z-0 justify-center items-center h-[15vh]">
+  </div>
         <div
-          className={`flex flex-col items-center w-full h-auto bg-[#e3e2e2] transition-transform duration-500 ${
-            isOpen ? "transform translate-y-[30px]" : "transform translate-y-0"
-          }`}
+          className="w-full flex flex-col justify-center items-center "
         >
           <div className="flex flex-col md:flex-row mt-10 lg:min-h-[50vh] w-full justify-center items-center px-[1.5rem] lg:px-4 ">
             {datas.map(

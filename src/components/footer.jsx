@@ -5,7 +5,7 @@ import facebook from "../images/facebook.png";
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-r from-[#323B75] lg:px-0 px-[1rem] via-[#4a5b9f] to-[#1f2b57] text-white w-full py-8">
+    <footer className="bg-[#222d72] text-white w-full py-8">
       <div className="container mx-auto px-4 grid md:grid-cols-3 gap-6 items-center">
         {/* Sección del Logo */}
         <div className="flex flex-col items-center w-full lg:w-[80%]">
@@ -25,7 +25,7 @@ export default function Footer() {
         {/* Sección Redes & Opiniones */}
         <div className="flex flex-col items-center">
           <p className="text-lg font-semibold mb-2">
-            Síguenos y déjanos tu opinión
+            Síguenos en facebook
           </p>
           <div className="flex gap-4 items-center">
             <a
@@ -39,17 +39,6 @@ export default function Footer() {
                 className="h-8 w-8 transition-transform hover:scale-110"
               />
             </a>
-            <a
-              href="https://search.google.com/local/writereview?placeid=ChIJUSFC42up8YURtPF2RUOE55o"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src={google}
-                alt="Google Reviews"
-                className="h-6 w-6 transition-transform hover:scale-110"
-              />
-            </a>
           </div>
         </div>
 
@@ -57,7 +46,7 @@ export default function Footer() {
         <div className="flex flex-col items-center">
           <p className="text-lg font-semibold">Horarios de Atención</p>
           <p className="text-gray-300 text-sm">
-            Lunes a Viernes: 9:00 AM - 6:00 PM
+            Lunes a Viernes: 9:00 AM - 7:00 PM
           </p>
           <p className="text-gray-300 text-sm">Sábados: 9:00 AM - 3:00 PM</p>
           <p className="text-gray-300 text-sm">Domingos: Cerrado</p>

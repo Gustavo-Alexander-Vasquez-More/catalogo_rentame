@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import logo from "../images/logo_blanco.png";
-export default function navbar({ isOpen, setIsOpen }) {
+export default function navbar2({ isOpen, setIsOpen }) {
   const [scrolled, setScrolled] = useState(false);
   const [formulario, setFormulario] = useState(false);
   const [nombre, setNombre] = useState();
@@ -129,9 +129,7 @@ export default function navbar({ isOpen, setIsOpen }) {
         </div>
       )}
       <div className="w-full flex flex-col">
-        <nav  className={`w-full h-[15vh] fixed top-0 lg:px-[3rem]  sm:flex sm:items-center z-50 sm:justify-between items-center  ${
-    scrolled || isOpen ? 'bg-[#c70000]' : 'bg-transparent'
-  }`}>
+        <nav  className="w-full h-[15vh] fixed top-0 lg:px-[3rem]  sm:flex sm:items-center z-50 sm:justify-between items-center bg-[#c70000]">
     {/* EN PANTALLA GRANDE */}
     <section className="lg:flex hidden items-center gap-2 h-[10vh] ">
       <img src={logo} className="w-[8rem]" alt="Tailwind Play" />
