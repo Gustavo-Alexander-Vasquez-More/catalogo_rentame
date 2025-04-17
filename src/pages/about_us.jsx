@@ -1,11 +1,21 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import about from "../images/about.jpg";
+import icon from "../images/rentame_icon.png";
 export default function AboutUs() {
   const [isOpen, setIsOpen] = useState(false);
+useEffect(() => {
+  document.title = "Sobre Nosotros | RentameCarmen";
+    // Encontrar el link con rel="icon" y cambiar su href
+    const favicon = document.querySelector("link[rel='icon']");
 
+    // Si el favicon existe, cambiamos el href
+    if (favicon) {
+      favicon.href = icon; // Actualizamos el favicon con la nueva imagen
+    }
+  }, []);
   return (
     <>
       <Helmet>

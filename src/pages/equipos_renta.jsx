@@ -9,6 +9,7 @@ import banerRenta from '../images/ventaMaquinaria.jpg';
 export default function equipos_renta() {
       const [isOpen, setIsOpen] = useState(false);
       useEffect(() => {
+        document.title = "Equipos en Renta | RentameCarmen";
         // Encontrar el link con rel="icon" y cambiar su href
         const favicon = document.querySelector("link[rel='icon']");
     

@@ -5,9 +5,10 @@ import Footer from "../components/footer";
 import Navbar from "../components/navbar";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
-import about from "../images/about.jpg";
+import ventaImage from "../images/ventaImage.jpg";
 export default function equipos_venta() {
   useEffect(() => {
+    document.title = "Equipos en venta | RentameCarmen";
     // Encontrar el link con rel="icon" y cambiar su href
     const favicon = document.querySelector("link[rel='icon']");
 
@@ -140,7 +141,7 @@ export default function equipos_venta() {
     <img
       loading="lazy"
       className="h-[60vh] object-cover object-top w-full relative"
-      src='https://www.revista.ferrepat.com/wp-content/uploads/2015/11/800x518xmartelo-demolidor-bosh-gsh-27-2.jpeg.pagespeed.ic_.dyJvYSW93P-e1447918275963.jpg'
+      src={ventaImage}
       alt=""
     />
     <div className="w-full h-[60vh] opacity-60 bg-black absolute"></div>

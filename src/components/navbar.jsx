@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import logo from "../images/logo_blanco.png";
+import { useLocation } from "react-router-dom";
 export default function navbar({ isOpen, setIsOpen }) {
+  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [formulario, setFormulario] = useState(false);
   const [nombre, setNombre] = useState();
@@ -141,11 +143,58 @@ export default function navbar({ isOpen, setIsOpen }) {
         </svg>
       </button>
       <div class="lg:flex hidden flex-col items-center lg:text-[1.15rem]  gap-1 sm:flex-row sm:m-0">
-        <a href="/" class="text-[white] hover:bg-gray-200 transition-colors duration-500 text-left px-3 py-2 rounded hover:text-gray-900">Inicio</a>
-      <a href="/renta-equipos" class="text-[white] hover:bg-gray-200  text-left transition-colors duration-500 rounded px-3 py-2 hover:text-gray-900">Renta de Equipos</a>
-      <a href="/venta-equipos" class="text-[white] hover:bg-gray-200  text-left transition-colors duration-500 rounded px-3 py-2 hover:text-gray-900">Venta de Equipos</a>
-        <a href="/centro_servicio" class="text-[white] hover:bg-gray-200  text-left transition-colors duration-500 rounded px-3 py-2 hover:text-gray-900">Centro de Servicio</a>
-        <a href="/about_us" class="text-[white] hover:bg-gray-200  text-left transition-colors duration-500 rounded px-3 py-2 hover:text-gray-900">Sobre nosotros</a>
+      <a
+  href="/"
+  className={`px-3 py-2 rounded transition-colors duration-500 text-left ${
+    location.pathname === "/" 
+      ? "bg-gray-200 text-gray-900" 
+      : "text-white hover:bg-gray-200 hover:text-gray-900"
+  }`}
+>
+  Inicio
+</a>
+
+<a
+    href="/renta-equipos"
+    className={`px-3 py-2 rounded transition-colors duration-500 text-left ${
+      location.pathname === "/renta-equipos"
+        ? "bg-gray-200 text-gray-900"
+        : "text-white hover:bg-gray-200 hover:text-gray-900"
+    }`}
+  >
+    Renta de Equipos
+  </a>
+  <a
+    href="/venta-equipos"
+    className={`px-3 py-2 rounded transition-colors duration-500 text-left ${
+      location.pathname === "/venta-equipos"
+        ? "bg-gray-200 text-gray-900"
+        : "text-white hover:bg-gray-200 hover:text-gray-900"
+    }`}
+  >
+    Venta de Equipos
+  </a>
+
+  <a
+    href="/centro_servicio"
+    className={`px-3 py-2 rounded transition-colors duration-500 text-left ${
+      location.pathname === "/centro_servicio"
+        ? "bg-gray-200 text-gray-900"
+        : "text-white hover:bg-gray-200 hover:text-gray-900"
+    }`}
+  >
+    Centro de Servicio
+  </a>
+  <a
+    href="/about_us"
+    className={`px-3 py-2 rounded transition-colors duration-500 text-left ${
+      location.pathname === "/about_us"
+        ? "bg-gray-200 text-gray-900"
+        : "text-white hover:bg-gray-200 hover:text-gray-900"
+    }`}
+  >
+    Sobre nosotros
+  </a>
         <button onClick={openFormulario} class="text-[white]  hover:bg-gray-200 text-left transition-colors duration-500 rounded px-3 py-2 hover:text-gray-900">Contacto</button>
         </div>
     </section>

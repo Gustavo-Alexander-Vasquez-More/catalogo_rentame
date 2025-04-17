@@ -9,9 +9,18 @@ import "notyf/notyf.min.css";
 import Footer from "../components/footer";
 import Reseñas from "../components/reseñas";
 import Beneficios from "../components/beneficios";
+import icon from "../images/rentame_icon.png";
 export default function index() {
   const [isOpen, setIsOpen] = useState(false);
+useEffect(() => {
+    // Encontrar el link con rel="icon" y cambiar su href
+    const favicon = document.querySelector("link[rel='icon']");
 
+    // Si el favicon existe, cambiamos el href
+    if (favicon) {
+      favicon.href = icon; // Actualizamos el favicon con la nueva imagen
+    }
+  }, []);
   return (
     <>
       <div className="w-full flex flex-col relative items-center">
@@ -33,13 +42,13 @@ export default function index() {
             No esperes más!. Tenemos equipos de Calidad para Todos Tus Proyectos
             en Ciudad del Carmen.
           </h3>
-          <div className="flex lg:flex-row flex-col justify-center gap-3 lg:gap-5 text-[1rem] lg:text-[1.2rem] font-semibold">
-            <button className="bg-[#222d72] hover:bg-[#11283D] transition-colors duration-500 py-3 px-4 rounded-3">
+          <div className="flex lg:flex-row flex-col justify-center gap-[2rem] lg:gap-[5rem] text-[1rem] lg:text-[1.2rem] font-semibold">
+            <a href="/renta-equipos" className="bg-[#222d72] hover:bg-[#11283D] transition-colors duration-500 py-3 px-4 rounded-3">
               Ver Equipos en Renta
-            </button>
-            <button className="bg-[#222d72] hover:bg-[#11283D] transition-colors duration-500 py-3 px-4 rounded-3">
+            </a>
+            <a href="/venta-equipos" className="bg-[#222d72] hover:bg-[#11283D] transition-colors duration-500 py-3 px-4 rounded-3">
               Ver Equipos en Venta
-            </button>
+            </a>
           </div>
         </div>
         {/* DEFINICION VENTA , RENTA Y REPARACION DE MAQUINARIAS */}
@@ -80,7 +89,7 @@ export default function index() {
                 entre otras.
               </p>
               <a
-                href=""
+                href="/renta-equipos"
                 className="underline text-[#222D72] lg:text-[1.1rem] text-[0.9rem] font-semibold"
               >
                 Mira nuestro catalogo de equipos en renta.
@@ -114,7 +123,7 @@ export default function index() {
                 ofrecerte en bases a tus requerimientos lo mas conveniente.
               </p>
               <a
-                href=""
+                href="/venta-equipos"
                 className="underline text-[#222D72] lg:text-[1.1rem] text-[0.9rem] font-semibold"
               >
                 Mira nuestro catalogo de equipos en venta.
@@ -156,7 +165,7 @@ export default function index() {
                 necesidades y requerimientos.
               </p>
               <a
-                href=""
+                href="/centro_servicio"
                 className="underline text-[#222D72] lg:text-[1.1rem] text-[0.9rem] font-semibold"
               >
                 Conoce más de nosotros.

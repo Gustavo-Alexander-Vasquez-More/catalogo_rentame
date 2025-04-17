@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import taller from '../images/reparacionEquipos.jpg';
 import centroImagen from '../images/centroIMAGEN.jpg';
 import centroImagen2 from '../images/centroBaner.jpg';
+import icon from "../images/rentame_icon.png";
 export default function centroServicio() {
     const [isOpen, setIsOpen] = useState(false);
+      useEffect(() => {
+        document.title = "Centro de Servicio | RentameCarmen";
+        // Encontrar el link con rel="icon" y cambiar su href
+        const favicon = document.querySelector("link[rel='icon']");
     
+        // Si el favicon existe, cambiamos el href
+        if (favicon) {
+          favicon.href = icon; // Actualizamos el favicon con la nueva imagen
+        }
+      }, []);
   return (
     <div className="w-full min-h-screen relative flex flex-col">
   <Navbar isOpen={isOpen} setIsOpen={setIsOpen}/>

@@ -67,7 +67,7 @@ mobile: {
   </div>
     
     <div className="">
-      <a  href='' className="text-success font-semibold shadow-xl underline">
+      <a  href={`/detalle-producto?id=${product._id}`} className="text-success font-semibold shadow-xl underline">
         Ver equipo
       </a>
     </div>
