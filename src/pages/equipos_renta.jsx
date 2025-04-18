@@ -7,6 +7,7 @@ import { Helmet } from "react-helmet";
 import "notyf/notyf.min.css";
 import Navbar from "../components/navbar";
 import banerRenta from "../images/ventaMaquinaria.jpg";
+import whatsapp from "../images/whatsapp.png";
 export default function equipos_renta() {
   const [isOpen, setIsOpen] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -210,6 +211,7 @@ export default function equipos_renta() {
       {/* LOADER DE IMAGENES */}
 
       <div className="w-full flex flex-col relative items-center">
+        <a href="https://wa.link/gpu01d" target="_blank" className="fixed lg:top-[82%] top-[87%] right-5 z-50 shadow-xl bg-[#ffffff3d] rounded-full"><img className="lg:w-[6rem] w-[4.5rem]" src={whatsapp} alt="sds" /></a>
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
         <div className="w-full flex z-0 justify-center items-center h-[60vh]">
           <img

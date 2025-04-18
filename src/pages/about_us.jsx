@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
+import whatsapp from "../images/whatsapp.png";
 import about from "../images/about.jpg";
 import icon from "../images/rentame_icon.png";
 import { Eye, Target, ShieldCheck, MessageCircle } from "lucide-react";
@@ -31,6 +32,7 @@ export default function AboutUs() {
       </Helmet>
 
       <div className="w-full flex flex-col relative items-center">
+         <a href="https://wa.link/gpu01d" target="_blank" className="fixed lg:top-[82%] top-[87%] right-5 z-50 shadow-xl bg-[#ffffff3d] rounded-full"><img className="lg:w-[6rem] w-[4.5rem]" src={whatsapp} alt="sds" /></a>
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
         <div className="w-full flex z-0 justify-center items-center h-[60vh]">
           <img
@@ -60,15 +62,15 @@ export default function AboutUs() {
               </p>
 
               <p className="mt-4 text-base lg:text-lg text-gray-700">
-                <span className="font-bold text-black">RentameCarmen</span>{" "}
+                <span className="font-bold text-red-700">RentameCarmen</span>{" "}
                 nació para facilitar herramientas y equipos a profesionales de
-                Ciudad del Carmen en áreas como construcción, jardinería y
-                carpintería.
+                Ciudad del Carmen en áreas como construcción, jardinería,
+                carpintería y diversos oficios.
               </p>
 
               <p className="mt-4 text-base lg:text-lg text-gray-700">
                 Creamos el{" "}
-                <span className="font-bold text-black">
+                <span className="font-bold text-red-700">
                   RM Centro de Servicio
                 </span>{" "}
                 ante la falta de técnicos confiables. Reparamos sin pedir
@@ -100,15 +102,15 @@ export default function AboutUs() {
                 RentameCarmen.com.mx: Impulsando Oficios y Emprendimientos.
               </p>
               <p className="mt-4 text-lg text-gray-700">
-                <span className="text-[black] font-bold ">RentameCarmen</span>{" "}
+                <span className="text-red-700 font-bold ">RentameCarmen</span>{" "}
                 nació para cubrir la necesidad de un espacio en Ciudad del
                 Carmen donde profesionales y emprendedores puedan acceder a
                 herramientas y equipos de calidad que impulsen sus proyectos en
-                áreas como construcción, jardinería, carpintería, entre otras.
+                áreas como construcción, jardinería, carpintería y diversos oficios.
               </p>
               <p className="mt-4 text-lg text-gray-700">
                 Con el tiempo, surgió{" "}
-                <span className="text-[black] font-bold ">
+                <span className="text-red-700 font-bold ">
                   RM Centro de Servicio
                 </span>
                 , fundado ante la falta de técnicos confiables en la zona. Este
@@ -163,7 +165,7 @@ export default function AboutUs() {
                     Nuestra Misión
                   </h3>
                   <p className="mt-4 text-gray-600 text-start">
-                    En <span className="font-bold">RentameCarmen</span>, nuestra
+                    En <span className="font-bold text-red-700">RentameCarmen</span>, nuestra
                     misión es proporcionar soluciones confiables y accesibles en
                     la renta, venta y reparación de maquinaria. Buscamos ser el
                     aliado ideal para profesionales y emprendedores, ofreciendo
@@ -208,7 +210,7 @@ export default function AboutUs() {
                 soluciones de maquinaria.
               </p>
               <button className="mt-6 px-6 py-3 bg-white text-green-700 font-semibold rounded-lg shadow hover:bg-gray-100 transition">
-                <a href="tel:+529381958284">Contáctanos</a>
+                <a href="https://wa.link/gpu01d">Contáctanos</a>
               </button>
             </div>
           </section>

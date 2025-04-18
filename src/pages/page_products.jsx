@@ -3,6 +3,7 @@ import Navbar from "../components/navbar2";
 import { useLocation } from "react-router-dom";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import axios from "axios";
+import whatsapp from "../images/whatsapp.png";
 import { Helmet } from "react-helmet";
 import Footer from "../components/footer";
 import Ficha_tecnica from "./ficha_tecnica";
@@ -68,6 +69,7 @@ export default function PageProduct() {
       )}
       {modal && <Ficha_tecnica closeModal={closeModal} id={id} />}
       <div className="flex flex-col w-full h-auto ">
+        <a href="https://wa.link/gpu01d" target="_blank" className="fixed lg:top-[82%] top-[87%] right-5 z-50 shadow-xl bg-[#ffffff3d] rounded-full"><img className="lg:w-[6rem] w-[4.5rem]" src={whatsapp} alt="sds" /></a>
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
         <div className="w-full flex z-0 justify-center items-center h-[15vh]"></div>
         <div className="w-full flex flex-col justify-center items-center ">

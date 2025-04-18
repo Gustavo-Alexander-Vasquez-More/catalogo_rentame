@@ -8,6 +8,7 @@ import banerPrincipal from "../images/banerPrincipal.jpg";
 import tallerDescriptivo from "../images/tallerDescriptivo.jpg";
 import Marcas from "../components/marcas";
 import "notyf/notyf.min.css";
+import whatsapp from "../images/whatsapp.png";
 import Footer from "../components/footer";
 import Reseñas from "../components/reseñas";
 import Beneficios from "../components/beneficios";
@@ -26,13 +27,15 @@ export default function index() {
   }, []);
   return (
     <>
+      
       <Helmet>
         <meta charSet="utf-8" />
         <title>Rentame Carmen | Tu mejor Aliado</title>
         <link rel="canonical" href="https://www.rentamecarmen.com.mx" />
         <link rel="preload" as="image" href={banerPrincipal} />
       </Helmet>
-      <div className="w-full flex flex-col relative items-center">
+      <div className="w-full flex flex-col z-40 relative items-center">
+      <a href="https://wa.link/gpu01d" target="_blank" className="fixed lg:top-[82%] top-[87%] right-5 z-50 shadow-xl bg-[#ffffff3d] rounded-full"><img className="lg:w-[6rem] w-[4.5rem]" src={whatsapp} alt="sds" /></a>
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
         <div className="w-full flex z-0 justify-center items-center h-[100vh]">
           <img
@@ -83,20 +86,19 @@ export default function index() {
                 className="shadow-md w-full lg:w-[90%] object-cover lg:h-[50vh]"
               />
             </div>
-            <div className="lg:w-[50%] w-full">
+            <div className="lg:w-[50%] w-full text-gray-700">
               <h1 className="lg:text-[1.6rem] text-[1.4rem] font-bold mb-2">
                 Renta de Maquinaria
               </h1>
-              <p className="lg:text-[1.1rem] text-[0.9rem] font-semibold mb-2">
-                Ofrecemos herramientas y equipos para construcción y oficios,
+              <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
+                Ofrecemos herramientas, equipos para construcción y diversos oficios,
                 con opciones para cada necesidad. Si no tenemos lo que buscas,
-                buscamos una alternativa.
+                estaremos encantados de brindarte una alternativa para que puedas continuar con tu proyecto.
               </p>
-              <p className="lg:text-[1.1rem] text-[0.9rem] font-semibold mb-2">
-                Trabajamos con marcas líderes y tecnología como Starlink para
-                brindarte un servicio confiable y eficiente.
-              </p>
-              <p className="lg:text-[1.1rem] text-[0.9rem] font-semibold mb-2">
+              <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
+              Trabajamos con marcas líderes en herramientas y maquinaria ligera para ofrecerte equipos confiables y de alto rendimiento. Además, contamos con equipos tecnológicos y de otros oficios para proyectos que lo requieran.
+</p>
+              <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
                 Marcas como Bosch, Dewalt, Makita, Milwaukee, entre otras,
                 respaldan la calidad de nuestro catálogo.
               </p>
@@ -119,16 +121,16 @@ export default function index() {
                 className=" shadow-md w-full lg:w-[90%] object-cover lg:h-[50vh]"
               />
             </div>
-            <div className="lg:w-[50%] w-full">
+            <div className="lg:w-[50%] w-full text-gray-700">
               <h1 className="lg:text-[1.6rem] text-[1.4rem] font-bold mb-2">
                 Venta de Herramientas
               </h1>
-              <p className="lg:text-[1.1rem] text-[0.9rem] font-semibold mb-2">
+              <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
                 ¿Buscas herramientas nuevas o usadas a buen precio? En
-                RentameCarmen contamos con opciones accesibles y confiables para
+                <span className="text-red-700 font-bold"> RentameCarmen</span> contamos con opciones accesibles y confiables para
                 distintos oficios y necesidades.
               </p>
-              <p className="lg:text-[1.1rem] text-[0.9rem] font-semibold mb-2">
+              <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
                 Desde equipos ligeros hasta maquinaria especializada, te
                 ayudamos a encontrar lo que necesitas con atención personalizada
                 y disponibilidad inmediata.
@@ -152,20 +154,20 @@ export default function index() {
                 className=" shadow-md w-full lg:w-[90%] object-cover lg:h-[50vh]"
               />
             </div>
-            <div className="lg:w-[50%] w-full">
+            <div className="lg:w-[50%] w-full text-gray-700">
               <h1 className="lg:text-[1.6rem] text-[1.4rem] font-bold mb-2">
                 Centro de Servicio
               </h1>
-              <p className="lg:text-[1.1rem] text-[0.9rem] font-semibold mb-2">
+              <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
                 Nuestro centro especializado brinda mantenimiento y reparación
                 para herramientas y equipos de marcas reconocidas, con stock de
                 refacciones siempre disponible.
               </p>
-              <p className="lg:text-[1.1rem] text-[0.9rem] font-semibold mb-2">
+              <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
                 Mientras reparamos tus herramientas, puedes rentar equipo con
                 nosotros. También compramos herramientas que ya no planeas usar.
               </p>
-              <p className="lg:text-[1.1rem] text-[0.9rem] font-semibold mb-2">
+              <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
                 Contamos con refacciones nuevas y usadas gracias a nuestro
                 deshuesadero. Acércate y encuentra soluciones a medida para tus
                 proyectos.

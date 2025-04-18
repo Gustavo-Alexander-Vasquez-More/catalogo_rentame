@@ -5,6 +5,7 @@ import taller from "../images/reparacionEquipos.jpg";
 import centroImagen from "../images/centroIMAGEN.jpg";
 import centroImagen2 from "../images/centroBaner.jpg";
 import { Helmet } from "react-helmet";
+import whatsapp from "../images/whatsapp.png";
 import icon from "../images/rentame_icon.png";
 export default function centroServicio() {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,8 +33,8 @@ export default function centroServicio() {
     <link rel="preload" as="image" href={centroImagen2} />
   </Helmet>
     <div className="w-full min-h-screen relative flex flex-col">
+      <a href="https://wa.link/gpu01d" target="_blank" className="fixed lg:top-[82%] top-[87%] right-5 z-50 shadow-xl bg-[#ffffff3d] rounded-full"><img className="lg:w-[6rem] w-[4.5rem]" src={whatsapp} alt="sds" /></a>
       <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
-
       {/* Hero */}
       <div className="w-full flex z-0 justify-center items-center h-[60vh]">
       <img
@@ -54,15 +55,15 @@ export default function centroServicio() {
       {/* Texto descriptivo MOBILE corto*/}
       <div className="w-full flex lg:hidden flex-col py-10 px-[1rem] lg:px-[4rem] text-gray-700">
   <p className="lg:text-3xl text-[1.5rem] font-semibold text-blue-900">
-    RM Centro de Servicio: Soluciones Técnicas para tu Negocio
+    <span className="text-red-700 font-bold">RM Centro de Servicio:</span> Soluciones Técnicas para tu Negocio
   </p>
 
   <p className="text-base lg:text-lg mt-5">
-    En <span className="font-bold text-black">RM CENTRO DE SERVICIO</span> reparamos, mantenemos y renovamos herramientas eléctricas y de combustión.
+    En <span className="font-bold text-red-700">RM CENTRO DE SERVICIO</span> reparamos, mantenemos y renovamos herramientas eléctricas y de combustión.
   </p>
 
   <p className="mt-4 text-base lg:text-lg">
-    Estamos en Ciudad del Carmen, con técnicos capacitados listos para ayudarte con maquinaria ligera de construcción u otros oficios.
+    Estamos en Ciudad del Carmen, con técnicos capacitados listos para ayudarte con maquinaria ligera de construcción y diversos oficios.
   </p>
 
   <p className="mt-4 text-base lg:text-lg">
@@ -81,11 +82,11 @@ export default function centroServicio() {
       {/* Texto descriptivo WEB largo*/}
       <div className="w-full lg:flex hidden flex-col py-10 px-[1rem] lg:px-[4rem] text-gray-700">
         <p className="lg:text-3xl text-[1.5rem] font-semibold text-blue-900">
-          RM Centro de Servicio: Soluciones Técnicas que Mantienen tu Negocio en
+          <span  className="text-red-700 font-bold">RM Centro de Servicio:</span> Soluciones Técnicas que Mantienen tu Negocio en
           Marcha.
         </p>
         <p className="text-lg mt-5">
-          En <span className="text-black font-bold">RM CENTRO DE SERVICIO</span>
+          En <span className="text-red-700 font-bold">RM CENTRO DE SERVICIO</span>
           , nos especializamos en la reparación, mantenimiento y renovación de
           herramientas eléctricas y de combustión.
         </p>
@@ -95,15 +96,14 @@ export default function centroServicio() {
           necesario para garantizar que tus equipos se mantengan en condiciones
           óptimas. Nuestros equipos de técnicos altamente capacitados están a tu
           disposición para asesorarte y resolver cualquier inconveniente que
-          pueda surgir con tu maquinaria ligera, ya sea para la construcción u
-          otros oficios.
+          pueda surgir con tu maquinaria ligera, ya sea para la construcción y diversos oficios.
         </p>
         <p className="mt-4 text-lg">
           Confía en nosotros para mantener tu maquinaria en un estado excelente
           y asegurarte de que tus equipos estén siempre listos para cualquier
           proyecto que se presente. En nuestro taller, puedes reparar y dar
           mantenimiento a una amplia gama de equipos, desde taladros hasta
-          vibrocompactadoras.
+          motosierras y muchos equipos más.
         </p>
 
         <p className="mt-4 text-lg">
@@ -163,7 +163,7 @@ export default function centroServicio() {
           </div>
           <div className="lg:w-1/2 w-full text-gray-700">
             <h2 className="text-2xl font-bold text-blue-700 mb-3">
-              Así luce nuestro taller
+              Nuestro taller
             </h2>
             <p className="text-lg">
               Contamos con instalaciones completamente equipadas para brindar un
