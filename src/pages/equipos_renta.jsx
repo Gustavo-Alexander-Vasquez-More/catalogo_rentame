@@ -509,79 +509,74 @@ export default function equipos_renta() {
             </div>
             {/* TODOS LOS PRODUCTOS PAGINADOS */}
             {show_paginados === true && loadingImages === false && (
-              <div className="w-full py-[2rem] flex items-center justify-center gap-2">
-                <div className="flex gap-3 items-center">
-                  {/* Botón "Anterior" */}
-                  <button
-                    onClick={prevPage}
-                    disabled={current_page === 1}
-                    className="bg-[#0D6EFD] disabled:bg-[gray] text-white px-[1rem] py-[0.3rem] lg:text-[1rem] text-[0.8rem] rounded-[5px]"
+              <div className="w-full py-4 flex items-center justify-center">
+              <div className="flex items-center gap-2 md:gap-4 flex-wrap justify-center max-w-full">
+                {/* Botón "Anterior" */}
+                <button
+                  onClick={prevPage}
+                  disabled={current_page === 1}
+                  className="bg-[#0D6EFD] hover:bg-[#0b5ed7] disabled:bg-gray-400 text-white p-2 rounded-full transition duration-200 shadow-sm w-8 h-8 flex items-center justify-center"
+                >
+                  <svg
+                    className="w-4 h-4 md:w-5 md:h-5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
-                    <svg
-                      class="w-4 h-4 lg:w-6 lg:h-6 text-white"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="none"
-                      viewBox="0 0 24 24"
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M5 12h14M5 12l4-4m-4 4 4 4"
+                    />
+                  </svg>
+                </button>
+            
+                {/* Números de página dinámicos */}
+                <div className="flex gap-[0.3rem] md:gap-2 flex-wrap justify-center max-w-full">
+                  {generatePageNumbers(current_page, total_pages).map((page) => (
+                    <button
+                      key={page}
+                      disabled={current_page === page}
+                      onClick={() => goToPage(page)}
+                      className={`text-xs md:text-base px-2 md:px-3 py-[0.3rem] md:py-1 rounded-md font-medium transition duration-200 ${
+                        current_page === page
+                          ? "bg-[#0D6EFD] text-white shadow-sm"
+                          : "bg-white text-gray-800 border border-gray-300 hover:bg-gray-100"
+                      }`}
                     >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 12h14M5 12l4-4m-4 4 4 4"
-                      />
-                    </svg>
-                  </button>
-
-                  {/* Números de página dinámicos */}
-                  <div className="flex gap-2">
-                    {generatePageNumbers(current_page, total_pages).map(
-                      (page) => (
-                        <button
-                          key={page}
-                          disabled={current_page === page}
-                          onClick={() => goToPage(page)}
-                          className={`lg:px-3 lg:text-[1rem] text-[0.8rem]  py-1 rounded-lg ${
-                            current_page === page
-                              ? "lg:bg-[#0D6EFD] text-[blue] font-bold underline lg:text-[white]"
-                              : "lg:bg-white text-black lg:border lg:border-gray-300"
-                          }`}
-                        >
-                          {page}
-                        </button>
-                      )
-                    )}
-                  </div>
-
-                  {/* Botón "Siguiente" */}
-                  <button
-                    onClick={nextPage}
-                    disabled={current_page >= total_pages}
-                    className="bg-[#0D6EFD] disabled:bg-[gray] text-white px-[1rem] py-[0.3rem] lg:text-[1rem] text-[0.8rem] rounded-[5px]"
-                  >
-                    <svg
-                      class="w-4 h-4 lg:w-6 lg:h-6 text-white"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M19 12H5m14 0-4 4m4-4-4-4"
-                      />
-                    </svg>
-                  </button>
+                      {page}
+                    </button>
+                  ))}
                 </div>
+            
+                {/* Botón "Siguiente" */}
+                <button
+                  onClick={nextPage}
+                  disabled={current_page >= total_pages}
+                  className="bg-[#0D6EFD] hover:bg-[#0b5ed7] disabled:bg-gray-400 text-white p-2 rounded-full transition duration-200 shadow-sm w-8 h-8 flex items-center justify-center"
+                >
+                  <svg
+                    className="w-4 h-4 md:w-5 md:h-5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 12H5m14 0-4 4m4-4-4-4"
+                    />
+                  </svg>
+                </button>
               </div>
+            </div>
+            
             )}
           </div>
         </div>

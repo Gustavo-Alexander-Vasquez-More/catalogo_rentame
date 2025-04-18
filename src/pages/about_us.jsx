@@ -4,6 +4,7 @@ import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import about from "../images/about.jpg";
 import icon from "../images/rentame_icon.png";
+import { Eye, Target, ShieldCheck, MessageCircle } from "lucide-react";
 export default function AboutUs() {
   const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
@@ -38,7 +39,9 @@ export default function AboutUs() {
           />
           <div className="w-full h-[60vh] opacity-60 bg-black absolute"></div>
           <div className="absolute z-40 w-full h-[60vh] flex justify-center items-center text-white flex-col text-center px-[15%]">
-            <h1 className="text-4xl font-bold relative">Sobre Nosotros</h1>
+            <h1 className="lg:text-6xl text-5xl font-bold relative">
+              Sobre Nosotros
+            </h1>
             <p className="mt-4 text-lg relative">
               Conoce Quiénes Somos y Cómo Trabajamos.
             </p>
@@ -53,66 +56,32 @@ export default function AboutUs() {
                 RentameCarmen.com.mx: Impulsando Oficios y Emprendimientos.
               </p>
               <p className="mt-4 text-lg text-gray-700">
-                <a
-                  href="https://www.rentamecarmen.com.mx"
-                  className="text-blue-600 font-bold hover:underline"
-                >
-                  Rentamecarmen.com.mx
-                </a>{" "}
-                surgió para cubrir la necesidad de un espacio en Ciudad del
-                Carmen donde profesionales y emprendedores de diversos oficios
-                puedan acceder a las herramientas necesarias para satisfacer las
-                demandas de sus clientes. Nuestro compromiso es facilitarte
-                equipos de alta calidad que impulsen tus proyectos y
-                emprendimientos al éxito.
+                <span className="text-[black] font-bold ">RentameCarmen</span>{" "}
+                nació para cubrir la necesidad de un espacio en Ciudad del
+                Carmen donde profesionales y emprendedores puedan acceder a
+                herramientas y equipos de calidad que impulsen sus proyectos en
+                áreas como construcción, jardinería, carpintería, entre otras.
               </p>
               <p className="mt-4 text-lg text-gray-700">
-                Ya sea que busques herramientas para construcción, jardinería,
-                carpintería, o cualquier otro sector, estamos aquí para
-                proporcionarte las soluciones que necesitas para llevar tu
-                trabajo al siguiente nivel.
-              </p>
-              <p className="mt-4 text-lg text-gray-700">
-                Con el tiempo, nació{" "}
-                <a href="" className="hover:underline text-[#2563EB] font-bold">
-                  RM CENTRO DE SERVICIO
-                </a>
-                , un proyecto que surgió cuando el fundador de{" "}
-                <span className="font-bold">RentameCarmen</span> necesitó un
-                técnico de confianza para el mantenimiento de sus equipos. Al no
-                encontrar un mecánico de maquinaria honesto y formal, decidió
-                crear su propio centro de servicio, tanto para sus equipos como
-                para los del público en general. Este centro es supervisado
-                personalmente por él y su esposa, asegurando que los mecánicos
-                estén capacitados y que las operaciones se rijan por la
-                formalidad y la honestidad.
-              </p>
-              <p className="mt-4 text-lg text-gray-700">
-                En{" "}
-                <a className="hover:underline text-[#2563EB] font-bold" href="">
+                Con el tiempo, surgió{" "}
+                <span className="text-[black] font-bold ">
                   RM Centro de Servicio
-                </a>
-                , nuestras reglas son claras: no solicitamos anticipos en
-                reparaciones ni refacciones. Solo cobramos una vez que el equipo
-                está listo y el cliente está satisfecho. Además, entregamos
-                todas las refacciones dañadas del equipo, o el trabajo es
-                completamente gratis.
+                </span>
+                , fundado ante la falta de técnicos confiables en la zona. Este
+                centro, supervisado personalmente y por circuito cerrado, se
+                rige por principios de formalidad y honestidad. No pedimos
+                anticipos; cobramos solo cuando el equipo está reparado y
+                entregamos todas las refacciones dañadas como garantía del
+                trabajo.
               </p>
+
               <p className="mt-4 text-lg text-gray-700">
                 Nos especializamos en la renta, venta y reparación de equipos
-                para diversas áreas, incluyendo construcción, jardinería,
-                carpintería, soldadura, aluminio, pintura, fumigación y
-                tecnología. Si no encuentras lo que buscas en nuestro catálogo,
-                contáctanos; seguramente encontraremos la solución perfecta para
-                ti.
-              </p>
-              <p className="mt-4 text-lg text-gray-700">
-                Nos dedicamos a proporcionar soluciones en arrendamiento y
-                reparación de maquinaria eléctrica y de combustión, asegurando
-                que nuestros clientes siempre cuenten con equipos de calidad
-                para cada proyecto. Ofrecemos una extensa variedad de
-                herramientas y refacciones a tu disposición. Si necesitas algo
-                específico, no dudes en comunicarte con nosotros.
+                eléctricos y de combustión, ofreciendo soluciones para múltiples
+                oficios. Además, contamos con una amplia variedad de refacciones
+                nuevas y usadas. Si no encontrás lo que necesitás, contactanos:
+                estamos comprometidos en ayudarte a encontrar la mejor solución
+                para tu proyecto.
               </p>
               <div>
                 <p className="mt-4 text-lg text-gray-900 font-bold">
@@ -124,79 +93,61 @@ export default function AboutUs() {
                   <li>Domingo: Cerrado</li>
                 </ul>
               </div>
-              <p className="mt-4 text-lg text-gray-700">
-                Estamos aquí para ofrecerte soluciones integrales y confiables
-                para todas tus necesidades de equipos y maquinaria.
-              </p>
             </div>
           </section>
           {/* Sección de Valores */}
-          <section className="py-[2rem] bg-gray-100">
+          <section className="py-[2rem] bg-gradient-to-b from-gray-100 to-white">
             <div className="max-w-7xl mx-auto text-center">
-              <div className="lg:mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-12">
+              <div className=" grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-12">
+                {/* Visión */}
                 <div className="p-6 bg-white shadow-lg rounded-lg transition-transform transform hover:scale-105 hover:shadow-2xl">
+                  <Eye className="mx-auto mb-2 h-8 w-8 text-blue-800" />
+                  <h3 className="text-xl font-bold text-blue-800">
+                    Nuestra Visión
+                  </h3>
+                  <p className="mt-4 text-gray-600 text-start">
+                    Ser el referente en soluciones integrales de maquinaria,
+                    proporcionando herramientas de calidad y un servicio
+                    confiable que permita a nuestros clientes alcanzar sus
+                    objetivos con éxito a largo plazo.
+                  </p>
+                </div>
+                {/* Misión */}
+                <div className="p-6 bg-white shadow-lg rounded-lg transition-transform transform hover:scale-105 hover:shadow-2xl">
+                  <Target className="mx-auto mb-2 h-8 w-8 text-blue-800" />
                   <h3 className="text-xl font-bold text-blue-800">
                     Nuestra Misión
                   </h3>
-                  <p className="mt-4 text-gray-600">
-                    Nuestra misión es ser el socio de confianza para
-                    profesionales y emprendedores, ofreciéndoles soluciones
-                    integrales y personalizadas para sus necesidades de
-                    maquinaria.
+                  <p className="mt-4 text-gray-600 text-start">
+                    En <span className="font-bold">RentameCarmen</span>, nuestra
+                    misión es proporcionar soluciones confiables y accesibles en
+                    la renta, venta y reparación de maquinaria. Buscamos ser el
+                    aliado ideal para profesionales y emprendedores, ofreciendo
+                    herramientas y equipos de alta calidad, acompañados de un
+                    servicio personalizado que facilite el éxito de sus
+                    proyectos y emprendimientos.
                   </p>
                 </div>
 
+                {/* Valores */}
                 <div className="p-6 bg-white shadow-lg rounded-lg transition-transform transform hover:scale-105 hover:shadow-2xl">
+                  <ShieldCheck className="mx-auto mb-2 h-8 w-8 text-blue-800" />
                   <h3 className="text-xl font-bold text-blue-800">
-                    Compromiso en Renta
+                    Nuestros Valores
                   </h3>
                   <ul className="mt-2 text-gray-700 list-disc list-inside text-start space-y-1">
+                    <li>
+                      <span className="font-bold">Compromiso en Renta: </span>
+                      Ofrecemos variedad, flexibilidad y equipos en óptimas
+                      condiciones, adaptándonos a las necesidades de cada
+                      proyecto.
+                    </li>
                     <li>
                       <span className="font-bold">
-                        Disponibilidad y Variedad:
-                      </span>{" "}
-                      Te ofrecemos una amplia selección de herramientas y
-                      maquinaria para satisfacer las diversas necesidades de tu
-                      industria o proyecto personal.
-                    </li>
-                    <li>
-                      <span className="font-bold">Flexibilidad:</span> Adaptamos
-                      nuestros términos de alquiler para que se ajusten a tus
-                      requerimientos específicos, ya sea para proyectos a corto
-                      o largo plazo.
-                    </li>
-                    <li>
-                      <span className="font-bold">Calidad:</span> Mantenemos
-                      nuestros equipos en condiciones óptimas, realizando
-                      inspecciones y mantenimientos regulares para garantizar su
-                      funcionamiento impecable.
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="p-6 bg-white shadow-lg rounded-lg transition-transform transform hover:scale-105 hover:shadow-2xl">
-                  <h3 className="text-xl font-bold text-blue-800">
-                    Compromiso en Reparación
-                  </h3>
-                  <ul className="mt-2 text-gray-700 list-disc list-inside text-start space-y-1">
-                    <li>
-                      <span className="font-bold">Profesionalismo:</span>{" "}
-                      Nuestro equipo de técnicos capacitados está listo para
-                      diagnosticar y reparar tus equipos con precisión y
-                      cuidado.
-                    </li>
-                    <li>
-                      <span className="font-bold">Transparencia:</span> No
-                      solicitamos anticipos para reparaciones ni refacciones.
-                      Solo cobramos cuando el trabajo está completado y el
-                      cliente está satisfecho.
-                    </li>
-                    <li>
-                      <span className="font-bold">Garantía de Servicio:</span>{" "}
-                      Entregamos todas las refacciones dañadas de tu equipo o,
-                      de lo contrario, el trabajo es completamente gratis,
-                      asegurando así tu tranquilidad y confianza en nuestro
-                      servicio.
+                        Compromiso en Reparación:{" "}
+                      </span>
+                      Brindamos un servicio técnico honesto y profesional, sin
+                      anticipos y con garantía total de satisfacción.
                     </li>
                   </ul>
                 </div>
@@ -204,14 +155,19 @@ export default function AboutUs() {
             </div>
           </section>
 
-          <section className="py-8 px-2 lg:px-0 bg-[#28a745] text-white text-center">
-            <h2 className="text-2xl font-semibold">¿Te gustaría saber más?</h2>
-            <p className="mt-4 text-lg">
-              Contáctanos y descubre cómo podemos ayudarte con nuestras
-              soluciones de maquinaria.
-            </p>
+          <section className="py-12 px-4 bg-gradient-to-r from-green-600 to-emerald-500 text-white text-center relative overflow-hidden">
+            <div className="max-w-3xl mx-auto">
+              <MessageCircle className="mx-auto h-10 w-10 mb-4 text-white animate-bounce" />
+              <h2 className="text-3xl font-bold">¿Te gustaría saber más?</h2>
+              <p className="mt-4 text-lg">
+                Contáctanos y descubre cómo podemos ayudarte con nuestras
+                soluciones de maquinaria.
+              </p>
+              <button className="mt-6 px-6 py-3 bg-white text-green-700 font-semibold rounded-lg shadow hover:bg-gray-100 transition">
+                Contáctanos
+              </button>
+            </div>
           </section>
-
           <Footer />
         </div>
       </div>

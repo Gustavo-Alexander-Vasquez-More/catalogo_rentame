@@ -39,47 +39,43 @@ export default function carouselProductos() {
   };
 
   return (
-    <div className="w-full lg:h-[90vh] h-auto bg-[white] flex flex-col justify-between gap-4 lg:gap-0 py-[2rem] lg:py-[2rem] px-[1rem] lg:px-[2rem]">
-      <div className="text-[1.5rem] lg:text-[1.4rem] text-gray-600 font-semibold montserrat ">
-        <p>Equipos confiables para cada desafío</p>
+    <div className="w-full lg:h-[90vh] h-auto bg-white flex flex-col rounded-xl gap-6 py-8 px-4 lg:px-8">
+      <div className="text-[1.8rem] text-gray-800 font-bold montserrat text-center">
+        Equipos confiables para cada desafío
       </div>
 
       <CarouselMulti
         responsive={responsive}
-        className="flex items-center z-10"
+        className="z-10"
         infinite={true}
         autoPlaySpeed={3000}
+        itemClass="px-2"
       >
         {all_products?.map((product, index) => (
           <div
             key={index}
-            className="bg-white p-3  mx-2 flex flex-col items-center w-full  hover:shadow-2xl transition duration-300"
+            className="bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center justify-between p-4"
           >
             <img
               loading="lazy"
               src={product.foto}
               alt={product.nombre}
-              className="w-full h-[140px] object-contain mb-4"
+              className="w-full h-[150px] object-contain mb-4"
             />
 
-            <div className="flex items-center justify-center px-2 text-center w-full">
-              <h3 className="font-semibold text-gray-700 text-[0.9rem] truncate w-full">
-                {product.nombre.toUpperCase()}
-              </h3>
-            </div>
+            <h3 className="font-semibold text-gray-700 text-[0.9rem] text-center truncate w-full">
+              {product.nombre.toUpperCase()}
+            </h3>
 
-            <div className="">
-              <a
-                href={`/detalle-producto?id=${product._id}`}
-                className="text-success font-semibold shadow-xl underline"
-              >
-                Ver equipo
-              </a>
-            </div>
+            <a
+              href={`/detalle-producto?id=${product._id}`}
+              className="mt-2 text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-300 px-4 py-2 rounded-lg text-sm font-semibold shadow"
+            >
+              Ver equipo
+            </a>
           </div>
         ))}
       </CarouselMulti>
     </div>
   );
 }
-// API_KKEY=AIzaSyCJ1BOW_UGMTCbqO4VkVVbKK0WqotldVe8

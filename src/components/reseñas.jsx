@@ -27,74 +27,79 @@ export default function reseñas() {
     : [];
 
   return (
-    <div className="w-full  h-auto bg-[#E5E7EB] flex flex-col justify-between gap-4 lg:gap-0 py-[1rem] px-[1rem] lg:px-[4rem]">
-      <div className="text-[1.3rem] lg:text-[1.8rem] text-gray-600 font-semibold montserrat ">
-        <p>En RentameCarmen, la satisfacción de nuestros clientes es</p>
-        <p>nuestra mejor recomendación.</p>
+    <div className="w-full h-auto bg-[#E5E7EB] flex flex-col gap-6 py-8 px-4 lg:px-20">
+      <div className="text-center">
+        <h2 className="text-[1.5rem] lg:text-[2rem] font-bold text-gray-800 montserrat">
+          Opiniones de nuestros clientes
+        </h2>
+        <p className="text-[1rem] lg:text-[1.2rem] text-gray-600 font-medium">
+          En RentameCarmen, tu satisfacción es nuestra mejor recomendación
+        </p>
       </div>
+
       <CarouselMulti
         responsive={responsive}
-        className="flex items-center z-10 "
         autoPlay
-        infinite={true}
+        infinite
         arrows={false}
-        autoPlaySpeed={3000}
+        autoPlaySpeed={4000}
+        className="z-10"
       >
         {reseñas_map.map((dat, index) => (
           <a
             key={index}
+            href={dat.url_opinion}
             target="_blank"
             rel="noopener noreferrer"
-            href={dat.url_opinion}
             className="text-start"
           >
-            <div className="flex flex-col justify-between items-start lg:gap-2 shadow-xl bg-[white] lg:mx-3 py-4 px-3 lg:px-4 lg:w-[320px] h-[160px]  hover:shadow-2xl transition-all duration-300">
+            <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-4 lg:w-[320px] min-h-[180px] flex flex-col justify-between">
               {/* Header: Foto + Nombre */}
-              <div className="flex w-full gap-2 items-center">
+              <div className="flex items-center gap-3">
                 <img
                   loading="lazy"
                   src={dat.url}
                   alt={dat.name}
-                  className="w-8 h-8 rounded-full object-cover"
+                  className="w-9 h-9 rounded-full object-cover border"
                 />
-                <div className="flex flex-col text-[0.7rem]">
-                  <p className="font-semibold text-[0.8rem] montserrat">
-                    {dat.name}
-                  </p>
+                <div>
+                  <p className="font-semibold text-[0.85rem]">{dat.name}</p>
                   {dat.tipo === "Local Guide" && (
-                    <p className="montserrat">{dat.tipo}</p>
+                    <p className="text-[0.75rem] text-gray-500">{dat.tipo}</p>
                   )}
                 </div>
               </div>
 
               {/* Estrellas */}
-              <div className="flex gap-1">
+              <div className="flex gap-[2px] mt-1">
                 {[...Array(5)].map((_, i) => (
                   <img
-                    loading="lazy"
                     key={i}
-                    className="w-[0.7rem] h-[0.7rem]"
                     src={star}
-                    alt={`Star ${i + 1}`}
+                    alt={`Estrella ${i + 1}`}
+                    className="w-4 h-4"
                   />
                 ))}
               </div>
 
               {/* Reseña */}
-              <div className="w-full text-[0.85rem] text-gray-700 leading-tight line-clamp-4 montserrat">
+              <p className="text-[0.85rem] text-gray-700 mt-2 line-clamp-4 leading-snug">
                 {dat.message}
-              </div>
+              </p>
             </div>
           </a>
         ))}
       </CarouselMulti>
-      <a
-        target="_blank"
-        href="https://search.google.com/local/writereview?placeid=ChIJUSFC42up8YURtPF2RUOE55o"
-        className="text-center underline text-blue-800 font-semibold text-[1.1rem]"
-      >
-        Déjanos tu reseña aquí ✅
-      </a>
+
+      <div className="text-center">
+        <a
+          target="_blank"
+          href="https://search.google.com/local/writereview?placeid=ChIJUSFC42up8YURtPF2RUOE55o"
+          className="inline-block mt-4 text-blue-800 font-semibold text-[1rem] hover:underline hover:text-blue-900 transition-colors duration-200"
+        >
+          Déjanos tu reseña✅
+        </a>
+      </div>
     </div>
   );
 }

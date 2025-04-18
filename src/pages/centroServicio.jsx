@@ -44,8 +44,7 @@ export default function centroServicio() {
           Marcha.
         </p>
         <p className="text-lg mt-5">
-          En{" "}
-          <span className="text-blue-600 font-bold">RM CENTRO DE SERVICIO</span>
+          En <span className="text-black font-bold">RM CENTRO DE SERVICIO</span>
           , nos especializamos en la reparación, mantenimiento y renovación de
           herramientas eléctricas y de combustión.
         </p>
@@ -113,11 +112,11 @@ export default function centroServicio() {
       {/* Imagen del taller profesional */}
       <section className="w-full px-[1rem] lg:px-[4rem] pb-16 mt-[2rem] lg:mt-0">
         <div className="bg-[#F3F4F6] rounded-2xl p-8 shadow-lg flex flex-col lg:flex-row gap-8 items-center justify-center">
-          <div className="lg:w-1/2 w-full">
+          <div className="lg:w-1/2 w-full flex justify-center">
             <img
               src={taller}
               alt="Taller de reparación"
-              className="rounded-xl shadow-xl w-full h-[350px] object-cover object-center"
+              className="rounded-xl shadow-xl w-full lg:w-[60%] lg:h-auto h-[350px] object-cover "
               loading="lazy"
             />
           </div>
