@@ -36,9 +36,35 @@ export default function centroServicio() {
           </h1>
         </div>
       </div>
+      {/* Texto descriptivo MOBILE corto*/}
+      <div className="w-full flex lg:hidden flex-col py-10 px-[1rem] lg:px-[4rem] text-gray-700">
+  <p className="lg:text-3xl text-[1.5rem] font-semibold text-blue-900">
+    RM Centro de Servicio: Soluciones Técnicas para tu Negocio
+  </p>
 
-      {/* Texto descriptivo */}
-      <div className="w-full flex flex-col py-10 px-[1rem] lg:px-[4rem] text-gray-700">
+  <p className="text-base lg:text-lg mt-5">
+    En <span className="font-bold text-black">RM CENTRO DE SERVICIO</span> reparamos, mantenemos y renovamos herramientas eléctricas y de combustión.
+  </p>
+
+  <p className="mt-4 text-base lg:text-lg">
+    Estamos en Ciudad del Carmen, con técnicos capacitados listos para ayudarte con maquinaria ligera de construcción u otros oficios.
+  </p>
+
+  <p className="mt-4 text-base lg:text-lg">
+    Mantené tus equipos en óptimas condiciones: desde taladros hasta vibrocompactadoras, los dejamos como nuevos.
+  </p>
+
+  <p className="mt-4 text-base lg:text-lg">
+    Contamos con refacciones para una atención rápida y eficaz.
+  </p>
+
+  <p className="mt-4 text-base lg:text-lg">
+    Y si traés tu equipo a reparar, podés rentar uno igual con nosotros para que tu trabajo no se detenga.
+  </p>
+</div>
+
+      {/* Texto descriptivo WEB largo*/}
+      <div className="w-full lg:flex hidden flex-col py-10 px-[1rem] lg:px-[4rem] text-gray-700">
         <p className="lg:text-3xl text-[1.5rem] font-semibold text-blue-900">
           RM Centro de Servicio: Soluciones Técnicas que Mantienen tu Negocio en
           Marcha.
@@ -78,22 +104,22 @@ export default function centroServicio() {
         </p>
       </div>
       <section className="w-full px-[1rem] lg:px-[4rem] lg:py-12 bg-white">
-        <div className="bg-gray-100 rounded-2xl p-8 shadow-lg flex flex-col lg:flex-row gap-8 items-center justify-center">
+        <div className="bg-gray-100 rounded-2xl p-8 shadow-lg flex flex-col lg:flex-row gap-8 items-start justify-center">
           {/* Texto de servicios */}
-          <div className="lg:w-1/2 w-full text-gray-700">
+          <div className="lg:w-1/2 w-full text-gray-700 lg:px-[0rem] px-[1rem]">
             <h2 className="text-2xl font-bold text-blue-700 mb-4">
               Nuestros Servicios
             </h2>
             <ul className="list-disc text-lg lg:pl-5 space-y-2">
-              <li>Reparaciones</li>
-              <li>Mantenimiento Preventivo y Correctivo</li>
-              <li>Renovación de Equipos</li>
+              <li>Reparaciones.</li>
+              <li>Mantenimiento Preventivo y Correctivo.</li>
+              <li>Renovación de Equipos.</li>
               <li>
                 Refacciones para reparaciones dentro de nuestro centro de
-                servicio
+                servicio.
               </li>
-              <li>Póliza de Servicio</li>
-              <li>Renta de equipos y maquinaria en general</li>
+              <li>Póliza de Servicio.</li>
+              <li>Renta de equipos y maquinaria en general.</li>
             </ul>
           </div>
 
@@ -111,7 +137,7 @@ export default function centroServicio() {
 
       {/* Imagen del taller profesional */}
       <section className="w-full px-[1rem] lg:px-[4rem] pb-16 mt-[2rem] lg:mt-0">
-        <div className="bg-[#F3F4F6] rounded-2xl p-8 shadow-lg flex flex-col lg:flex-row gap-8 items-center justify-center">
+        <div className="bg-[#F3F4F6] rounded-2xl p-8 shadow-lg flex flex-col lg:flex-row gap-8 items-start justify-center">
           <div className="lg:w-1/2 w-full flex justify-center">
             <img
               src={taller}

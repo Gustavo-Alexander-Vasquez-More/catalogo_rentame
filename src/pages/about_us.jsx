@@ -48,9 +48,49 @@ export default function AboutUs() {
           </div>
         </div>
         <div className="w-full  bg-gray-50">
-          {/* Sección de Introducción */}
+          {/* Sección de Introducción PARA MOBILE Texto corto*/}
+          <section className="lg:py-[4rem] lg:hidden py-[2rem] w-full">
+            <div className="w-full lg:px-[4rem] px-[1rem]">
+              <p className="lg:text-3xl text-[1.5rem] font-semibold text-blue-900">
+                RentameCarmen.com.mx: Impulsando Oficios y Emprendimientos
+              </p>
 
-          <section className="lg:py-[4rem] py-[2rem] w-full">
+              <p className="mt-4 text-base lg:text-lg text-gray-700">
+                <span className="font-bold text-black">RentameCarmen</span>{" "}
+                nació para facilitar herramientas y equipos a profesionales de
+                Ciudad del Carmen en áreas como construcción, jardinería y
+                carpintería.
+              </p>
+
+              <p className="mt-4 text-base lg:text-lg text-gray-700">
+                Creamos el{" "}
+                <span className="font-bold text-black">
+                  RM Centro de Servicio
+                </span>{" "}
+                ante la falta de técnicos confiables. Reparamos sin pedir
+                anticipos y devolvemos refacciones dañadas como garantía.
+              </p>
+
+              <p className="mt-4 text-base lg:text-lg text-gray-700">
+                Ofrecemos renta, venta y reparación de equipos eléctricos y de
+                combustión. Si necesitás ayuda, ¡contactanos!
+              </p>
+
+              <div>
+                <p className="mt-4 text-base lg:text-lg text-gray-900 font-bold">
+                  Horarios:
+                </p>
+                <ul className="mt-2 text-gray-700 list-disc list-inside space-y-1 text-base">
+                  <li>Lun a Vie: 9:00 AM - 7:00 PM</li>
+                  <li>Sáb: 9:00 AM - 3:00 PM</li>
+                  <li>Domingo: Cerrado</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* Sección de Introducción PARA WEB Texto largo*/}
+          <section className="lg:py-[4rem] lg:flex hidden py-[2rem] w-full">
             <div className="w-full lg:px-[4rem] px-[1rem]">
               <p className="lg:text-3xl text-[1.5rem] font-semibold text-blue-900">
                 RentameCarmen.com.mx: Impulsando Oficios y Emprendimientos.
