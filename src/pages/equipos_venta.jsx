@@ -3,10 +3,12 @@ import React, { useEffect, useRef, useState } from "react";
 import icon from "../images/rentame_icon.png";
 import Footer from "../components/footer";
 import Navbar from "../components/navbar";
+import { Helmet } from "react-helmet";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
 import ventaImage from "../images/ventaImage.jpg";
 export default function equipos_venta() {
+  const [imageLoaded, setImageLoaded] = useState(false);
   useEffect(() => {
     document.title = "Equipos en venta | RentameCarmen";
     // Encontrar el link con rel="icon" y cambiar su href
@@ -128,12 +130,22 @@ export default function equipos_venta() {
     notyf.success("Enlace copiado");
   };
   return (
+    <>
+    <Helmet>
+  <meta charSet="utf-8" />
+  <title>Equipos en venta | RentameCarmen</title>
+  <link rel="canonical" href="https://www.rentamecarmen.com.mx/venta-equipos" />
+  <link rel="preload" as="image" href={ventaImage} />
+</Helmet>
     <div className="w-full flex flex-col relative items-center">
       <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
       <div className="w-full flex z-0 justify-center items-center h-[60vh]">
         <img
           loading="lazy"
-          className="h-[60vh] object-cover object-top w-full relative"
+          onLoad={() => setImageLoaded(true)}
+  className={`h-[60vh] object-cover object-top w-full relative transition-opacity duration-1000 ${
+    imageLoaded ? "opacity-100" : "opacity-0"
+  }`}
           src={ventaImage}
           alt=""
         />
@@ -477,5 +489,6 @@ export default function equipos_venta() {
         <Footer />
       </div>
     </div>
+    </>
   );
 }

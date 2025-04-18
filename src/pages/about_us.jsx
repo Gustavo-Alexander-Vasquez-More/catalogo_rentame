@@ -7,6 +7,7 @@ import icon from "../images/rentame_icon.png";
 import { Eye, Target, ShieldCheck, MessageCircle } from "lucide-react";
 export default function AboutUs() {
   const [isOpen, setIsOpen] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   useEffect(() => {
     document.title = "Sobre Nosotros | RentameCarmen";
     // Encontrar el link con rel="icon" y cambiar su href
@@ -21,21 +22,24 @@ export default function AboutUs() {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Sobre Nosotros - Rentame Carmen</title>
+        <title>Sobre Nosotros | RentameCarmen</title>
         <link
           rel="canonical"
           href="https://www.rentamecarmen.com.mx/about_us"
         />
+        <link rel="preload" as="image" href={about} />
       </Helmet>
 
       <div className="w-full flex flex-col relative items-center">
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
         <div className="w-full flex z-0 justify-center items-center h-[60vh]">
           <img
-            loading="lazy"
-            className="h-[60vh] object-cover object-top w-full relative"
             src={about}
             alt=""
+            onLoad={() => setImageLoaded(true)}
+            className={`h-[60vh] object-cover object-top w-full relative transition-opacity duration-1000 ${
+              imageLoaded ? "opacity-100" : "opacity-0"
+            }`}
           />
           <div className="w-full h-[60vh] opacity-60 bg-black absolute"></div>
           <div className="absolute z-40 w-full h-[60vh] flex justify-center items-center text-white flex-col text-center px-[15%]">
@@ -73,7 +77,7 @@ export default function AboutUs() {
 
               <p className="mt-4 text-base lg:text-lg text-gray-700">
                 Ofrecemos renta, venta y reparación de equipos eléctricos y de
-                combustión. Si necesitás ayuda, ¡contactanos!
+                combustión. Si necesitas ayuda, ¡contáctanos!
               </p>
 
               <div>
@@ -119,7 +123,7 @@ export default function AboutUs() {
                 Nos especializamos en la renta, venta y reparación de equipos
                 eléctricos y de combustión, ofreciendo soluciones para múltiples
                 oficios. Además, contamos con una amplia variedad de refacciones
-                nuevas y usadas. Si no encontrás lo que necesitás, contactanos:
+                nuevas y usadas. Si no encuentras lo que necesitas, contáctanos:
                 estamos comprometidos en ayudarte a encontrar la mejor solución
                 para tu proyecto.
               </p>
@@ -204,7 +208,7 @@ export default function AboutUs() {
                 soluciones de maquinaria.
               </p>
               <button className="mt-6 px-6 py-3 bg-white text-green-700 font-semibold rounded-lg shadow hover:bg-gray-100 transition">
-                Contáctanos
+                <a href="tel:+529381958284">Contáctanos</a>
               </button>
             </div>
           </section>

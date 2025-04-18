@@ -4,9 +4,12 @@ import Footer from "../components/footer";
 import taller from "../images/reparacionEquipos.jpg";
 import centroImagen from "../images/centroIMAGEN.jpg";
 import centroImagen2 from "../images/centroBaner.jpg";
+import { Helmet } from "react-helmet";
 import icon from "../images/rentame_icon.png";
 export default function centroServicio() {
   const [isOpen, setIsOpen] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   useEffect(() => {
     document.title = "Centro de Servicio | RentameCarmen";
     // Encontrar el link con rel="icon" y cambiar su href
@@ -18,17 +21,29 @@ export default function centroServicio() {
     }
   }, []);
   return (
+    <>
+    <Helmet>
+    <meta charSet="utf-8" />
+    <title>Centro de Servicio | RentameCarmen</title>
+    <link
+      rel="canonical"
+      href="https://www.rentamecarmen.com.mx/centro_servicio"
+    />
+    <link rel="preload" as="image" href={centroImagen2} />
+  </Helmet>
     <div className="w-full min-h-screen relative flex flex-col">
       <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
 
       {/* Hero */}
       <div className="w-full flex z-0 justify-center items-center h-[60vh]">
-        <img
-          loading="lazy"
-          className="h-[60vh] object-cover object-top w-full relative"
-          src={centroImagen2}
-          alt=""
-        />
+      <img
+  src={centroImagen2}
+  alt=""
+  onLoad={() => setImageLoaded(true)}
+  className={`h-[60vh] object-cover object-top w-full relative transition-opacity duration-1000 ${
+    imageLoaded ? "opacity-100" : "opacity-0"
+  }`}
+/>
         <div className="w-full h-[60vh] opacity-60 bg-black absolute"></div>
         <div className="absolute z-40 w-full h-[60vh] flex justify-center items-center text-white flex-col text-center px-[15%]">
           <h1 className="lg:text-[2.5rem] text-[2rem] font-bold">
@@ -51,7 +66,7 @@ export default function centroServicio() {
   </p>
 
   <p className="mt-4 text-base lg:text-lg">
-    Mantené tus equipos en óptimas condiciones: desde taladros hasta vibrocompactadoras, los dejamos como nuevos.
+    Manten tus equipos en óptimas condiciones, los dejamos como nuevos.
   </p>
 
   <p className="mt-4 text-base lg:text-lg">
@@ -59,7 +74,7 @@ export default function centroServicio() {
   </p>
 
   <p className="mt-4 text-base lg:text-lg">
-    Y si traés tu equipo a reparar, podés rentar uno igual con nosotros para que tu trabajo no se detenga.
+    Y si nos traes tu equipo a reparar, puedes rentar uno igual con nosotros para que tu trabajo no se detenga.
   </p>
 </div>
 
@@ -166,5 +181,6 @@ export default function centroServicio() {
 
       <Footer />
     </div>
+    </>
   );
 }

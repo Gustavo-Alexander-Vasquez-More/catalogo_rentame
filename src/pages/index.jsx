@@ -2,8 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../components/navbar";
 import rentaMaquinaria from "../images/rentaMaquinaria.jpg";
 import ventaMaquinaria from "../images/ventaMaquinaria.jpg";
-import reparacionMaquinaria from "../images/reparacionEquipos.jpg";
+import { Helmet } from "react-helmet";
 import CarouselProductos from "../components/productosCarousel";
+import banerPrincipal from "../images/banerPrincipal.jpg";
+import tallerDescriptivo from "../images/tallerDescriptivo.jpg";
 import Marcas from "../components/marcas";
 import "notyf/notyf.min.css";
 import Footer from "../components/footer";
@@ -12,6 +14,7 @@ import Beneficios from "../components/beneficios";
 import icon from "../images/rentame_icon.png";
 export default function index() {
   const [isOpen, setIsOpen] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   useEffect(() => {
     // Encontrar el link con rel="icon" y cambiar su href
     const favicon = document.querySelector("link[rel='icon']");
@@ -23,13 +26,22 @@ export default function index() {
   }, []);
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Rentame Carmen | Tu mejor Aliado</title>
+        <link rel="canonical" href="https://www.rentamecarmen.com.mx" />
+        <link rel="preload" as="image" href={banerPrincipal} />
+      </Helmet>
       <div className="w-full flex flex-col relative items-center">
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
         <div className="w-full flex z-0 justify-center items-center h-[100vh]">
           <img
             loading="lazy"
-            className="h-[100vh] object-cover w-full relative"
-            src="https://wallpapers.com/images/hd/civil-engineering-construction-site-blueprint-0x148xb5hbkabmqu.jpg"
+            onLoad={() => setImageLoaded(true)}
+            className={`h-[100vh] object-cover object-top w-full relative transition-opacity duration-1000 ${
+              imageLoaded ? "opacity-100" : "opacity-0"
+            }`}
+            src={banerPrincipal}
             alt=""
           />
           <div className="w-full h-[100vh] opacity-60 bg-black absolute"></div>
@@ -135,7 +147,7 @@ export default function index() {
             <div className="lg:w-[50%] w-full flex justify-center lg:pr-[3rem] ">
               <img
                 loading="lazy"
-                src='https://www.leiten.com.ar/img/03---Leiten.jpg'
+                src={tallerDescriptivo}
                 alt="Reparación de equipos"
                 className=" shadow-md w-full lg:w-[90%] object-cover lg:h-[50vh]"
               />

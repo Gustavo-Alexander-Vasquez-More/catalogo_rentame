@@ -3,11 +3,13 @@ import React, { useEffect, useRef, useState } from "react";
 import icon from "../images/rentame_icon.png";
 import Footer from "../components/footer";
 import { Notyf } from "notyf";
+import { Helmet } from "react-helmet";
 import "notyf/notyf.min.css";
 import Navbar from "../components/navbar";
 import banerRenta from "../images/ventaMaquinaria.jpg";
 export default function equipos_renta() {
   const [isOpen, setIsOpen] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   useEffect(() => {
     document.title = "Equipos en Renta | RentameCarmen";
     // Encontrar el link con rel="icon" y cambiar su href
@@ -186,6 +188,15 @@ export default function equipos_renta() {
   };
   return (
     <>
+    <Helmet>
+            <meta charSet="utf-8" />
+            <title>Equipos en Renta | RentameCarmen</title>
+            <link
+              rel="canonical"
+              href="https://www.rentamecarmen.com.mx/renta-equipos"
+            />
+            <link rel="preload" as="image" href={banerRenta} />
+          </Helmet>
       {productos_paginados.map((dat, index) => (
         <img
           className="w-full h-[35vh] object-contain hidden"
@@ -203,7 +214,10 @@ export default function equipos_renta() {
         <div className="w-full flex z-0 justify-center items-center h-[60vh]">
           <img
             loading="lazy"
-            className="h-[60vh] object-cover object-center w-full relative"
+            onLoad={() => setImageLoaded(true)}
+            className={`h-[60vh] object-cover object-top w-full relative transition-opacity duration-1000 ${
+              imageLoaded ? "opacity-100" : "opacity-0"
+            }`}
             src={banerRenta}
             alt=""
           />
