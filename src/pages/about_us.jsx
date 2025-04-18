@@ -113,12 +113,7 @@ export default function AboutUs() {
                 <span className="text-red-700 font-bold ">
                   RM Centro de Servicio
                 </span>
-                , fundado ante la falta de técnicos confiables en la zona. Este
-                centro, supervisado personalmente y por circuito cerrado, se
-                rige por principios de formalidad y honestidad. No pedimos
-                anticipos; cobramos solo cuando el equipo está reparado y
-                entregamos todas las refacciones dañadas como garantía del
-                trabajo.
+                , fundado ante la falta de técnicos confiables en la zona. Este centro, supervisado personalmente por sus propietarios y circuito cerrado, se rige por sus principios de formalidad y honestidad. No pedimos anticipos; cobramos solo cuando el equipo está reparado y entregamos todas las refacciones dañadas como garantía del trabajo, O su trabajo es totalmente gratis.
               </p>
 
               <p className="mt-4 text-lg text-gray-700">

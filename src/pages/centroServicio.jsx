@@ -92,23 +92,14 @@ export default function centroServicio() {
         </p>
 
         <p className="mt-4 text-lg">
-          Ubicados en Ciudad del Carmen, Campeche, proporcionamos todo lo
-          necesario para garantizar que tus equipos se mantengan en condiciones
-          óptimas. Nuestros equipos de técnicos altamente capacitados están a tu
-          disposición para asesorarte y resolver cualquier inconveniente que
-          pueda surgir con tu maquinaria ligera, ya sea para la construcción y diversos oficios.
+        Ubicados en Ciudad del Carmen, Campeche, proporcionamos todo lo necesario para garantizar que tus equipos se mantengan en condiciones óptimas. Nuestro equipo de técnicos altamente capacitados están a tu disposición para asesorarte y resolver cualquier inconveniente que pueda surgir con tu maquinaria ligera, ya sea para la construcción u otros oficios.
         </p>
         <p className="mt-4 text-lg">
-          Confía en nosotros para mantener tu maquinaria en un estado excelente
-          y asegurarte de que tus equipos estén siempre listos para cualquier
-          proyecto que se presente. En nuestro taller, puedes reparar y dar
-          mantenimiento a una amplia gama de equipos, desde taladros hasta
-          motosierras y muchos equipos más.
+        Confía en nosotros para mantener tus herramientas en un estado excelente y asegurarte de que tus equipos estén siempre listos para cualquier proyecto que se presente. En nuestro taller, puedes reparar y dar mantenimiento a una amplia gama de equipos de combustión y eléctricos, Con los mejores estándares de calidad.
         </p>
 
         <p className="mt-4 text-lg">
-          Contamos con un extenso surtido de refacciones para ofrecerte una
-          atención y reparación rápidas y eficaces.
+        Contamos con un extenso surtido de refacciones nuevas y usadas para ofrecerte una atención y reparación rápidas y eficaces
         </p>
 
         <p className="mt-4 text-lg">

@@ -159,18 +159,14 @@ export default function index() {
                 Centro de Servicio
               </h1>
               <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
-                Nuestro centro especializado brinda mantenimiento y reparación
-                para herramientas y equipos de marcas reconocidas, con stock de
-                refacciones siempre disponible.
+              Nuestro centro especializado brinda mantenimiento y reparación para herramientas y equipos de marcas reconocidas, con stock de refacciones nuevas siempre disponible.
               </p>
               <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
                 Mientras reparamos tus herramientas, puedes rentar equipo con
                 nosotros. También compramos herramientas que ya no planeas usar.
               </p>
               <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
-                Contamos con refacciones nuevas y usadas gracias a nuestro
-                deshuesadero. Acércate y encuentra soluciones a medida para tus
-                proyectos.
+              Contamos con refacciones usadas ya que también contamos con un deshuesadero. Acércate y encuentra soluciones a la medida de tus proyectos.
               </p>
               <a
                 href="/centro_servicio"
