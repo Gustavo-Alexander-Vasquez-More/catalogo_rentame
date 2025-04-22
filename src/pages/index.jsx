@@ -57,20 +57,12 @@ export default function index() {
             No esperes más!. Tenemos equipos de Calidad para Todos Tus Proyectos
             en Ciudad del Carmen.
           </h3>
-          <div className="flex lg:flex-row flex-col justify-center gap-[2rem] lg:gap-[5rem] text-[1rem] lg:text-[1.2rem] font-semibold">
             <a
-              href="/renta-equipos"
-              className="bg-[#222d72] hover:bg-[#11283D] transition-colors duration-500 py-3 px-4 rounded-3"
+              href="https://wa.link/8h0g6r" target="_blank"
+              className="bg-[#222d72] hover:bg-[#11283D] lg:text-[1.3rem] transition-colors duration-500 py-3 px-4 rounded-3"
             >
-              Ver Equipos en Renta
+              Cotiza con nosotros
             </a>
-            <a
-              href="/venta-equipos"
-              className="bg-[#222d72] hover:bg-[#11283D] transition-colors duration-500 py-3 px-4 rounded-3"
-            >
-              Ver Equipos en Venta
-            </a>
-          </div>
         </div>
         {/* DEFINICION VENTA , RENTA Y REPARACION DE MAQUINARIAS */}
         <div className="w-full flex flex-col min-h-screen px-[1rem] lg:px-[3rem] bg-gray-200 pb-[5%] pt-[10%] lg:pt-[2.5%] gap-[2rem]">
@@ -91,9 +83,9 @@ export default function index() {
                 Renta de Maquinaria
               </h1>
               <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
-                Ofrecemos herramientas, equipos para construcción y diversos oficios,
-                con opciones para cada necesidad. Si no tenemos lo que buscas,
-                estaremos encantados de brindarte una alternativa para que puedas continuar con tu proyecto.
+              Rentamos equipos en general, ofreciendo soluciones para múltiples oficios como puede ser la construcción, soldadura
+carpintería, jardinería, etc. Si no tenemos lo que buscas, estaremos encantados de brindarte una alternativa para que puedas
+continuar con tu proyecto.
               </p>
               <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
               Trabajamos con marcas líderes en herramientas y maquinaria ligera para ofrecerte equipos confiables y de alto rendimiento. Además, contamos con equipos tecnológicos y de otros oficios para proyectos que lo requieran.

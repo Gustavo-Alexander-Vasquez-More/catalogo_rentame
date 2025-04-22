@@ -6,6 +6,10 @@ export default function navbar2({ isOpen, setIsOpen }) {
   const [nombre, setNombre] = useState();
   const [telefono, setTelefono] = useState();
   const [mensaje, setMensaje] = useState();
+    const [soluciones, setSoluciones] = useState(false);
+    const toggleSoluciones = () => {
+      setSoluciones((prev) => !prev);
+    };
   const input_nombre = useRef();
   const input_mensaje = useRef();
   const input_telefono = useRef();
@@ -149,42 +153,74 @@ export default function navbar2({ isOpen, setIsOpen }) {
               </svg>
             </button>
             <div class="lg:flex hidden flex-col items-center lg:text-[1.15rem]  gap-1 sm:flex-row sm:m-0">
-              <a
+            <a
                 href="/"
-                class="text-[white] hover:bg-gray-200 transition-colors duration-500 text-left px-3 py-2 rounded hover:text-gray-900"
+                className={`px-3 py-2 rounded transition-colors duration-500 text-left ${
+                  location.pathname === "/"
+                    ? "bg-gray-200 text-gray-900"
+                    : "text-[white] hover:bg-gray-200 hover:text-gray-900"
+                }`}
               >
                 Inicio
               </a>
-              <a
-                href="/renta-equipos"
-                class="text-[white] hover:bg-gray-200  text-left transition-colors duration-500 rounded px-3 py-2 hover:text-gray-900"
+              <button
+                onClick={toggleSoluciones}
+                className={`py-2 px-3 rounded dropdown-toggle text-[white] text-[1.15rem] transition-colors duration-500 hover:bg-gray-200 hover:text-gray-900 ${
+                  soluciones ? "bg-gray-200 text-gray-900" : ""
+                }`}
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
-                Renta de Equipos
-              </a>
-              <a
-                href="/venta-equipos"
-                class="text-[white] hover:bg-gray-200  text-left transition-colors duration-500 rounded px-3 py-2 hover:text-gray-900"
-              >
-                Venta de Equipos
-              </a>
-              <a
-                href="/centro_servicio"
-                class="text-[white] hover:bg-gray-200  text-left transition-colors duration-500 rounded px-3 py-2 hover:text-gray-900"
-              >
-                Centro de Servicio
-              </a>
+                Menú
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="/renta-equipos">
+                    Renta de maquinaria
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/venta-equipos">
+                    Venta de maquinaria
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/faq-preguntas-frecuentes">
+                    Preguntas Frecuentes
+                  </a>
+                </li>
+              </ul>
               <a
                 href="/about_us"
-                class="text-[white] hover:bg-gray-200  text-left transition-colors duration-500 rounded px-3 py-2 hover:text-gray-900"
+                className={`px-3 py-2 rounded transition-colors duration-500 text-left ${
+                  location.pathname === "/about_us"
+                    ? "bg-gray-200 text-gray-900"
+                    : "text-[white] hover:bg-gray-200 hover:text-gray-900"
+                }`}
               >
                 Sobre nosotros
               </a>
-              <button
-                onClick={openFormulario}
-                class="text-[white]  hover:bg-gray-200 text-left transition-colors duration-500 rounded px-3 py-2 hover:text-gray-900"
+              <a
+                href="/centro_servicio"
+                className={`px-3 py-2 rounded transition-colors duration-500 text-left ${
+                  location.pathname === "/centro_servicio"
+                    ? "bg-gray-200 text-gray-900"
+                    : "text-[white] hover:bg-gray-200 hover:text-gray-900"
+                }`}
               >
-                Contacto
-              </button>
+                Centro de servicio
+              </a>
+              <a
+                href="/contactanos"
+                className={`px-3 py-2 rounded transition-colors duration-500 text-left ${
+                  location.pathname === "/contactanos"
+                    ? "bg-gray-200 text-gray-900"
+                    : "text-[white] hover:bg-gray-200 hover:text-gray-900"
+                }`}
+              >
+                Contáctanos
+              </a>
             </div>
           </section>
           <a
@@ -237,6 +273,7 @@ export default function navbar2({ isOpen, setIsOpen }) {
             >
               Inicio
             </a>
+
             <a
               href="/renta-equipos"
               className="text-[white] hover:bg-gray-200 w-full text-left transition-colors duration-500 rounded px-4 py-2 hover:text-gray-900"
@@ -261,14 +298,18 @@ export default function navbar2({ isOpen, setIsOpen }) {
             >
               Sobre nosotros
             </a>
-            <button
-              onClick={() => {
-                setIsOpen(false), openFormulario();
-              }}
+            <a
+              href="/faq-preguntas-frecuentes"
               className="text-[white] hover:bg-gray-200 w-full text-left transition-colors duration-500 rounded px-4 py-2 hover:text-gray-900"
             >
-              Contacto
-            </button>
+              Preguntas Frecuentes
+            </a>
+            <a
+              href="/contactanos"
+              className="text-[white] hover:bg-gray-200 w-full text-left transition-colors duration-500 rounded px-4 py-2 hover:text-gray-900"
+            >
+              Contáctanos
+            </a>
           </div>
         </nav>
       </div>

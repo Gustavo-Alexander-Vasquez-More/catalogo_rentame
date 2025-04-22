@@ -54,7 +54,7 @@ export default function beneficios() {
 
           <p className="text-base font-semibold mb-1">Experiencia</p>
           <p className="text-sm">
-            Poseemos la experiencia necesaria para alquilar equipos sin
+            Poseemos la experiencia necesaria para rentar equipos sin
             sorpresas inesperadas, respaldados por nuestros técnicos del centro
             de servicio, quienes se actualizan continuamente.
           </p>

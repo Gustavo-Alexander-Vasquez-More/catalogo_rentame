@@ -163,7 +163,7 @@ export default function equipos_venta() {
         </div>
       </div>
       <div
-        className={`flex flex-col items-center w-full h-auto bg-[#e3e2e2] transition-transform duration-500 ${
+        className={`flex flex-col items-center w-full h-auto  transition-transform duration-500 ${
           isOpen ? "transform translate-y-[30px]" : "transform translate-y-0"
         }`}
       >

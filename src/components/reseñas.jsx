@@ -95,9 +95,9 @@ export default function reseñas() {
         <a
           target="_blank"
           href="https://search.google.com/local/writereview?placeid=ChIJUSFC42up8YURtPF2RUOE55o"
-          className="inline-block mt-4 text-blue-800 font-semibold text-[1rem] hover:underline hover:text-blue-900 transition-colors duration-200"
+          className="inline-block mt-4 underline text-blue-800 font-semibold text-[1rem] hover:underline hover:text-blue-900 transition-colors duration-200"
         >
-          Déjanos tu reseña✅
+          Comparte tu opinión sobre nuestro servicio en Google Reviews.
         </a>
       </div>
     </div>

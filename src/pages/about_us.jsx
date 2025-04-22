@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import whatsapp from "../images/whatsapp.png";
-import about from "../images/about.jpg";
+import about from "../images/banerSobreNosotros.jpg";
 import icon from "../images/rentame_icon.png";
 import { Eye, Target, ShieldCheck, MessageCircle } from "lucide-react";
 export default function AboutUs() {
@@ -32,7 +32,13 @@ export default function AboutUs() {
       </Helmet>
 
       <div className="w-full flex flex-col relative items-center">
-         <a href="https://wa.link/gpu01d" target="_blank" className="fixed lg:top-[82%] top-[87%] right-5 z-50 shadow-xl bg-[#ffffff3d] rounded-full"><img className="lg:w-[6rem] w-[4.5rem]" src={whatsapp} alt="sds" /></a>
+        <a
+          href="https://wa.link/gpu01d"
+          target="_blank"
+          className="fixed lg:top-[82%] top-[87%] right-5 z-50 shadow-xl bg-[#ffffff3d] rounded-full"
+        >
+          <img className="lg:w-[6rem] w-[4.5rem]" src={whatsapp} alt="sds" />
+        </a>
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
         <div className="w-full flex z-0 justify-center items-center h-[60vh]">
           <img
@@ -55,7 +61,7 @@ export default function AboutUs() {
         </div>
         <div className="w-full  bg-gray-50">
           {/* Sección de Introducción PARA MOBILE Texto corto*/}
-          <section className="lg:py-[4rem] lg:hidden py-[2rem] w-full">
+          <section className="lg:py-[4rem] lg:hidden pt-[2rem] w-full">
             <div className="w-full lg:px-[4rem] px-[1rem]">
               <p className="lg:text-3xl text-[1.5rem] font-semibold text-blue-900">
                 RentameCarmen.com.mx: Impulsando Oficios y Emprendimientos
@@ -76,13 +82,7 @@ export default function AboutUs() {
                 ante la falta de técnicos confiables. Reparamos sin pedir
                 anticipos y devolvemos refacciones dañadas como garantía.
               </p>
-
-              <p className="mt-4 text-base lg:text-lg text-gray-700">
-                Ofrecemos renta, venta y reparación de equipos eléctricos y de
-                combustión. Si necesitas ayuda, ¡contáctanos!
-              </p>
-
-              <div>
+              {/* <div>
                 <p className="mt-4 text-base lg:text-lg text-gray-900 font-bold">
                   Horarios:
                 </p>
@@ -91,12 +91,12 @@ export default function AboutUs() {
                   <li>Sáb: 9:00 AM - 3:00 PM</li>
                   <li>Domingo: Cerrado</li>
                 </ul>
-              </div>
+              </div> */}
             </div>
           </section>
 
           {/* Sección de Introducción PARA WEB Texto largo*/}
-          <section className="lg:py-[4rem] lg:flex hidden py-[2rem] w-full">
+          <section className="lg:pt-[4rem] lg:flex hidden py-[2rem] w-full">
             <div className="w-full lg:px-[4rem] px-[1rem]">
               <p className="lg:text-3xl text-[1.5rem] font-semibold text-blue-900">
                 RentameCarmen.com.mx: Impulsando Oficios y Emprendimientos.
@@ -106,36 +106,45 @@ export default function AboutUs() {
                 nació para cubrir la necesidad de un espacio en Ciudad del
                 Carmen donde profesionales y emprendedores puedan acceder a
                 herramientas y equipos de calidad que impulsen sus proyectos en
-                áreas como construcción, jardinería, carpintería y diversos oficios.
+                áreas como construcción, jardinería, carpintería y diversos
+                oficios.
               </p>
               <p className="mt-4 text-lg text-gray-700">
                 Con el tiempo, surgió{" "}
                 <span className="text-red-700 font-bold ">
                   RM Centro de Servicio
                 </span>
-                , fundado ante la falta de técnicos confiables en la zona. Este centro, supervisado personalmente por sus propietarios y circuito cerrado, se rige por sus principios de formalidad y honestidad. No pedimos anticipos; cobramos solo cuando el equipo está reparado y entregamos todas las refacciones dañadas como garantía del trabajo, O su trabajo es totalmente gratis.
+                , fundado ante la falta de técnicos confiables en la zona. Este
+                centro, supervisado personalmente por sus propietarios y
+                circuito cerrado, se rige por sus principios de formalidad y
+                honestidad. No pedimos anticipos; cobramos solo cuando el equipo
+                está reparado y entregamos todas las refacciones dañadas como
+                garantía del trabajo, O su trabajo es totalmente gratis.
               </p>
-
-              <p className="mt-4 text-lg text-gray-700">
-                Nos especializamos en la renta, venta y reparación de equipos
+            </div>
+          </section>
+          <section className="w-full  bg-[#F9FAFB]">
+                      <div className=" rounded-2xl p-8  flex flex-col lg:flex-row gap-8 items-center justify-center">
+                        <div className="lg:w-1/2 w-full flex justify-center">
+                          <img
+                            src='https://msd.unimelb.edu.au/__data/assets/image/0005/4109252/varieties/large.jpg'
+                            alt="Taller de reparación"
+                            className=" shadow-xl lg:w-[80%]  lg:h-[300px] object-cover "
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="w-[30%] hidden lg:flex text-gray-700">
+                          <p className="text-lg">
+                          Nos especializamos en la renta, venta y reparación de equipos
                 eléctricos y de combustión, ofreciendo soluciones para múltiples
                 oficios. Además, contamos con una amplia variedad de refacciones
                 nuevas y usadas. Si no encuentras lo que necesitas, contáctanos:
                 estamos comprometidos en ayudarte a encontrar la mejor solución
                 para tu proyecto.
-              </p>
-              <div>
-                <p className="mt-4 text-lg text-gray-900 font-bold">
-                  Horarios de Atención:
-                </p>
-                <ul className="mt-2 text-gray-700 list-disc list-inside space-y-1">
-                  <li>Lunes a Viernes: 9:00 AM - 7:00 PM</li>
-                  <li>Sábado: 9:00 AM - 3:00 PM</li>
-                  <li>Domingo: Cerrado</li>
-                </ul>
-              </div>
-            </div>
-          </section>
+                          </p>
+                        </div>
+                      </div>
+                    </section>
           {/* Sección de Valores */}
           <section className="py-[2rem] bg-gradient-to-b from-gray-100 to-white">
             <div className="max-w-7xl mx-auto text-center">
@@ -160,13 +169,16 @@ export default function AboutUs() {
                     Nuestra Misión
                   </h3>
                   <p className="mt-4 text-gray-600 text-start">
-                    En <span className="font-bold text-red-700">RentameCarmen</span>, nuestra
-                    misión es proporcionar soluciones confiables y accesibles en
-                    la renta, venta y reparación de maquinaria. Buscamos ser el
-                    aliado ideal para profesionales y emprendedores, ofreciendo
-                    herramientas y equipos de alta calidad, acompañados de un
-                    servicio personalizado que facilite el éxito de sus
-                    proyectos y emprendimientos.
+                    En{" "}
+                    <span className="font-bold text-red-700">
+                      RentameCarmen
+                    </span>
+                    , nuestra misión es proporcionar soluciones confiables y
+                    accesibles en la renta, venta y reparación de maquinaria.
+                    Buscamos ser el aliado ideal para profesionales y
+                    emprendedores, ofreciendo herramientas y equipos de alta
+                    calidad, acompañados de un servicio personalizado que
+                    facilite el éxito de sus proyectos y emprendimientos.
                   </p>
                 </div>
 

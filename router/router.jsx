@@ -7,6 +7,8 @@ import Equipos_venta from "../src/pages/equipos_venta.jsx";
 import FichaTecnica from "../src/pages/PDF/ficha_tecnica.jsx";
 import CentroServicio from "../src/pages/centroServicio.jsx";
 import Equipos_renta from "../src/pages/equipos_renta.jsx";
+import Contacto from "../src/pages/contacto.jsx";
+import FAQ from "../src/pages/FAQ.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,5 +42,13 @@ const router = createBrowserRouter([
     path: "/centro_servicio",
     element: <CentroServicio />,
   },
+  {
+    path: "/faq-preguntas-frecuentes",
+    element: <FAQ />,
+  },
+  {
+    path: "/contactanos",
+    element: <Contacto />,
+  }
 ]);
 export default router;

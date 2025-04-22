@@ -41,15 +41,17 @@ export default function carouselProductos() {
   return (
     <div className="w-full lg:h-[90vh] h-auto bg-white flex flex-col rounded-xl gap-6 py-8 px-4 lg:px-8">
       <div className="text-[1.8rem] text-gray-800 font-bold montserrat text-center">
-        Equipos confiables para cada desafío
+        Renta de Equipos para cada desafío
       </div>
 
       <CarouselMulti
         responsive={responsive}
         className="z-10"
         infinite={true}
-        autoPlaySpeed={3000}
+        autoPlaySpeed={2500}
         itemClass="px-2"
+        autoPlay={true}
+        loop={true}
       >
         {all_products?.map((product, index) => (
           <div
