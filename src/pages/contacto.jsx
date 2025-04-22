@@ -92,7 +92,7 @@ export default function Contacto() {
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
 
         {/* Banner */}
-        <div className="w-full h-[30vh] lg:h-[15vh]"></div>
+        <div className="w-full h-[15vh]"></div>
 
         {/* Contact Section */}
         <div className="w-full bg-gray-50 px-[1.5rem] lg:pr-[0rem] lg:pl-[4rem] h-[85vh] flex flex-col-reverse lg:flex-row justify-between gap-10">
