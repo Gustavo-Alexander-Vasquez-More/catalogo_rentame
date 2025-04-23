@@ -20,7 +20,7 @@ let reseñas=[
     {
         id:3,
         name:'ADOLFO Vcnt',      
-        tipo:'none',
+        tipo:'Local Guide',
         url:'https://firebasestorage.googleapis.com/v0/b/fotos-36c9a.appspot.com/o/perfilesRentameRese%C3%B1as%2Fadolfo.png?alt=media&token=405c2f95-7eaf-4e1e-80c0-9ee7ae0c9425',
         message:'100% Recomendable la mayoría de los equipos son nuevos,. ✅',
         calification:5,
@@ -29,7 +29,7 @@ let reseñas=[
     {
         id:4,
         name:'Fernando ley',      
-        tipo:'none',
+        tipo:'Local Guide',
         url:'https://firebasestorage.googleapis.com/v0/b/fotos-36c9a.appspot.com/o/perfilesRentameRese%C3%B1as%2Ffernando.png?alt=media&token=4732a9c9-a1a5-4ef7-a354-de65205d7843',
         message:'Excelente Siempre pendientes y atentos',
         calification:5,
