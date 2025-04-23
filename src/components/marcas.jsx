@@ -65,7 +65,7 @@ export default function marcas() {
               loading="lazy"
               src={marca.logo}
               alt={marca.nombre}
-              className="lg:w-[7rem] w-[10rem] object-contain"
+              className="lg:w-[7rem] w-[8rem] object-contain"
             />
           </div>
         ))}

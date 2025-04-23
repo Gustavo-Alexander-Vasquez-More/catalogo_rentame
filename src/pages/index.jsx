@@ -69,105 +69,38 @@ export default function index() {
           <Beneficios />
           <CarouselProductos />
           {/* Renta de maquinaria */}
-          <div className="flex lg:flex-row flex-col-reverse w-full rounded-xl items-start lg:gap-0 gap-4 bg-white py-[1rem] lg:py-[2.5rem] px-[1rem] lg:px-[2.5rem]">
-            <div className="lg:w-[50%] w-full flex justify-center lg:pr-[3rem]">
-              <img
-                loading="lazy"
-                src={rentaMaquinaria}
-                alt="Renta de maquinaria"
-                className="shadow-md w-full lg:w-[90%] object-cover lg:h-[50vh]"
-              />
-            </div>
-            <div className="lg:w-[50%] w-full text-gray-700">
-              <h1 className="lg:text-[1.6rem] text-[1.4rem] font-bold mb-2">
-                Renta de Maquinaria
-              </h1>
-              <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
-              Rentamos equipos en general, ofreciendo soluciones para múltiples oficios como puede ser la construcción, soldadura
-carpintería, jardinería, etc. Si no tenemos lo que buscas, estaremos encantados de brindarte una alternativa para que puedas
-continuar con tu proyecto.
-              </p>
-              <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
-              Trabajamos con marcas líderes en herramientas y maquinaria ligera para ofrecerte equipos confiables y de alto rendimiento. Además, contamos con equipos tecnológicos y de otros oficios para proyectos que lo requieran.
-</p>
-              <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
-                Marcas como Bosch, Dewalt, Makita, Milwaukee, entre otras,
-                respaldan la calidad de nuestro catálogo.
-              </p>
-              <a
-                href="/renta-equipos"
-                className="underline text-[#222D72] lg:text-[1.1rem] text-[0.9rem] font-semibold"
-              >
-                Ver equipos en renta.
-              </a>
-            </div>
-          </div>
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  {/* Renta de Maquinaria */}
+  <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl flex flex-col justify-between transition-all">
+    <img src={rentaMaquinaria} alt="Renta de maquinaria" className="w-full h-40 object-cover rounded-lg mb-4" />
+    <h3 className="text-xl font-bold text-gray-800 mb-2">Renta de Maquinaria</h3>
+    <p className="text-gray-600 mb-4 text-sm">Ofrecemos equipos para construcción, carpintería, jardinería y diversos oficios. Si no encuentras lo que buscas, ¡te ayudamos a conseguirlo!</p>
+    <a href="/renta-equipos" className="text-[#222D72] font-semibold text-sm hover:text-blue-600">
+      Ver equipos en renta
+    </a>
+  </div>
 
-          {/* Venta de maquinaria */}
-          <div className="flex flex-col-reverse w-full rounded-xl items-start lg:flex-row-reverse lg:gap-0 gap-4 bg-white lg:py-[2.5rem] py-[1rem] px-[1rem] lg:px-[2.5rem]">
-            <div className="lg:w-[50%] w-full flex justify-center lg:pl-[3rem]">
-              <img
-                loading="lazy"
-                src={ventaMaquinaria}
-                alt="Venta de maquinaria"
-                className=" shadow-md w-full lg:w-[90%] object-cover lg:h-[50vh]"
-              />
-            </div>
-            <div className="lg:w-[50%] w-full text-gray-700">
-              <h1 className="lg:text-[1.6rem] text-[1.4rem] font-bold mb-2">
-                Venta de Herramientas
-              </h1>
-              <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
-                ¿Buscas herramientas nuevas o usadas a buen precio? En
-                <span className="text-red-700 font-bold"> RentameCarmen</span> contamos con opciones accesibles y confiables para
-                distintos oficios y necesidades.
-              </p>
-              <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
-                Desde equipos ligeros hasta maquinaria especializada, te
-                ayudamos a encontrar lo que necesitas con atención personalizada
-                y disponibilidad inmediata.
-              </p>
-              <a
-                href="/venta-equipos"
-                className="underline text-[#222D72] lg:text-[1.1rem] text-[0.9rem] font-semibold"
-              >
-                Ver equipos en venta.
-              </a>
-            </div>
-          </div>
+  {/* Venta de Herramientas */}
+  <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl flex flex-col justify-between transition-all">
+    <img src={ventaMaquinaria} alt="Venta de maquinaria" className="w-full h-40 object-cover rounded-lg mb-4" />
+    <h3 className="text-xl font-bold text-gray-800 mb-2">Venta de Herramientas</h3>
+    <p className="text-gray-600 mb-4 text-sm">Desde herramientas ligeras hasta maquinaria especializada. ¡Encuentra lo que necesitas a buen precio!</p>
+    <a href="/venta-equipos" className="text-[#222D72] font-semibold text-sm hover:text-blue-600">
+      Ver equipos en venta
+    </a>
+  </div>
 
-          {/* Reparación de equipos */}
-          <div className="flex lg:flex-row flex-col-reverse w-full rounded-xl items-start lg:gap-0 gap-4 bg-white lg:py-[2.5rem] py-[1rem] px-[1rem] lg:px-[2.5rem]">
-            <div className="lg:w-[50%] w-full flex justify-center lg:pr-[3rem] ">
-              <img
-                loading="lazy"
-                src={tallerDescriptivo}
-                alt="Reparación de equipos"
-                className=" shadow-md w-full lg:w-[90%] object-cover lg:h-[50vh]"
-              />
-            </div>
-            <div className="lg:w-[50%] w-full text-gray-700">
-              <h1 className="lg:text-[1.6rem] text-[1.4rem] font-bold mb-2">
-                Centro de Servicio
-              </h1>
-              <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
-              Nuestro centro especializado brinda mantenimiento y reparación para herramientas y equipos de marcas reconocidas, con stock de refacciones nuevas siempre disponible.
-              </p>
-              <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
-                Mientras reparamos tus herramientas, puedes rentar equipo con
-                nosotros. También compramos herramientas que ya no planeas usar.
-              </p>
-              <p className="lg:text-[1.1rem] text-[0.9rem] mb-2">
-              Contamos con refacciones usadas ya que también contamos con un deshuesadero. Acércate y encuentra soluciones a la medida de tus proyectos.
-              </p>
-              <a
-                href="/centro_servicio"
-                className="underline text-[#222D72] lg:text-[1.1rem] text-[0.9rem] font-semibold"
-              >
-                Conoce más de nosotros.
-              </a>
-            </div>
-          </div>
+  {/* Reparación de Equipos */}
+  <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl flex flex-col justify-between transition-all">
+    <img src={tallerDescriptivo} alt="Reparación de equipos" className="w-full h-40 object-cover rounded-lg mb-4" />
+    <h3 className="text-xl font-bold text-gray-800 mb-2">RM Centro de Servicio</h3>
+    <p className="text-gray-600 mb-4 text-sm">Reparamos tus herramientas y maquinaria en nuestro taller especializado. ¡Mientras tanto, puedes rentar un equipo para continuar con tu proyecto!</p>
+    <a href="/centro_servicio" className="text-[#222D72] font-semibold text-sm hover:text-blue-600">
+      Conoce más de nosotros
+    </a>
+  </div>
+</div>
+
           <Marcas />
           <Reseñas />
         </div>

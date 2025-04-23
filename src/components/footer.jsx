@@ -25,7 +25,7 @@ export default function Footer() {
         <li><a href="/about_us" className="hover:text-red-500">Sobre Nosotros</a></li>
         <li><a href="/centro_servicio" className="hover:text-red-500">RM Centro de Servicio</a></li>
         <li><a href="/contactanos" className="hover:text-red-500">Contáctanos</a></li>
-        <li><a href="/faq-preguntas-frecuentes" className="hover:text-red-500">FAQ</a></li>
+        <li><a href="/faq-preguntas-frecuentes" className="hover:text-red-500">Preguntas Frecuentes</a></li>
       </ul>
     </div>
 

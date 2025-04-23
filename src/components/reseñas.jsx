@@ -15,10 +15,10 @@ export default function Reseñas() {
   const reseñas_map = Array.isArray(reseñas_api) ? reseñas_api : [];
 
   return (
-    <section className="w-full bg-gray-100 py-16 px-4 lg:px-20">
-      <div className="text-center mb-10">
-        <h2 className="text-3xl lg:text-4xl font-bold text-gray-800">Opiniones de nuestros clientes</h2>
-        <p className="text-lg text-gray-600 mt-2">Tu satisfacción es nuestra prioridad</p>
+    <section className="w-full bg-white rounded-xl py-5 lg:py-16 px-4 lg:px-20">
+      <div className="text-center mb-2 lg:mb-10">
+        <h2 className="text-2xl lg:text-4xl font-semibold text-gray-800">Lo que nuestros clientes dicen</h2>
+        <p className="lg:text-lg text-gray-500 mt-2">Tu satisfacción, nuestra mejor recomendación</p>
       </div>
 
       <CarouselMulti
@@ -35,32 +35,32 @@ export default function Reseñas() {
             href={dat.url_opinion}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-2"
+            className="px-4"
           >
-            <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col justify-between h-full transition-all hover:shadow-2xl duration-300">
+            <div className="bg-[#ECEFF1] rounded-lg p-4 flex flex-col justify-between h-full transition-all duration-300 mx-2"> {/* Añadido mx-2 para margen horizontal */}
               {/* Usuario */}
-              <div className="flex items-center gap-4 mb-4">
+              <div className="flex items-center gap-3">
                 <img
                   loading="lazy"
                   src={dat.url}
                   alt={dat.name}
-                  className="w-10 h-10 rounded-full object-cover border"
+                  className="w-14 h-14 rounded-full object-cover border-2 border-blue-500"
                 />
                 <div>
-                  <p className="font-semibold text-gray-800">{dat.name}</p>
+                  <p className="font-semibold text-gray-800 lg:text-lg">{dat.name}</p>
                   {dat.tipo && <span className="text-sm text-gray-500">{dat.tipo}</span>}
                 </div>
               </div>
 
               {/* Estrellas */}
-              <div className="flex items-center gap-1 text-yellow-500 mb-3">
+              <div className="flex items-center gap-1 text-yellow-400">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={18} fill="currentColor" strokeWidth={1} />
                 ))}
               </div>
 
               {/* Mensaje */}
-              <p className="text-sm text-gray-700 line-clamp-4">{dat.message}</p>
+              <p className="text-sm text-gray-700 mb-5">{dat.message}</p>
             </div>
           </a>
         ))}
@@ -70,7 +70,7 @@ export default function Reseñas() {
         <a
           target="_blank"
           href="https://search.google.com/local/writereview?placeid=ChIJUSFC42up8YURtPF2RUOE55o"
-          className="text-red-700 font-semibold text-lg underline hover:text-red-800"
+          className="text-blue-600 font-semibold lg:text-lg underline hover:text-blue-700"
         >
           ¿Ya nos visitaste? Déjanos tu reseña aquí
         </a>

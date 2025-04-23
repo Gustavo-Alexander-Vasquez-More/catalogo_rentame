@@ -8,9 +8,17 @@ import "notyf/notyf.min.css";
 import Navbar from "../components/navbar";
 import banerRenta from "../images/ventaMaquinaria.jpg";
 import whatsapp from "../images/whatsapp.png";
+import { useLocation } from "react-router-dom";
+import { set } from "mongoose";
 export default function equipos_renta() {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const params2 = params.get("search") || '';
+  const [term, setTerm] = useState(params2);
   const [isOpen, setIsOpen] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  
+
   useEffect(() => {
     document.title = "Equipos en Renta | RentameCarmen";
     // Encontrar el link con rel="icon" y cambiar su href
@@ -33,7 +41,6 @@ export default function equipos_renta() {
   const [show_paginados, setShow_paginados] = useState(true);
   const [show_filter_products, setShow_filter_products] = useState(false);
   const [filteredDatas, setFilteredDatas] = useState([]);
-
   const [loadingImages, setLoadingImages] = useState(true);
   const [paginacion, setPaginacion] = useState();
   const [total_pages, setTotal_pages] = useState();
@@ -92,6 +99,8 @@ export default function equipos_renta() {
   }, []);
 
   function buscar() {
+    setTerm('');
+    window.history.replaceState({}, document.title, "/renta-equipos");
     const filtered = all_products.filter((dat) =>
       dat.nombre.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -99,7 +108,10 @@ export default function equipos_renta() {
   }
 
   function buscar_boton() {
+    setTerm('');
+    window.history.replaceState({}, document.title, "/renta-equipos");
     if (searchTerm) {
+      console.log(searchTerm);
       setShow_paginados(false);
       setShow_filter_products(true);
 
@@ -187,6 +199,29 @@ export default function equipos_renta() {
     setCopied(true);
     notyf.success("Enlace copiado");
   };
+
+  function buscarTerm(termino) {
+    window.scrollTo(0, 300);
+     if (termino) {
+      setShow_paginados(false);
+      setShow_filter_products(true);
+      const filtered = all_products.filter((dat) =>
+        dat.nombre.toLowerCase().includes(termino.toLowerCase())
+      );
+      setFilteredDatas(filtered);
+    } else {
+      setShow_paginados(true);
+      setShow_filter_products(false);
+    
+   }
+  }
+
+useEffect(() => {
+ if(term){
+  buscarTerm(term);
+ }
+}, [ all_products,term]);
+
   return (
     <>
     <Helmet>
@@ -279,14 +314,22 @@ export default function equipos_renta() {
         {/* TODO LOS PRODUCTOS PAGINADOS */}
         <div className="w-full   min-h-[50vh]  lg:px-[5rem] py-[2rem] gap-3 flex flex-col">
           {show_paginados === true && (
-            <p className="font-bold text-[1.3rem] px-[1.5rem] lg:pb-4 lg:text-[1.7rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md">
-              Nuestros equipos :
+            <p className="font-semibold text-[1.3rem] px-[1.5rem] lg:pb-4 lg:text-[1.7rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md">
+              Nuestros equipos:
             </p>
           )}
           {show_paginados === false && (
-            <p className="font-bold text-[1rem] px-[1.5rem] lg:text-[1.7rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md">
-              Resultados ({filteredDatas.length})
+            <>
+            {term ?(
+              <p className="font-semibold text-[1rem] px-[1.5rem] lg:text-[1.7rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md">
+              Resultados para '{term}' ({filteredDatas.length})
             </p>
+            ):(
+              <p className="font-semibold text-[1rem] px-[1.5rem] lg:text-[1.7rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md">
+              Resultados para '{searchTerm}' ({filteredDatas.length})
+            </p>
+            )}
+            </>
           )}
           {loadingImages && productos_paginados.length > 0 && (
             <div className=" w-full text-center gap-3 flex-col flex items-center justify-center">

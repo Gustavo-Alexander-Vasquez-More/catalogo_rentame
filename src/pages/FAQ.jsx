@@ -109,9 +109,10 @@ export default function FAQ() {
   return (
     <>
     <Helmet>
-    <meta name="description" content="Resuelve tus dudas sobre la renta de maquinaria. Consulta requisitos, contacto y servicios técnicos en Rentame Carmen." />
+    <meta name="description" content="Resuelve tus dudas sobre la renta de maquinaria. Consulta requisitos, contacto y servicios técnicos en rentamecarmen.com.mx." />
+    <meta name="keywords" content="preguntas frecuentes, renta de maquinaria, renta maquinaria ligera ciudad del Carmen, renta maquinaria ligera, Rentame Carmen, contacto, centro de servicio, requisitos para rentar" />
   <title>Preguntas Frecuentes | Rentame Carmen</title>
-  <meta name="description" content="Resuelve tus dudas sobre la renta de equipos en Ciudad del Carmen. Consulta los requisitos, contacto y servicios del centro técnico de RM." />
+  <meta name="description" content="Resuelve tus dudas sobre la renta de equipos en Ciudad del Carmen. Consulta los requisitos, contacto y soluciones del centro de servicio RM." />
   <script type="application/ld+json">
     {JSON.stringify({
       "@context": "https://schema.org",
