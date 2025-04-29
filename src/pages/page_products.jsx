@@ -48,6 +48,11 @@ export default function PageProduct() {
         <Helmet>
           <meta charSet="utf-8" />
           <title>{datas[0]?.nombre} - Rentame Carmen</title>
+          <meta
+            name="keywords"
+             content={`${datas[0]?.nombre}, ${datas[0]?.descripcion}, renta de maquinaria, venta de maquinaria, ${datas[0]?.tipo_uso}`}
+            />
+
           <link
             rel="canonical"
             href={`https://www.rentamecarmen.com.mx/detalle-producto?id=${datas[0]?.id}`}
