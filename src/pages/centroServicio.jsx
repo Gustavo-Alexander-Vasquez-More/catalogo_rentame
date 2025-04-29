@@ -33,6 +33,10 @@ export default function centroServicio() {
       <Helmet>
         <meta charSet="utf-8" />
         <title>Centro de Servicio | RentameCarmen</title>
+        <meta
+      name="keywords"
+      content="reparacion de taladro, reparacion de taladro ciudad del carmen, reparacion de taladros, reparacion de taladros ciudad del carmen, centro de servicio, centro de servicio ciudad del carmen, centro de servicio maquinaria ligera, centro de servicio maquinaria ligera ciudad del carmen, reparacion de demoledor, reparacion de demoledor ciudad del carmen, reparacion de demoledores, reparacion de demoledores ciudad del carmen, reparacion de revolvedora, reparacion de revolvedora ciudad del carmen, reparacion de maquinaria ligera, reparacion de maquinaria ligera ciudad del carmen, reparacion de compresor, reparacion de compresor ciudad del carmen, reparacion de compresores, reparacion de compresores ciudad del carmen, reparacion de generadores de corriente, reparacion de generadores de corriente ciudad del carmen, reparacion de planta de luz, reparacion de plantas de luz, reparacion de podadora, reparacion de podadora ciudad del carmen, reparacion de corta cesped, reparacion de corta cesped ciudad del carmen, refacciones maquinaria, refacciones maquinaria ciudad del carmen, reparacion aspiradora, reparacion aspiradora ciudad del carmen, reparacion cortadora de concreto, reparacion cortadora de concreto ciudad del carmen, reparacion de soldadoras, reparacion de soldadoras ciudad del carmen, reparacion de herramientas, reparacion de herramientas ciudad del carmen, reparacion de desbrozadora, reparacion de desbrozadora ciudad del carmen, centro de servicio ciudad del carmen, centro de reparacion, centro de reparacion ciudad del carmen, centro de reparacion de maquinaria, centro de reparacion de maquinaria ciudad del carmen"
+    />
         <link
           rel="canonical"
           href="https://www.rentamecarmen.com.mx/centro_servicio"

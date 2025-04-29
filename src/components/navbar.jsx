@@ -178,7 +178,7 @@ export default function navbar({ isOpen, setIsOpen }) {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Menú
+                Nuestro Menú
               </button>
               <ul class="dropdown-menu">
                 <li>

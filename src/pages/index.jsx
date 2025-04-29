@@ -51,12 +51,9 @@ export default function index() {
         </div>
         <div className="absolute z-40 w-full h-[100vh] flex justify-center gap-5 items-center text-white flex-col text-center px-[7%] lg:px-[15%]">
           <h1 className="lg:text-[2.5rem] text-[1.7rem] font-bold ">
-            TU MEJOR ALIADO EN LA RENTA Y VENTA DE MAQUINARIA
+          Tu mejor aliado en Renta, Venta y Centro de servicio en maquinaria y equipos en general.
           </h1>
-          <h3 className="lg:text-[1.5rem] text-[1.2rem] font-semibold">
-            No esperes más!. Tenemos equipos de Calidad para Todos Tus Proyectos
-            en Ciudad del Carmen.
-          </h3>
+          
             <a
               href="https://wa.link/8h0g6r" target="_blank"
               className="bg-[#222d72] hover:bg-[#11283D] lg:text-[1.3rem] transition-colors duration-500 py-3 px-4 rounded-3"
