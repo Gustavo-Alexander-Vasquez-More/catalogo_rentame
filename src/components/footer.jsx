@@ -20,8 +20,8 @@ export default function Footer() {
       <h4 className="text-lg font-semibold mb-4">Navegación</h4>
       <ul className="space-y-2 text-sm text-gray-300">
         <li><a href="/" className="hover:text-red-500">Inicio</a></li>
-        <li><a href="/renta-equipos" className="hover:text-red-500">Renta maquinaria</a></li>
-        <li><a href="/venta-equipos" className="hover:text-red-500">Venta maquinaria</a></li>
+        <li><a href="/renta-equipos" className="hover:text-red-500">Equipos en renta</a></li>
+        <li><a href="/venta-equipos" className="hover:text-red-500">Equipos en venta</a></li>
         <li><a href="/about_us" className="hover:text-red-500">Sobre Nosotros</a></li>
         <li><a href="/centro_servicio" className="hover:text-red-500">RM Centro de Servicio</a></li>
         <li><a href="/contactanos" className="hover:text-red-500">Contáctanos</a></li>

@@ -154,7 +154,7 @@ export default function equipos_venta() {
         <div className="w-full h-[60vh] opacity-60 bg-black absolute"></div>
         <div className="absolute z-40 w-full h-[60vh] flex justify-center items-center text-white flex-col text-center px-[15%]">
           <h1 className="text-4xl font-bold relative">
-            Catálogo de Herramientas en Venta
+            Catálogo de Equipos en Venta
           </h1>
           <p className="mt-4 text-lg relative">
             Conoce Nuestros equipos disponibles nuevos o usados de las mejores
