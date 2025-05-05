@@ -81,7 +81,7 @@ const FichaTecnica = ({ _id }) => {
           >
             {dat.codigo}
           </Text>
-          {dat.precio != "0" && dat.visibilidad_precio === "VISIBLE" && (
+          {dat.precio_renta != "0" && dat.visibilidad_precio_renta === "VISIBLE" && (
             <Text
               style={{
                 fontSize: 11,
@@ -90,10 +90,10 @@ const FichaTecnica = ({ _id }) => {
                 left: 34,
               }}
             >
-              ${dat.precio} MXN
+              ${dat.precio_renta} MXN
             </Text>
           )}
-          {(dat.precio === "0" || dat.visibilidad_precio === "NO VISIBLE") && (
+          {(dat.precio_renta === "0" || dat.visibilidad_precio_renta === "NO VISIBLE") && (
             <Text
               style={{
                 fontSize: 11,
@@ -105,7 +105,7 @@ const FichaTecnica = ({ _id }) => {
               PRECIO NO DISPONIBLE
             </Text>
           )}
-          {dat.tipo_uso === "venta" && (
+          {dat.disponibilidad.includes("venta") && (
             <View
               style={{
                 flexDirection: "column",
