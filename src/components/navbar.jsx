@@ -183,12 +183,12 @@ export default function navbar({ isOpen, setIsOpen }) {
               <ul class="dropdown-menu">
                 <li>
                   <a class="dropdown-item" href="/renta-equipos">
-                    Renta de maquinaria
+                    Equipos en renta
                   </a>
                 </li>
                 <li>
                   <a class="dropdown-item" href="/venta-equipos">
-                    Venta de maquinaria
+                    Equipos en venta
                   </a>
                 </li>
                 <li>

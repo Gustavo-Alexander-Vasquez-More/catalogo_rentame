@@ -165,24 +165,22 @@ export default function PageProduct() {
                 </a>
 
                 <div className="flex flex-wrap gap-4 mt-4">
-                  {(dat.tipo_uso === "venta" || dat.tipo_uso === "renta") && (
+                {(dat.disponibilidad.includes("renta")) && (
                     <a
-                      href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en ${dat.tipo_uso === "venta" ? "comprar" : "rentar"} el siguiente equipo: ${dat.nombre}`}
-                      className={`px-4 py-2 rounded-lg font-semibold text-white transition-colors ${
-                        dat.stock > 0 ? "bg-green-600 hover:bg-green-700" : "bg-gray-400 cursor-not-allowed"
-                      }`}
+                      href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`}
+                      className="px-4 py-2 rounded-lg font-semibold text-white bg-green-600 hover:bg-green-700 transition-colors"
                     >
                       Rentar equipo!
                     </a>
                   )}
-                  {dat.tipo_uso === "venta" && (
-                    <a
-                      href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en comprar el siguiente equipo: ${dat.nombre}`}
-                      className="px-4 py-2 rounded-lg font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors"
-                    >
-                      Comprar equipo!
-                    </a>
-                  )}
+                {(dat.disponibilidad.includes("venta")) && (
+                  <a
+                    href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en comprar el siguiente equipo: ${dat.nombre}`}
+                    className="px-4 py-2 rounded-lg font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors"
+                  >
+                    Comprar equipo!
+                  </a>
+                )}
                 </div>
               </div>
             </section>
