@@ -6,10 +6,10 @@ export default function navbar2({ isOpen, setIsOpen }) {
   const [nombre, setNombre] = useState();
   const [telefono, setTelefono] = useState();
   const [mensaje, setMensaje] = useState();
-    const [soluciones, setSoluciones] = useState(false);
-    const toggleSoluciones = () => {
-      setSoluciones((prev) => !prev);
-    };
+  const [soluciones, setSoluciones] = useState(false);
+  const toggleSoluciones = () => {
+    setSoluciones((prev) => !prev);
+  };
   const input_nombre = useRef();
   const input_mensaje = useRef();
   const input_telefono = useRef();
@@ -153,7 +153,7 @@ export default function navbar2({ isOpen, setIsOpen }) {
               </svg>
             </button>
             <div class="lg:flex hidden flex-col items-center lg:text-[1.15rem]  gap-1 sm:flex-row sm:m-0">
-            <a
+              <a
                 href="/"
                 className={`px-3 py-2 rounded transition-colors duration-500 text-left ${
                   location.pathname === "/"
@@ -188,6 +188,11 @@ export default function navbar2({ isOpen, setIsOpen }) {
                 <li>
                   <a class="dropdown-item" href="/faq-preguntas-frecuentes">
                     Preguntas Frecuentes
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/politica-privacidad">
+                    Política de privacidad
                   </a>
                 </li>
               </ul>
@@ -303,6 +308,12 @@ export default function navbar2({ isOpen, setIsOpen }) {
               className="text-[white] hover:bg-gray-200 w-full text-left transition-colors duration-500 rounded px-4 py-2 hover:text-gray-900"
             >
               Preguntas Frecuentes
+            </a>
+            <a
+              href="/politica-privacidad"
+              className="text-[white] hover:bg-gray-200 w-full text-left transition-colors duration-500 rounded px-4 py-2 hover:text-gray-900"
+            >
+              Política de privacidad
             </a>
             <a
               href="/contactanos"

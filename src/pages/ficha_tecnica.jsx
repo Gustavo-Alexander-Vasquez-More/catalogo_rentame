@@ -131,7 +131,7 @@ export default function DetalleProducto({ closeModal, id }) {
                       <p className="font-bold">Código del Producto:</p>
                       <p>{dat.codigo}</p>
                       <p className="font-bold mt-2">Precio del Producto:</p>
-                      <p>${dat.precio} MXN</p>
+                      <p>${dat.precio_renta} MXN</p>
                     </div>
                   </div>
 

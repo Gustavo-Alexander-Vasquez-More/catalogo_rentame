@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Index from "../src/pages";
 import Page_products from "../src/pages/page_products";
 import About_us from "../src/pages/about_us";
-import Refacciones from "../src/pages/refacciones.jsx";
+import PoliticaPrivacidad from "../src/pages/politica_privacidad.jsx";
 import Equipos_venta from "../src/pages/equipos_venta.jsx";
 import FichaTecnica from "../src/pages/PDF/ficha_tecnica.jsx";
 import CentroServicio from "../src/pages/centroServicio.jsx";
@@ -23,8 +23,8 @@ const router = createBrowserRouter([
     element: <About_us />,
   },
   {
-    path: "/refacciones",
-    element: <Refacciones />,
+    path: "/politica-privacidad",
+    element: <PoliticaPrivacidad />,
   },
   {
     path: "/venta-equipos",

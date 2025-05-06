@@ -13,11 +13,10 @@ import { set } from "mongoose";
 export default function equipos_renta() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const params2 = params.get("search") || '';
+  const params2 = params.get("search") || "";
   const [term, setTerm] = useState(params2);
   const [isOpen, setIsOpen] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  
 
   useEffect(() => {
     document.title = "Equipos en Renta | RentameCarmen";
@@ -99,7 +98,7 @@ export default function equipos_renta() {
   }, []);
 
   function buscar() {
-    setTerm('');
+    setTerm("");
     window.history.replaceState({}, document.title, "/renta-equipos");
     const filtered = all_products.filter((dat) =>
       dat.nombre.toLowerCase().includes(searchTerm.toLowerCase())
@@ -108,7 +107,7 @@ export default function equipos_renta() {
   }
 
   function buscar_boton() {
-    setTerm('');
+    setTerm("");
     window.history.replaceState({}, document.title, "/renta-equipos");
     if (searchTerm) {
       console.log(searchTerm);
@@ -202,7 +201,7 @@ export default function equipos_renta() {
 
   function buscarTerm(termino) {
     window.scrollTo(0, 300);
-     if (termino) {
+    if (termino) {
       setShow_paginados(false);
       setShow_filter_products(true);
       const filtered = all_products.filter((dat) =>
@@ -212,27 +211,26 @@ export default function equipos_renta() {
     } else {
       setShow_paginados(true);
       setShow_filter_products(false);
-    
-   }
+    }
   }
 
-useEffect(() => {
- if(term){
-  buscarTerm(term);
- }
-}, [ all_products,term]);
+  useEffect(() => {
+    if (term) {
+      buscarTerm(term);
+    }
+  }, [all_products, term]);
 
   return (
     <>
-    <Helmet>
-            <meta charSet="utf-8" />
-            <title>Equipos en Renta | RentameCarmen</title>
-            <link
-              rel="canonical"
-              href="https://www.rentamecarmen.com.mx/renta-equipos"
-            />
-            <link rel="preload" as="image" href={banerRenta} />
-          </Helmet>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Equipos en Renta | RentameCarmen</title>
+        <link
+          rel="canonical"
+          href="https://www.rentamecarmen.com.mx/renta-equipos"
+        />
+        <link rel="preload" as="image" href={banerRenta} />
+      </Helmet>
       {productos_paginados.map((dat, index) => (
         <img
           className="w-full h-[35vh] object-contain hidden"
@@ -246,7 +244,13 @@ useEffect(() => {
       {/* LOADER DE IMAGENES */}
 
       <div className="w-full flex flex-col relative items-center">
-        <a href="https://wa.link/gpu01d" target="_blank" className="fixed lg:top-[82%] top-[87%] right-5 z-50 shadow-xl bg-[#ffffff3d] rounded-full"><img className="lg:w-[6rem] w-[4.5rem]" src={whatsapp} alt="sds" /></a>
+        <a
+          href="https://wa.link/gpu01d"
+          target="_blank"
+          className="fixed lg:top-[82%] top-[87%] right-5 z-50 shadow-xl bg-[#ffffff3d] rounded-full"
+        >
+          <img className="lg:w-[6rem] w-[4.5rem]" src={whatsapp} alt="sds" />
+        </a>
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
         <div className="w-full flex z-0 justify-center items-center h-[60vh]">
           <img
@@ -320,15 +324,15 @@ useEffect(() => {
           )}
           {show_paginados === false && (
             <>
-            {term ?(
-              <p className="font-semibold text-[1rem] px-[1.5rem] lg:text-[1.7rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md">
-              Resultados para '{term}' ({filteredDatas.length})
-            </p>
-            ):(
-              <p className="font-semibold text-[1rem] px-[1.5rem] lg:text-[1.7rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md">
-              Resultados para '{searchTerm}' ({filteredDatas.length})
-            </p>
-            )}
+              {term ? (
+                <p className="font-semibold text-[1rem] px-[1.5rem] lg:text-[1.7rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md">
+                  Resultados para '{term}' ({filteredDatas.length})
+                </p>
+              ) : (
+                <p className="font-semibold text-[1rem] px-[1.5rem] lg:text-[1.7rem] text-secondary bg-gradient-to-r from-[#C70000] to-[#FF5733] text-transparent bg-clip-text drop-shadow-md">
+                  Resultados para '{searchTerm}' ({filteredDatas.length})
+                </p>
+              )}
             </>
           )}
           {loadingImages && productos_paginados.length > 0 && (
@@ -569,73 +573,74 @@ useEffect(() => {
             {/* TODOS LOS PRODUCTOS PAGINADOS */}
             {show_paginados === true && loadingImages === false && (
               <div className="w-full py-4 flex items-center justify-center">
-              <div className="flex items-center gap-2 md:gap-4 flex-wrap justify-center max-w-full">
-                {/* Botón "Anterior" */}
-                <button
-                  onClick={prevPage}
-                  disabled={current_page === 1}
-                  className="bg-[#0D6EFD] hover:bg-[#0b5ed7] disabled:bg-gray-400 text-white p-2 rounded-full transition duration-200 shadow-sm w-8 h-8 flex items-center justify-center"
-                >
-                  <svg
-                    className="w-4 h-4 md:w-5 md:h-5"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                <div className="flex items-center gap-2 md:gap-4 flex-wrap justify-center max-w-full">
+                  {/* Botón "Anterior" */}
+                  <button
+                    onClick={prevPage}
+                    disabled={current_page === 1}
+                    className="bg-[#0D6EFD] hover:bg-[#0b5ed7] disabled:bg-gray-400 text-white p-2 rounded-full transition duration-200 shadow-sm w-8 h-8 flex items-center justify-center"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 12h14M5 12l4-4m-4 4 4 4"
-                    />
-                  </svg>
-                </button>
-            
-                {/* Números de página dinámicos */}
-                <div className="flex gap-[0.3rem] md:gap-2 flex-wrap justify-center max-w-full">
-                  {generatePageNumbers(current_page, total_pages).map((page) => (
-                    <button
-                      key={page}
-                      disabled={current_page === page}
-                      onClick={() => goToPage(page)}
-                      className={`text-xs md:text-base px-2 md:px-3 py-[0.3rem] md:py-1 rounded-md font-medium transition duration-200 ${
-                        current_page === page
-                          ? "bg-[#0D6EFD] text-white shadow-sm"
-                          : "bg-white text-gray-800 border border-gray-300 hover:bg-gray-100"
-                      }`}
+                    <svg
+                      className="w-4 h-4 md:w-5 md:h-5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
                     >
-                      {page}
-                    </button>
-                  ))}
-                </div>
-            
-                {/* Botón "Siguiente" */}
-                <button
-                  onClick={nextPage}
-                  disabled={current_page >= total_pages}
-                  className="bg-[#0D6EFD] hover:bg-[#0b5ed7] disabled:bg-gray-400 text-white p-2 rounded-full transition duration-200 shadow-sm w-8 h-8 flex items-center justify-center"
-                >
-                  <svg
-                    className="w-4 h-4 md:w-5 md:h-5"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M5 12h14M5 12l4-4m-4 4 4 4"
+                      />
+                    </svg>
+                  </button>
+
+                  {/* Números de página dinámicos */}
+                  <div className="flex gap-[0.3rem] md:gap-2 flex-wrap justify-center max-w-full">
+                    {generatePageNumbers(current_page, total_pages).map(
+                      (page) => (
+                        <button
+                          key={page}
+                          disabled={current_page === page}
+                          onClick={() => goToPage(page)}
+                          className={`text-xs md:text-base px-2 md:px-3 py-[0.3rem] md:py-1 rounded-md font-medium transition duration-200 ${
+                            current_page === page
+                              ? "bg-[#0D6EFD] text-white shadow-sm"
+                              : "bg-white text-gray-800 border border-gray-300 hover:bg-gray-100"
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      )
+                    )}
+                  </div>
+
+                  {/* Botón "Siguiente" */}
+                  <button
+                    onClick={nextPage}
+                    disabled={current_page >= total_pages}
+                    className="bg-[#0D6EFD] hover:bg-[#0b5ed7] disabled:bg-gray-400 text-white p-2 rounded-full transition duration-200 shadow-sm w-8 h-8 flex items-center justify-center"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 12H5m14 0-4 4m4-4-4-4"
-                    />
-                  </svg>
-                </button>
+                    <svg
+                      className="w-4 h-4 md:w-5 md:h-5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 12H5m14 0-4 4m4-4-4-4"
+                      />
+                    </svg>
+                  </button>
+                </div>
               </div>
-            </div>
-            
             )}
           </div>
         </div>

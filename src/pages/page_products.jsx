@@ -50,7 +50,11 @@ export default function PageProduct() {
           <title>{datas[0]?.nombre} - Rentame Carmen</title>
           <meta
             name="keywords"
-            content={`${datas[0]?.nombre}, ${datas[0]?.descripcion}, renta de maquinaria, venta de maquinaria, ${datas[0]?.tipo_uso}, ${datas[0]?.tags?.join(", ")}`}
+            content={`${datas[0]?.nombre}, ${
+              datas[0]?.descripcion
+            }, renta de maquinaria, venta de maquinaria, ${
+              datas[0]?.tipo_uso
+            }, ${datas[0]?.tags?.join(", ")}`}
           />
           <link
             rel="canonical"
@@ -77,7 +81,9 @@ export default function PageProduct() {
 
       <main className="max-w-7xl mx-auto px-4">
         {loading ? (
-          <div className="text-center py-10 text-gray-600 font-semibold text-lg">Cargando producto...</div>
+          <div className="text-center py-10 text-gray-600 font-semibold text-lg">
+            Cargando producto...
+          </div>
         ) : (
           datas.map((dat, index) => (
             <section
@@ -96,53 +102,58 @@ export default function PageProduct() {
               {/* Detalles */}
               <div className="flex-1 space-y-4">
                 <nav className="text-sm text-gray-500 space-x-2">
-                  <a href="/" className="hover:underline text-blue-600">Inicio</a>
+                  <a href="/" className="hover:underline text-blue-600">
+                    Inicio
+                  </a>
                   <span>/</span>
                   <span className="text-gray-900 font-medium">Equipos</span>
                 </nav>
 
-                <h1 className="text-3xl font-bold text-[#323B75]">{dat.nombre}</h1>
+                <h1 className="text-3xl font-bold text-[#323B75]">
+                  {dat.nombre}
+                </h1>
 
                 <div className="flex flex-col gap-2 items-start">
-                <span
-                  className={`text-lg font-semibold ${
-                    dat.stock > 0 ? "text-green-600" : "text-red-600"
-                  }`}
-                >
-                  {dat.stock > 0 ? "Disponible" : "Rentado"}
-                </span>
+                  <span
+                    className={`text-lg font-semibold ${
+                      dat.stock > 0 ? "text-green-600" : "text-red-600"
+                    }`}
+                  >
+                    {dat.stock > 0 ? "Disponible" : "Rentado"}
+                  </span>
 
-                <PDFDownloadLink
-                  document={<FichaTecnica _id={productId} />}
-                  fileName={`Ficha_Tecnica-${dat.nombre}.pdf`}
-                  className="inline-flex items-center gap-2 bg-[#323B75]  text-white px-4 py-2 rounded-md font-medium text-sm hover:bg-[#1f2b5e] transition"
-                >
-                  {({ loading }) =>
-                    loading ? (
-                      <span>Cargando ficha técnica...</span>
-                    ) : (
-                      <>
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M12 4v16m8-8H4"
-                          />
-                        </svg>
-                        Descargar Ficha Técnica
-                      </>
-                    )
-                  }
-                </PDFDownloadLink>
-
+                  <PDFDownloadLink
+                    document={<FichaTecnica _id={productId} />}
+                    fileName={`Ficha_Tecnica-${dat.nombre}.pdf`}
+                    className="inline-flex items-center gap-2 bg-[#323B75]  text-white px-4 py-2 rounded-md font-medium text-sm hover:bg-[#1f2b5e] transition"
+                  >
+                    {({ loading }) =>
+                      loading ? (
+                        <span>Cargando ficha técnica...</span>
+                      ) : (
+                        <>
+                          <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M12 4v16m8-8H4"
+                            />
+                          </svg>
+                          Descargar Ficha Técnica
+                        </>
+                      )
+                    }
+                  </PDFDownloadLink>
                 </div>
-                <p className="text-gray-700 font-semibold text-lg">PRECIO A CONSULTAR</p>
+                <p className="text-gray-700 font-semibold text-lg">
+                  PRECIO A CONSULTAR
+                </p>
 
                 <a
                   href="/"
@@ -165,7 +176,7 @@ export default function PageProduct() {
                 </a>
 
                 <div className="flex flex-wrap gap-4 mt-4">
-                {(dat.disponibilidad.includes("renta")) && (
+                  {dat.disponibilidad.includes("renta") && (
                     <a
                       href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`}
                       className="px-4 py-2 rounded-lg font-semibold text-white bg-green-600 hover:bg-green-700 transition-colors"
@@ -173,14 +184,14 @@ export default function PageProduct() {
                       Rentar equipo!
                     </a>
                   )}
-                {(dat.disponibilidad.includes("venta")) && (
-                  <a
-                    href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en comprar el siguiente equipo: ${dat.nombre}`}
-                    className="px-4 py-2 rounded-lg font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors"
-                  >
-                    Comprar equipo!
-                  </a>
-                )}
+                  {dat.disponibilidad.includes("venta") && (
+                    <a
+                      href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en comprar el siguiente equipo: ${dat.nombre}`}
+                      className="px-4 py-2 rounded-lg font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors"
+                    >
+                      Comprar equipo!
+                    </a>
+                  )}
                 </div>
               </div>
             </section>
@@ -192,7 +203,9 @@ export default function PageProduct() {
             key={`desc-${index}`}
             className="max-w-4xl mx-auto mt-8 space-y-2 pb-5"
           >
-            <h2 className="text-xl font-bold text-[#323B75]">Descripción del equipo</h2>
+            <h2 className="text-xl font-bold text-[#323B75]">
+              Descripción del equipo
+            </h2>
             <p className="text-gray-700 text-justify leading-relaxed">
               {dat.descripcion?.toUpperCase()}
             </p>
