@@ -190,11 +190,6 @@ export default function navbar2({ isOpen, setIsOpen }) {
                     Preguntas Frecuentes
                   </a>
                 </li>
-                <li>
-                  <a class="dropdown-item" href="/politica-privacidad">
-                    Política de privacidad
-                  </a>
-                </li>
               </ul>
               <a
                 href="/about_us"
@@ -308,12 +303,6 @@ export default function navbar2({ isOpen, setIsOpen }) {
               className="text-[white] hover:bg-gray-200 w-full text-left transition-colors duration-500 rounded px-4 py-2 hover:text-gray-900"
             >
               Preguntas Frecuentes
-            </a>
-            <a
-              href="/politica-privacidad"
-              className="text-[white] hover:bg-gray-200 w-full text-left transition-colors duration-500 rounded px-4 py-2 hover:text-gray-900"
-            >
-              Política de privacidad
             </a>
             <a
               href="/contactanos"
