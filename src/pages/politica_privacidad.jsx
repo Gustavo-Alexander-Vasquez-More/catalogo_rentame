@@ -166,10 +166,10 @@ function PoliticaPrivacidadPage() {
                 Si tienes preguntas o inquietudes sobre nuestra política de
                 privacidad, contáctanos en{" "}
                 <a
-                  href="mailto:contacto@rentamecarmen.com.mx"
+                  href="mailto:info@rentamecarmen.com.mx"
                   className="text-blue-600 underline"
                 >
-                  contacto@rentamecarmen.com.mx
+                  info@rentamecarmen.com.mx
                 </a>
                 .
               </p>

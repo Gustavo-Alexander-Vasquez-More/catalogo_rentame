@@ -86,9 +86,9 @@ export default function Footer() {
               <strong>Email:</strong>{" "}
               <a
                 className="hover:text-red-500 hover:underline"
-                href="mailto:contacto@rentamecarmen.com.mx"
+                href="mailto:info@rentamecarmen.com.mx"
               >
-                contacto@rentamecarmen.com.mx
+                info@rentamecarmen.com.mx
               </a>
             </li>
             <li>

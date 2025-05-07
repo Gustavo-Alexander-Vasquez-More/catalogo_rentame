@@ -178,10 +178,10 @@ export default function Contacto() {
             <p className="flex items-center gap-2 text-gray-700">
               <Mail className="text-red-700" size={20} />
               <a
-                href="mailto:contacto@rentamecarmen.com.mx"
+                href="mailto:info@rentamecarmen.com.mx"
                 className="hover:underline"
               >
-                contacto@rentamecarmen.com.mx
+                info@rentamecarmen.com.mx
               </a>
             </p>
             <div className="mt-6">

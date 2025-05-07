@@ -56,8 +56,8 @@ export default function FAQ() {
         </p>
         <ul className="list-disc pl-5 space-y-1">
           <li><span className="font-semibold text-[#1D4ED8]">WhatsApp:</span> <a className="underline hover:text-[#C70000] transition-colors duration-500" href="tel:+529381958284">+52 938 195 8284</a></li>
-          <li><span className="text-[#1D4ED8] font-semibold">Correo electrónico:</span> <a className="underline hover:text-[#C70000] transition-colors duration-500" href="mailto:contacto@rentamecarmen.com.mx">contacto@rentamecarmen.com.mx</a></li>
-          <li><span className="text-[#1D4ED8] font-semibold">Redes sociales:</span> <a className="underline hover:text-[#C70000] transition-colors duration-500" href="mailto:contacto@rentamecarmen.com.mx">Facebook</a></li>
+          <li><span className="text-[#1D4ED8] font-semibold">Correo electrónico:</span> <a className="underline hover:text-[#C70000] transition-colors duration-500" href="mailto:info@rentamecarmen.com.mx">info@rentamecarmen.com.mx</a></li>
+          <li><span className="text-[#1D4ED8] font-semibold">Redes sociales:</span> <a className="underline hover:text-[#C70000] transition-colors duration-500" href="https://www.facebook.com/p/Rentame-Carmen-100094870352555/">Facebook</a></li>
           <li><span className="text-[#1D4ED8] font-semibold">Formulario de contacto:</span> <a className="underline hover:text-[#C70000] transition-colors duration-500" href="/contactanos">Contacto RM</a></li>
         </ul>
         </>
