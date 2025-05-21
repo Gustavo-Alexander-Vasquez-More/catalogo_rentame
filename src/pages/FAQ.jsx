@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Navbar from "../components/navbar.jsx";
+import Navbar from "../components/navbar2.jsx";
 import Footer from "../components/footer";
 import faq from "../images/faq.jpg";
 import { Helmet } from "react-helmet";
@@ -141,7 +141,10 @@ export default function FAQ() {
 
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
 
-        {/* Banner */}
+        {/* Espaciador superior */}
+        <div className="w-full h-[25vh]"></div>
+
+        {/* Banner principal FAQ */}
         <div className="w-full flex z-0 justify-center items-center h-[50vh] relative">
           <img
             src={faq}

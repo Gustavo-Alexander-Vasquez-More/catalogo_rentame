@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import icon from "../images/rentame_icon.png";
 import Footer from "../components/footer";
-import Navbar from "../components/navbar";
+import Navbar from "../components/navbar2";
 import { Helmet } from "react-helmet";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
@@ -150,27 +150,7 @@ export default function equipos_venta() {
           <img className="lg:w-[6rem] w-[4.5rem]" src={whatsapp} alt="sds" />
         </a>
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
-        <div className="w-full flex z-0 justify-center items-center h-[60vh]">
-          <img
-            loading="lazy"
-            onLoad={() => setImageLoaded(true)}
-            className={`h-[60vh] object-cover object-top w-full relative transition-opacity duration-1000 ${
-              imageLoaded ? "opacity-100" : "opacity-0"
-            }`}
-            src={ventaImage}
-            alt=""
-          />
-          <div className="w-full h-[60vh] opacity-60 bg-black absolute"></div>
-          <div className="absolute z-40 w-full h-[60vh] flex justify-center items-center text-white flex-col text-center px-[15%]">
-            <h1 className="text-4xl font-bold relative">
-              Catálogo de Equipos en Venta
-            </h1>
-            <p className="mt-4 text-lg relative">
-              Conoce Nuestros equipos disponibles nuevos o usados de las mejores
-              marcas.
-            </p>
-          </div>
-        </div>
+        <div className="w-full h-[25vh]"></div>
         <div
           className={`flex flex-col items-center w-full h-auto  transition-transform duration-500 ${
             isOpen ? "transform translate-y-[30px]" : "transform translate-y-0"
@@ -267,7 +247,7 @@ export default function equipos_venta() {
                         <img
                           className="w-full h-[20vh] lg:h-[20vh] object-contain rounded-lg transition-all duration-300 group-hover:opacity-60"
                           src={dat.foto}
-                          alt={`Renta de ${dat.nombre} en Ciudad del Carmen, Campeche`}
+                          alt={`Venta de ${dat.nombre} en Ciudad del Carmen, Campeche`}
                         />
                         <div className="absolute inset-0 bg-black bg-opacity-40 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                           <svg
@@ -286,18 +266,17 @@ export default function equipos_venta() {
                           </svg>
                         </div>
                       </a>
-
                       <p className="lg:text-[1rem] text-[0.8rem] text-center font-semibold text-gray-800 h-auto line-clamp-2 lg:line-clamp-1">
                         {dat.nombre.toUpperCase()}
                       </p>
                       <button
                         onClick={() => {
-                          setId(dat._id), handleCopy(dat._id);
+                          setId(dat._id); handleCopy(dat._id);
                         }}
                         className="mt-2 text-blue-600 hover:text-blue-800 transition-colors flex justify-center items-center w-full text-[0.8rem] underline"
                       >
                         <svg
-                          class="w-4 h-4 "
+                          className="w-4 h-4"
                           aria-hidden="true"
                           xmlns="http://www.w3.org/2000/svg"
                           width="24"
@@ -307,9 +286,9 @@ export default function equipos_venta() {
                         >
                           <path
                             stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                             d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"
                           />
                         </svg>
@@ -317,7 +296,7 @@ export default function equipos_venta() {
                       </button>
                       {dat.stock === 0 && (
                         <p className="text-center text-[#D9534F] font-semibold rounded-[5px] lg:text-[1rem] text-[0.9rem]">
-                          Rentado
+                          Agotado
                         </p>
                       )}
                       {dat.stock > 0 && (
@@ -325,7 +304,22 @@ export default function equipos_venta() {
                           Disponible
                         </p>
                       )}
-
+                      {(() => {
+                        const precioNum = Number(dat.precio_venta);
+                        if (!isNaN(precioNum) && precioNum > 0) {
+                          return (
+                            <p className="text-center text-[#323B75] font-bold text-[1rem] mt-1">
+                              ${dat.precio_venta} <span className="font-normal text-gray-600 text-sm">MXN</span>
+                            </p>
+                          );
+                        } else {
+                          return (
+                            <p className="text-center text-gray-500 font-semibold text-[0.95rem] mt-1">
+                              Consultar precio
+                            </p>
+                          );
+                        }
+                      })()}
                       <a
                         href={`/detalle-producto?id=${dat._id}`}
                         className="bg-[#323B75] text-white py-[0.3rem] lg:py-[0.5rem] mt-2 px-4 rounded-[5px] lg:text-[0.9rem] text-[0.7rem] text-center hover:bg-[#5F75B8] transition duration-300 ease-in-out"
@@ -360,7 +354,7 @@ export default function equipos_venta() {
                         <img
                           className="w-full h-[20vh] lg:h-[20vh] object-contain rounded-lg transition-all duration-300 group-hover:opacity-60"
                           src={dat.foto}
-                          alt={`Renta de ${dat.nombre} en Ciudad del Carmen, Campeche`}
+                          alt={`Venta de ${dat.nombre} en Ciudad del Carmen, Campeche`}
                         />
                         <div className="absolute inset-0 bg-black bg-opacity-40 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                           <svg
@@ -379,18 +373,17 @@ export default function equipos_venta() {
                           </svg>
                         </div>
                       </a>
-
                       <p className="lg:text-[1rem] text-[0.8rem] text-center font-semibold text-gray-800 h-auto line-clamp-2 lg:line-clamp-1">
                         {dat.nombre.toUpperCase()}
                       </p>
                       <button
                         onClick={() => {
-                          setId(dat._id), handleCopy(dat._id);
+                          setId(dat._id); handleCopy(dat._id);
                         }}
                         className="mt-2 text-blue-600 hover:text-blue-800 transition-colors flex justify-center items-center w-full text-[0.8rem] underline"
                       >
                         <svg
-                          class="w-4 h-4 "
+                          className="w-4 h-4"
                           aria-hidden="true"
                           xmlns="http://www.w3.org/2000/svg"
                           width="24"
@@ -400,9 +393,9 @@ export default function equipos_venta() {
                         >
                           <path
                             stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                             d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"
                           />
                         </svg>
@@ -410,7 +403,7 @@ export default function equipos_venta() {
                       </button>
                       {dat.stock === 0 && (
                         <p className="text-center text-[#D9534F] font-semibold rounded-[5px] lg:text-[1rem] text-[0.9rem]">
-                          Rentado
+                          Agotado
                         </p>
                       )}
                       {dat.stock > 0 && (
@@ -418,7 +411,22 @@ export default function equipos_venta() {
                           Disponible
                         </p>
                       )}
-
+                      {(() => {
+                        const precioNum = Number(dat.precio_venta);
+                        if (!isNaN(precioNum) && precioNum > 0) {
+                          return (
+                            <p className="text-center text-[#323B75] font-bold text-[1rem] mt-1">
+                              ${dat.precio_venta} <span className="font-normal text-gray-600 text-sm">MXN</span>
+                            </p>
+                          );
+                        } else {
+                          return (
+                            <p className="text-center text-gray-500 font-semibold text-[0.95rem] mt-1">
+                              Consultar precio
+                            </p>
+                          );
+                        }
+                      })()}
                       <a
                         href={`/detalle-producto?id=${dat._id}`}
                         className="bg-[#323B75] text-white py-[0.3rem] lg:py-[0.5rem] mt-2 px-4 rounded-[5px] lg:text-[0.9rem] text-[0.7rem] text-center hover:bg-[#5F75B8] transition duration-300 ease-in-out"

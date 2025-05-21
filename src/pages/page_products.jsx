@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Navbar from "../components/navbar2";
 import { useLocation } from "react-router-dom";
 import { PDFDownloadLink } from "@react-pdf/renderer";
@@ -8,6 +8,89 @@ import { Helmet } from "react-helmet";
 import Footer from "../components/footer";
 import Ficha_tecnica from "./ficha_tecnica";
 import FichaTecnica from "./PDF/ficha_tecnica.jsx";
+import CarouselMulti from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
+function CarouselSimilares({ productos }) {
+  const responsive = {
+    desktop: { breakpoint: { max: 3000, min: 1279 }, items: 5 },
+    tablet: { breakpoint: { max: 1279, min: 640 }, items: 2 },
+    mobile: { breakpoint: { max: 639, min: 0 }, items: 1 },
+  };
+
+  if (!productos.length) return null;
+
+  return (
+    <div className="my-12 w-full flex flex-col items-center">
+      <h3 className="text-2xl font-bold text-[#323B75] mb-6 text-center w-full">
+        También te puede interesar
+      </h3>
+      <CarouselMulti
+        responsive={responsive}
+        infinite
+        autoPlay
+        autoPlaySpeed={3000}
+        arrows
+        itemClass="px-2"
+        className="w-full"
+      >
+        {productos.map((prod) => (
+          <a key={prod._id} href={`/detalle-producto?id=${prod._id}`}>
+            <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center justify-between p-4 min-w-[250px] max-w-[250px] h-[370px] relative">
+              {/* Oferta por semana */}
+              {(prod.precio_x_semana && Number(prod.precio_x_semana) > 0) && (
+                <div className="absolute  left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded shadow z-10 opacity-90">
+                  ${prod.precio_x_semana} MXN x semana
+                </div>
+              )}
+              <img
+                loading="lazy"
+                src={prod.foto}
+                alt={prod.nombre}
+                className="w-full h-36 object-contain mb-2 relative"
+                style={{ background: "white" }}
+              />
+              <h3 className="font-semibold text-[#323B75] text-center text-base truncate w-full">
+                {prod.nombre}
+              </h3>
+              {/* Estado de disponibilidad */}
+              {prod.stock === 0 && (
+                <p className="text-center text-[#D9534F] font-semibold rounded-[5px] text-[0.95rem] mt-1">
+                  Rentado
+                </p>
+              )}
+              {prod.stock > 0 && (
+                <p className="text-center text-[#28A745] font-semibold rounded-[5px] text-[0.95rem] mt-1">
+                  Disponible
+                </p>
+              )}
+              {/* Precio de renta por día */}
+              {(() => {
+                const precioNum = Number(prod.precio_renta);
+                if (!isNaN(precioNum) && precioNum > 0) {
+                  return (
+                    <p className="text-center text-[#323B75] font-bold text-[1rem] mt-1">
+                      ${prod.precio_renta} <span className="font-normal text-gray-600 text-sm">MXN/día</span>
+                    </p>
+                  );
+                } else {
+                  return (
+                    <p className="text-center text-gray-500 font-semibold text-[0.95rem] mt-1">
+                      Consultar precio
+                    </p>
+                  );
+                }
+              })()}
+              <p className="mt-2 bg-[#323B75] text-white px-4 py-2 rounded-lg text-sm font-semibold text-center w-full">
+                Ver equipo
+              </p>
+            </div>
+          </a>
+        ))}
+      </CarouselMulti>
+    </div>
+  );
+}
 
 export default function PageProduct() {
   const location = useLocation();
@@ -16,6 +99,8 @@ export default function PageProduct() {
   const [loading, setLoading] = useState(true);
   const [datas, setDatas] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [allProducts, setAllProducts] = useState([]);
+  const [similares, setSimilares] = useState([]);
 
   function closeModal() {
     setModal(false);
@@ -38,12 +123,43 @@ export default function PageProduct() {
     }
   }
 
+  // Traer todos los productos para el carousel de similares
+  async function get_all_products() {
+    try {
+      const { data } = await axios.get(
+        "https://backrecordatoriorenta-production.up.railway.app/api/products/"
+      );
+      setAllProducts(data.response);
+    } catch (error) {
+      setAllProducts([]);
+    }
+  }
+
   useEffect(() => {
     get_product();
+    get_all_products();
   }, [productId]);
 
+  // Buscar productos similares (por categorías)
+  useEffect(() => {
+    if (datas.length > 0 && allProducts.length > 0) {
+      const equipo = datas[0];
+      const categoriasEquipo = Array.isArray(equipo.categoria) ? equipo.categoria : [equipo.categoria];
+      const similaresFiltrados = allProducts.filter(
+        prod =>
+          prod._id !== equipo._id &&
+          (
+            Array.isArray(prod.categoria)
+              ? prod.categoria.some(cat => categoriasEquipo.includes(cat))
+              : categoriasEquipo.includes(prod.categoria)
+          )
+      );
+      setSimilares(similaresFiltrados);
+    }
+  }, [datas, allProducts]);
+
   return (
-    <>
+    <div className="min-h-screen w-full" style={{ background: "#F1F1F1" }}>
       {datas?.length > 0 && (
         <Helmet>
           <meta charSet="utf-8" />
@@ -58,7 +174,7 @@ export default function PageProduct() {
           />
           <link
             rel="canonical"
-            href={`https://www.rentamecarmen.com.mx/detalle-producto?id=${datas[0]?.id}`}
+            href={`https://www.rentamecarmen.com.mx/detalle-producto?id=${datas[0]?._id}`}
           />
           <meta name="description" content={datas[0].descripcion} />
           <link rel="shortcut icon" href={datas[0]?.foto} type="image/png" />
@@ -77,9 +193,10 @@ export default function PageProduct() {
       </a>
 
       <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
-      <div className="h-[15vh]" />
+      {/* Espacio para que el navbar no tape el contenido */}
+      <div className="h-[25vh]" />
 
-      <main className="max-w-7xl mx-auto px-4">
+      <main className="w-full mx-auto px-5">
         {loading ? (
           <div className="text-center py-10 text-gray-600 font-semibold text-lg">
             Cargando producto...
@@ -88,120 +205,140 @@ export default function PageProduct() {
           datas.map((dat, index) => (
             <section
               key={index}
-              className="flex flex-col md:flex-row gap-6 items-start justify-center my-10"
+              className="flex flex-col md:flex-row gap-8 items-start justify-center my-10 bg-white rounded-xl shadow-lg py-[2rem]"
             >
               {/* Imagen */}
               <div className="flex-1 flex justify-center items-center">
-                <img
-                  src={dat.foto}
-                  alt={dat.nombre}
-                  className="w-full max-w-md bg-white p-4 object-contain shadow-xl rounded-lg"
-                />
+                <div className="w-full max-w-[350px] aspect-square flex justify-center items-center">
+                  <img
+                    src={dat.foto}
+                    alt={dat.nombre}
+                    className="w-full h-full object-contain rounded-lg  bg-white p-4"
+                    style={{ background: "#f6f6fa" }}
+                  />
+                </div>
               </div>
 
               {/* Detalles */}
               <div className="flex-1 space-y-4">
-                <nav className="text-sm text-gray-500 space-x-2">
-                  <a href="/" className="hover:underline text-blue-600">
-                    Inicio
-                  </a>
-                  <span>/</span>
-                  <span className="text-gray-900 font-medium">Equipos</span>
-                </nav>
+  <nav className="text-sm text-gray-500 space-x-2">
+    <a href="/" className="hover:underline text-blue-600">
+      Inicio
+    </a>
+    <span>/</span>
+    <span className="text-gray-900 font-medium">Equipos</span>
+  </nav>
 
-                <h1 className="text-3xl font-bold text-[#323B75]">
-                  {dat.nombre}
-                </h1>
+  <h1 className="text-3xl font-bold text-[#323B75]">
+    {dat.nombre}
+  </h1>
 
-                <div className="flex flex-col gap-2 items-start">
-                  <span
-                    className={`text-lg font-semibold ${
-                      dat.stock > 0 ? "text-green-600" : "text-red-600"
-                    }`}
-                  >
-                    {dat.stock > 0 ? "Disponible" : "Rentado"}
-                  </span>
+  {/* Mostrar categorías del equipo */}
+  <div className="flex flex-wrap gap-2 mt-2">
+    {Array.isArray(dat.categoria) ? dat.categoria.map((cat, idx) => (
+      <span
+        key={idx}
+        className="bg-[#e0e7ff] text-[#323B75] px-3 py-1 rounded-full text-sm font-medium"
+      >
+        {cat}
+      </span>
+    )) : (
+      <span className="bg-[#e0e7ff] text-[#323B75] px-3 py-1 rounded-full text-sm font-medium">
+        {dat.categoria}
+      </span>
+    )}
+  </div>
 
-                  <PDFDownloadLink
-                    document={<FichaTecnica _id={productId} />}
-                    fileName={`Ficha_Tecnica-${dat.nombre}.pdf`}
-                    className="inline-flex items-center gap-2 bg-[#323B75]  text-white px-4 py-2 rounded-md font-medium text-sm hover:bg-[#1f2b5e] transition"
-                  >
-                    {({ loading }) =>
-                      loading ? (
-                        <span>Cargando ficha técnica...</span>
-                      ) : (
-                        <>
-                          <svg
-                            className="w-5 h-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M12 4v16m8-8H4"
-                            />
-                          </svg>
-                          Descargar Ficha Técnica
-                        </>
-                      )
-                    }
-                  </PDFDownloadLink>
-                </div>
-                <p className="text-gray-700 font-semibold text-lg">
-                  PRECIO A CONSULTAR
-                </p>
+  <div className="flex flex-col gap-2 items-start">
+    <span
+      className={`text-lg font-semibold ${
+        dat.stock > 0 ? "text-green-600" : "text-red-600"
+      }`}
+    >
+      {dat.stock > 0 ? "Disponible" : "Rentado"}
+    </span>
+  </div>
 
-                <a
-                  href="/"
-                  className="inline-flex items-center gap-2 text-[#323B75] hover:underline"
-                >
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                  Regresar al catálogo
-                </a>
+  {/* Mostrar precios según precios_visibles */}
+  {Array.isArray(dat.precios_visibles) && dat.precios_visibles.length > 0 && (
+    <div className="flex flex-col gap-1 mt-2">
+      {dat.precios_visibles.includes("renta") && dat.precio_renta && (
+        <span className="text-gray-800 font-semibold text-base">
+          Precio de Renta por día: <span className="text-[#323B75]">${dat.precio_renta}</span>
+        </span>
+      )}
+      {dat.precios_visibles.includes("semana") && dat.precio_semana && (
+        <span className="text-gray-800 font-semibold text-base">
+          Precio de Renta por semana: <span className="text-[#323B75]">${dat.precio_semana}</span>
+        </span>
+      )}
+      {dat.precios_visibles.includes("venta") && dat.precio_venta && (
+        <span className="text-gray-800 font-semibold text-base">
+          Precio de Venta: <span className="text-[#323B75]">${dat.precio_venta}</span>
+        </span>
+      )}
+    </div>
+  )}
 
-                <div className="flex flex-wrap gap-4 mt-4">
-                  {dat.disponibilidad.includes("renta") && (
-                    <a
-                      href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`}
-                      className="px-4 py-2 rounded-lg font-semibold text-white bg-green-600 hover:bg-green-700 transition-colors"
-                    >
-                      Rentar equipo!
-                    </a>
-                  )}
-                  {dat.disponibilidad.includes("venta") && (
-                    <a
-                      href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en comprar el siguiente equipo: ${dat.nombre}`}
-                      className="px-4 py-2 rounded-lg font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors"
-                    >
-                      Comprar equipo!
-                    </a>
-                  )}
-                </div>
-              </div>
+  {/* Si no hay precios visibles pero visibilidad_precios incluye "publico" */}
+  {(!dat.precios_visibles || dat.precios_visibles.length === 0) &&
+    Array.isArray(dat.visibilidad_precios) &&
+    dat.visibilidad_precios.includes("publico") && (
+      <p className="text-gray-700 font-semibold text-lg">
+        PRECIO A CONSULTAR
+      </p>
+  )}
+
+  <a
+    href="/"
+    className="inline-flex items-center gap-2 text-[#323B75] hover:underline"
+  >
+    <svg
+      className="w-5 h-5"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M15 19l-7-7 7-7"
+      />
+    </svg>
+    Regresar al catálogo
+  </a>
+
+  {/* Botones según disponibilidad */}
+  <div className="flex flex-wrap gap-4 mt-4">
+    {Array.isArray(dat.disponibilidad) && dat.disponibilidad.includes("renta") && (
+      <a
+        href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`}
+        className="px-4 py-2 rounded-lg font-semibold text-white bg-green-600 hover:bg-green-700 transition-colors"
+      >
+        Rentar equipo!
+      </a>
+    )}
+    {Array.isArray(dat.disponibilidad) && dat.disponibilidad.includes("venta") && (
+      <a
+        href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en comprar el siguiente equipo: ${dat.nombre}`}
+        className="px-4 py-2 rounded-lg font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors"
+      >
+        Comprar equipo!
+      </a>
+    )}
+  </div>
+</div>
+
             </section>
           ))
         )}
 
+        {/* Descripción y tags */}
         {datas.map((dat, index) => (
           <section
             key={`desc-${index}`}
-            className="max-w-4xl mx-auto mt-8 space-y-2 pb-5"
+            className="mx-auto mt-8 space-y-4 pb-5 bg-white rounded-xl shadow py-[2rem] px-[3rem]"
           >
             <h2 className="text-xl font-bold text-[#323B75]">
               Descripción del equipo
@@ -209,6 +346,38 @@ export default function PageProduct() {
             <p className="text-gray-700 text-justify leading-relaxed">
               {dat.descripcion?.toUpperCase()}
             </p>
+
+            {/* Botón de ficha técnica aquí */}
+            <div>
+              <PDFDownloadLink
+                document={<FichaTecnica _id={productId} />}
+                fileName={`Ficha_Tecnica-${dat.nombre}.pdf`}
+                className="inline-flex items-center gap-2 bg-[#323B75] text-white px-4 py-2 rounded-md font-medium text-sm hover:bg-[#1f2b5e] transition mt-2"
+              >
+                {({ loading }) =>
+                  loading ? (
+                    <span>Cargando ficha técnica...</span>
+                  ) : (
+                    <>
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M12 4v16m8-8H4"
+                        />
+                      </svg>
+                      Descargar Ficha Técnica
+                    </>
+                  )
+                }
+              </PDFDownloadLink>
+            </div>
 
             {dat.tags && dat.tags.length > 0 && (
               <div className="mt-4">
@@ -227,9 +396,16 @@ export default function PageProduct() {
             )}
           </section>
         ))}
+
+        {/* Carousel de productos similares */}
+        {similares.length > 0 && datas.length > 0 && (
+          <div className="flex justify-center w-full">
+            <CarouselSimilares productos={similares} equipoActualId={datas[0]._id} />
+          </div>
+        )}
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
-import Navbar from "../components/navbar";
+import Navbar from "../components/navbar2";
 import Footer from "../components/footer";
 import whatsapp from "../images/whatsapp.png";
 import about from "../images/banerSobreNosotros.jpg";
@@ -40,17 +40,18 @@ export default function AboutUs() {
           <img className="lg:w-[6rem] w-[4.5rem]" src={whatsapp} alt="sds" />
         </a>
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
-        <div className="w-full flex z-0 justify-center items-center h-[60vh]">
+        <div className="w-full h-[25vh]"></div>
+        <div className="w-full flex z-0 justify-center items-center h-[50vh]">
           <img
             src={about}
             alt=""
             onLoad={() => setImageLoaded(true)}
-            className={`h-[60vh] object-cover object-top w-full relative transition-opacity duration-1000 ${
+            className={`h-[50vh] object-cover object-top w-full relative transition-opacity duration-1000 ${
               imageLoaded ? "opacity-100" : "opacity-0"
             }`}
           />
-          <div className="w-full h-[60vh] opacity-60 bg-black absolute"></div>
-          <div className="absolute z-40 w-full h-[60vh] flex justify-center items-center text-white flex-col text-center px-[15%]">
+          <div className="w-full h-[50vh] opacity-60 bg-black absolute"></div>
+          <div className="absolute z-40 w-full h-[50vh] flex justify-center items-center text-white flex-col text-center px-[15%]">
             <h1 className="lg:text-6xl text-5xl font-bold relative">
               Sobre Nosotros
             </h1>
