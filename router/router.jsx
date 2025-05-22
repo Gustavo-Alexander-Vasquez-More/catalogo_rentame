@@ -9,6 +9,8 @@ import CentroServicio from "../src/pages/centroServicio.jsx";
 import Equipos_renta from "../src/pages/equipos_renta.jsx";
 import Contacto from "../src/pages/contacto.jsx";
 import FAQ from "../src/pages/FAQ.jsx";
+import ResultSearchPage from "../src/pages/resultSearchPage.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -49,6 +51,10 @@ const router = createBrowserRouter([
   {
     path: "/contactanos",
     element: <Contacto />,
+  },
+  {
+    path: "/resultados",
+    element: <ResultSearchPage/>,
   }
 ]);
 export default router;

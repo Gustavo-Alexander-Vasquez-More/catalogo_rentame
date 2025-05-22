@@ -10,6 +10,7 @@ import Ficha_tecnica from "./ficha_tecnica";
 import FichaTecnica from "./PDF/ficha_tecnica.jsx";
 import CarouselMulti from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import MiniCalculadoraRenta from "../components/miniCalculadora.jsx";
 
 function CarouselSimilares({ productos }) {
   const responsive = {
@@ -196,7 +197,7 @@ export default function PageProduct() {
       {/* Espacio para que el navbar no tape el contenido */}
       <div className="h-[25vh]" />
 
-      <main className="w-full mx-auto px-5">
+      <main className="w-full mx-auto px-5 pb-5">
         {loading ? (
           <div className="text-center py-10 text-gray-600 font-semibold text-lg">
             Cargando producto...
@@ -262,14 +263,17 @@ export default function PageProduct() {
   {/* Mostrar precios según precios_visibles */}
   {Array.isArray(dat.precios_visibles) && dat.precios_visibles.length > 0 && (
     <div className="flex flex-col gap-1 mt-2">
-      {dat.precios_visibles.includes("renta") && dat.precio_renta && (
+    {dat.precios_visibles.includes("renta") && (
+  <>
+    <span className="text-gray-800 font-semibold text-base">
+      Precio de Renta por día: <span className="text-[#323B75]">${dat.precio_renta}</span>
+    </span>
+    <MiniCalculadoraRenta precioDia={Number(dat.precio_renta)} />
+  </>
+  )}
+      {dat.precios_visibles.includes("semana") && dat.precio_x_semana && (
         <span className="text-gray-800 font-semibold text-base">
-          Precio de Renta por día: <span className="text-[#323B75]">${dat.precio_renta}</span>
-        </span>
-      )}
-      {dat.precios_visibles.includes("semana") && dat.precio_semana && (
-        <span className="text-gray-800 font-semibold text-base">
-          Precio de Renta por semana: <span className="text-[#323B75]">${dat.precio_semana}</span>
+          Precio de Renta por semana: <span className="text-[#323B75]">${dat.precio_x_semana}</span>
         </span>
       )}
       {dat.precios_visibles.includes("venta") && dat.precio_venta && (
@@ -280,15 +284,12 @@ export default function PageProduct() {
     </div>
   )}
 
-  {/* Si no hay precios visibles pero visibilidad_precios incluye "publico" */}
-  {(!dat.precios_visibles || dat.precios_visibles.length === 0) &&
-    Array.isArray(dat.visibilidad_precios) &&
-    dat.visibilidad_precios.includes("publico") && (
+  {/* Si no hay precios visibles */}
+  {(dat.precios_visibles.length === 0) && (
       <p className="text-gray-700 font-semibold text-lg">
         PRECIO A CONSULTAR
       </p>
   )}
-
   <a
     href="/"
     className="inline-flex items-center gap-2 text-[#323B75] hover:underline"

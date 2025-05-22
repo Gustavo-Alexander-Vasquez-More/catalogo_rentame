@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "../components/navbar";
+import Navbar from "../components/navbar2";
 import Footer from "../components/footer";
 import { Helmet } from "react-helmet";
 import {
@@ -12,6 +12,8 @@ import {
 
 function PoliticaPrivacidadPage() {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
       <Helmet>
@@ -67,21 +69,24 @@ function PoliticaPrivacidadPage() {
       </Helmet>
 
       <div className="w-full min-h-screen relative flex flex-col">
-        <Navbar />
+        <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
+
+        {/* Espaciador superior */}
+        <div className="w-full h-[25vh]"></div>
 
         {/* Hero */}
-        <div className="w-full flex z-0 justify-center items-center h-[60vh]">
+        <div className="w-full flex z-0 justify-center items-center h-[50vh] relative">
           <img
             loading="lazy"
             onLoad={() => setImageLoaded(true)}
-            className={`h-[60vh] object-cover object-center w-full relative transition-opacity duration-1000 ${
+            className={`h-[50vh] object-cover object-center w-full relative transition-opacity duration-1000 ${
               imageLoaded ? "opacity-100" : "opacity-0"
             }`}
             src="https://www.clavesdigital.com.ar/vistas/fotos_noticias/10057-construccin.jpg"
             alt="Política de Privacidad"
           />
-          <div className="w-full h-[60vh] opacity-60 bg-black absolute"></div>
-          <div className="text-center px-6 absolute text-white">
+          <div className="w-full h-[50vh] opacity-60 bg-black absolute top-0 left-0"></div>
+          <div className="absolute z-40 w-full h-[50vh] flex flex-col justify-center items-center text-white text-center px-6">
             <h1 className="text-4xl font-bold">Política de Privacidad</h1>
             <p className="mt-4 text-lg">
               Tu privacidad es importante para nosotros. Aquí te explicamos cómo
@@ -89,6 +94,7 @@ function PoliticaPrivacidadPage() {
             </p>
           </div>
         </div>
+
         {/* Contenido de la Política */}
         <div className="w-full flex flex-col py-10 px-[1rem] lg:px-[4rem] text-gray-700 space-y-12">
           {/* Sección 1 */}

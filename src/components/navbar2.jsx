@@ -1,27 +1,33 @@
 import React, { useRef, useState } from "react";
 import logo from "../images/logo_blanco.png";
 import { Search } from "lucide-react";
+
 export default function navbar2({ isOpen, setIsOpen }) {
   const [scrolled, setScrolled] = useState(false);
   const [soluciones, setSoluciones] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-   const input_term = useRef();
-   function searchButton() {
-     if (searchTerm.trim()) {
-       window.location.href = `/renta-equipos?search=${searchTerm}`;
-     }
-   }
-   function captureTerm(e) {
-     setSearchTerm(e.target.value);
-   }
-    function handleKeyDown(e) {
+  const input_term = useRef();
+
+  function searchButton() {
+    if (searchTerm.trim()) {
+      window.location.href = `/resultados?q=${encodeURIComponent(searchTerm)}`;
+    }
+  }
+
+  function captureTerm(e) {
+    setSearchTerm(e.target.value);
+  }
+
+  function handleKeyDown(e) {
     if (e.key === "Enter") {
       searchButton();
     }
   }
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
   React.useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -68,6 +74,7 @@ export default function navbar2({ isOpen, setIsOpen }) {
               <div className="flex items-center rounded-lg lg:px-3 py-2 w-[65%]">
                 <input
                   ref={input_term}
+                  value={searchTerm}
                   onChange={captureTerm}
                   onKeyDown={handleKeyDown}
                   type="text"
@@ -125,18 +132,18 @@ export default function navbar2({ isOpen, setIsOpen }) {
                 >
                   Inicio
                 </a>
-                  <div
+                <div
                   className="relative px-3 py-2"
                   onMouseEnter={() => setSoluciones(true)}
                   onMouseLeave={() => setSoluciones(false)}
                 >
                   <p
-                    className="text-white flex items-center gap-1"
+                    className="text-white flex items-center gap-1 cursor-pointer select-none"
                     type="button"
                   >
                     Catálogo de equipos
                     <svg
-                      class="w-4 h-4 text-gray-800 dark:text-white"
+                      className="w-4 h-4 text-white"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -146,28 +153,34 @@ export default function navbar2({ isOpen, setIsOpen }) {
                     >
                       <path
                         stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="m19 9-7 7-7-7"
                       />
                     </svg>
                   </p>
                   {soluciones && (
-                    <ul className="absolute left-0 top-full py-4 bg-gray-800 flex flex-col shadow-lg rounded z-50 min-w-max">
- <li>
-                    <a  className="px-4 py-1 text-[1rem] hover:bg-[#0D6EFD] text-white w-full break-words flex justify-between items-center" href={`/renta-equipos?category=${localStorage.getItem("products_current_page") ? "todos&page=" + localStorage.getItem("products_current_page") : "todos"}`}>
-                      Equipos en renta
-                    </a>
-                  </li>
-                  <li>
-                    <a  className="px-4 py-1 text-[1rem] hover:bg-[#0D6EFD] text-white w-full break-words flex justify-between items-center" href="/venta-equipos">
-                      Equipos en venta
-                    </a>
-                  </li>
+                    <ul className="absolute left-1/2 -translate-x-1/2 top-full mt-2 min-w-[210px] bg-white border border-gray-200 shadow-lg rounded-xl z-50 py-2">
+                      <li>
+                        <a
+                          className="block px-5 py-2 text-[#323B75] hover:bg-[#e0e7ff] hover:text-[#1D4ED8] rounded-t-xl transition-colors font-medium"
+                          href={`/renta-equipos?category=${localStorage.getItem("products_current_page") ? "todos&page=" + localStorage.getItem("products_current_page") : "todos"}`}
+                        >
+                          Equipos en renta
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="block px-5 py-2 text-[#323B75] hover:bg-[#e0e7ff] hover:text-[#1D4ED8] rounded-b-xl transition-colors font-medium"
+                          href="/venta-equipos"
+                        >
+                          Equipos en venta
+                        </a>
+                      </li>
                     </ul>
                   )}
-                  </div>
+                </div>
                 <a
                   href="/about_us"
                   className={`px-3 py-2 rounded transition-colors duration-500 text-left ${
@@ -251,7 +264,7 @@ export default function navbar2({ isOpen, setIsOpen }) {
           >
             {/* Cerrar */}
             <button
-              className=" text-white text-5xl px-2 py-2 z-50 mb-2"
+              className="absolute top-4 right-4 text-white text-5xl px-2 py-2 z-50"
               onClick={toggleMenu}
               aria-label="Cerrar menú"
             >
@@ -261,6 +274,7 @@ export default function navbar2({ isOpen, setIsOpen }) {
             <div className="w-full flex justify-end mb-4">
               <input
                 ref={input_term}
+                value={searchTerm}
                 onChange={captureTerm}
                 onKeyDown={handleKeyDown}
                 type="text"
