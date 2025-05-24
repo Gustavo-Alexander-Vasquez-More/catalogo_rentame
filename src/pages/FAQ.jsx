@@ -77,8 +77,8 @@ export default function FAQ() {
           <li>Póliza de Servicio.</li>
           <li>Renta de equipos y maquinaria en general.</li>
         </ul>
-        <a className="text-[#1D4ED8] hover:text-[#C70000] transition-colors duration-500 font-semibold underline" href="/centro_servicio">Mas información</a>
-        <p className="text-[#1D4ED8] font-bold underline">¿Donde nos ubicamos?</p>
+        <a className="text-[#1D4ED8] hover:text-[#C70000] transition-colors duration-500 font-semibold underline" href="/centro_servicio">Más información</a>
+        <p className="text-[#1D4ED8] font-bold underline">¿Dónde nos ubicamos?</p>
         <p>Puedes visitarnos en: Calle 38 No: 128 entre 35 y 37 Col. Tecolutla CP: 24100 Cd. Del Carmen, Campeche.</p>
         <iframe
         className="rounded shadow-lg w-full h-40"

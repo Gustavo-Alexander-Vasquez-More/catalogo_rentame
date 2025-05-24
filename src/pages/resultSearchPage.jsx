@@ -48,8 +48,8 @@ export default function ResultSearchPage() {
   return (
     <div className="min-h-screen w-full bg-[#F1F1F1] flex flex-col">
       <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
-      <div className="h-[25vh]" />
-      <main className="w-full max-w-7xl mx-auto px-4 py-8 flex-1">
+      <div className="w-full h-[15vh] lg:h-[25vh]" />
+      <main className="w-full max-w-7xl mx-auto px-4 py-8  flex-1">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-6 gap-2">
           <div>
             <h1 className="text-3xl font-bold text-[#323B75] mb-1">
@@ -77,12 +77,12 @@ export default function ResultSearchPage() {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 w-full">
               {visibleResults.map((item) => (
                 <a
                   key={item._id}
                   href={`/detalle-producto?id=${item._id}`}
-                  className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-center justify-between p-4 min-w-[220px] max-w-[270px] h-[390px] relative border border-gray-100 hover:border-[#323B75]"
+                  className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-center justify-between w-full sm:min-w-[220px] sm:max-w-[270px] h-[390px] relative border border-gray-100 px-3 py-4 hover:border-[#323B75]"
                   style={{ boxShadow: "0 2px 8px 0 #0001" }}
                 >
                   {/* Precio por semana sobre la imagen */}
@@ -131,17 +131,34 @@ export default function ResultSearchPage() {
                 </a>
               ))}
             </div>
-            {/* Botón cargar más */}
-            {results.length > visibleCount && (
-              <div className="flex justify-center mt-10">
+            {/* Botón subir arriba siempre visible */}
+            <div className="flex justify-center items-center mt-10 gap-4">
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="flex items-center bg-gray-200 text-[#323B75] px-5 py-3 rounded-lg font-semibold text-base hover:bg-gray-300 transition"
+                aria-label="Subir arriba"
+              >
+                <svg
+                  className="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+                </svg>
+                Subir arriba
+              </button>
+              {/* Botón cargar más solo si hay más resultados */}
+              {results.length > visibleCount && (
                 <button
                   onClick={() => setVisibleCount(visibleCount + 10)}
                   className="bg-[#323B75] text-white px-8 py-3 rounded-lg font-semibold text-base hover:bg-[#1f2b5e] transition"
                 >
                   Cargar más
                 </button>
-              </div>
-            )}
+              )}
+            </div>
           </>
         )}
       </main>

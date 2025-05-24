@@ -36,7 +36,7 @@ export default function CarouselProductos() {
   return (
     <div className="w-full lg:h-[90vh] h-auto bg-white flex flex-col rounded-xl gap-6 py-8 px-[0.5rem] lg:px-[2rem]">
       <div className="flex lg:flex-row flex-col lg:gap-0 gap-2 text-center justify-between items-center space-x-4">
-        <p className="text-[1.5rem] text-gray-600 font-semibold montserrat">
+        <p className="lg:text-[1.5rem] text-[1.2rem] px-2 text-gray-600 font-semibold montserrat">
           Renta de Equipos para cada desafío
         </p>
         
@@ -47,7 +47,7 @@ export default function CarouselProductos() {
         className="z-10"
         infinite={true}
         autoPlaySpeed={2500}
-        itemClass="px-2"
+        itemClass="lg:px-2 flex justify-center items-center"
         autoPlay={true}
         loop={true}
       >

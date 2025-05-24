@@ -314,7 +314,11 @@ export default function PageProduct() {
                 </div>
 
                 <a
-                  href="/"
+                  href={
+                    localStorage.getItem("products_current_page")
+                      ? `/renta-equipos?category=todos&page=${localStorage.getItem("products_current_page")}`
+                      : "/renta-equipos?category=todos&page=1"
+                  }
                   className="inline-flex items-center gap-2 text-[#323B75] hover:underline mt-2 text-base"
                 >
                   <svg

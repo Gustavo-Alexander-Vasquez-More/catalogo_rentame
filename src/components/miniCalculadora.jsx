@@ -2,15 +2,28 @@ import React from "react";
 export default function MiniCalculadoraRenta({ precioDia }) {
   const [dias, setDias] = React.useState(1);
 
+  // Permitir vacío mientras se edita
   const handleChange = (e) => {
-    const val = Math.max(1, Number(e.target.value));
-    setDias(val);
+    const val = e.target.value;
+    if (val === "") {
+      setDias("");
+    } else {
+      setDias(Math.max(1, Number(val)));
+    }
   };
 
-  const handleIncrement = () => setDias((prev) => prev + 1);
-  const handleDecrement = () => setDias((prev) => (prev > 1 ? prev - 1 : 1));
+  // Al salir del input, forzar mínimo 1
+  const handleBlur = () => {
+    if (dias === "" || dias < 1) setDias(1);
+  };
 
-  const total = dias * precioDia;
+  const handleIncrement = () => setDias((prev) => Number(prev) + 1);
+  const handleDecrement = () => setDias((prev) => (Number(prev) > 1 ? Number(prev) - 1 : 1));
+
+  const subtotal = Number(dias) * precioDia;
+  const aplicaDescuento = Number(dias) >= 4;
+  const descuento = aplicaDescuento ? subtotal * 0.05 : 0;
+  const total = subtotal - descuento;
 
   return (
     <div className="mt-2 mb-2 p-4 bg-[#f3f6fa] rounded-lg shadow flex flex-col gap-2 max-w-xs">
@@ -31,6 +44,7 @@ export default function MiniCalculadoraRenta({ precioDia }) {
           min={1}
           value={dias}
           onChange={handleChange}
+          onBlur={handleBlur}
           className="w-16 text-center px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#323B75] text-base appearance-none"
           style={{ MozAppearance: "textfield" }}
         />
@@ -45,8 +59,14 @@ export default function MiniCalculadoraRenta({ precioDia }) {
         <span className="text-gray-700">día(s)</span>
       </div>
       <div className="text-base font-bold text-[#323B75] mt-1">
-        Total: <span className="text-2xl">${total.toLocaleString()}</span> MXN
+        Total: <span className="text-2xl">${isNaN(total) ? 0 : total.toLocaleString()}</span> MXN
       </div>
+      {aplicaDescuento && (
+        <div className="text-green-700 text-sm font-semibold mt-1 bg-green-100 rounded px-2 py-1 text-center">
+          ¡Descuento aplicado!<br />
+          <span className="line-through text-gray-500">${subtotal.toLocaleString()} MXN</span> -5%
+        </div>
+      )}
     </div>
   );
 }
