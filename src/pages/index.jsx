@@ -37,19 +37,19 @@ export default function index() {
       <div className="w-full flex flex-col z-40 relative items-center">
       <a href="https://wa.link/gpu01d" target="_blank" className="fixed lg:top-[82%] top-[87%] right-5 z-50 shadow-xl bg-[#ffffff3d] rounded-full"><img className="lg:w-[6rem] w-[4.5rem]" src={whatsapp} alt="sds" /></a>
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
-        <div className="w-full h-[25vh]"></div>
-        <div className="w-full h-[75vh] relative flex justify-center items-center">
+        <div className="w-full h-[15vh] lg:h-[25vh]"></div>
+        <div className="w-full h-[85vh] lg:h-[75vh] relative flex justify-center items-center">
           <img
             loading="lazy"
             onLoad={() => setImageLoaded(true)}
-            className={`h-[75vh] object-cover object-top w-full transition-opacity duration-1000 ${
+            className={`h-[85vh] lg:h-[75vh] object-cover object-top w-full transition-opacity duration-1000 ${
               imageLoaded ? "opacity-100" : "opacity-0"
             }`}
             src={banerPrincipal}
             alt=""
           />
-          <div className="w-full h-[75vh] opacity-60 bg-black absolute top-0 left-0"></div>
-          <div className="absolute z-40 w-full h-[75vh] flex justify-center gap-5 items-center text-white flex-col text-center px-[7%] lg:px-[15%]">
+          <div className="w-full h-[85vh] lg:h-[75vh] opacity-60 bg-black absolute top-0 left-0"></div>
+          <div className="absolute z-40 w-full h-[85vh] lg:h-[75vh] flex justify-center gap-5 items-center text-white flex-col text-center px-[7%] lg:px-[15%]">
             <h1 className="lg:text-[2.5rem] text-[1.7rem] font-bold ">
               Tu mejor aliado en Renta, Venta y Centro de servicio en maquinaria y equipos en general.
             </h1>

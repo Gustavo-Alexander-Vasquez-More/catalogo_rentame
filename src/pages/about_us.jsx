@@ -40,7 +40,7 @@ export default function AboutUs() {
           <img className="lg:w-[6rem] w-[4.5rem]" src={whatsapp} alt="sds" />
         </a>
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
-        <div className="w-full h-[25vh]"></div>
+        <div className="w-full h-[15vh] lg:h-[25vh]"></div>
         <div className="w-full flex z-0 justify-center items-center h-[50vh]">
           <img
             src={about}

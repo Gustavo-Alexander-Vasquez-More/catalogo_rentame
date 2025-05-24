@@ -97,7 +97,7 @@ export default function equipos_renta() {
           <img className="lg:w-[6rem] w-[4.5rem]" src={whatsapp} alt="WhatsApp" />
         </a>
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
-        <div className="w-full h-[25vh]"></div>
+        <div className="w-full h-[15vh] lg:h-[25vh]"></div>
 
         {/* Banner con imagen y título principal */}
         <div className="w-full flex z-0 justify-center items-center h-[35vh] relative ">

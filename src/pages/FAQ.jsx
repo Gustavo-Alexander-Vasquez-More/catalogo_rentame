@@ -142,7 +142,7 @@ export default function FAQ() {
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
 
         {/* Espaciador superior */}
-        <div className="w-full h-[25vh]"></div>
+        <div className="w-full h-[15vh] lg:h-[25vh]"></div>
 
         {/* Banner principal FAQ */}
         <div className="w-full flex z-0 justify-center items-center h-[50vh] relative">

@@ -150,7 +150,7 @@ export default function equipos_venta() {
           <img className="lg:w-[6rem] w-[4.5rem]" src={whatsapp} alt="sds" />
         </a>
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
-        <div className="w-full h-[25vh]"></div>
+        <div className="h-[15vh] w-full lg:h-[25vh]"></div>
         <div
           className={`flex flex-col items-center w-full h-auto  transition-transform duration-500 ${
             isOpen ? "transform translate-y-[30px]" : "transform translate-y-0"

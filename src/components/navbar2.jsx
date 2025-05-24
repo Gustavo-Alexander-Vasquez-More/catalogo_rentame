@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import logo from "../images/logo_blanco.png";
-import { Search } from "lucide-react";
+import { Search, ChevronDown, ChevronUp } from "lucide-react";
 
 export default function navbar2({ isOpen, setIsOpen }) {
   const [scrolled, setScrolled] = useState(false);
@@ -27,6 +27,8 @@ export default function navbar2({ isOpen, setIsOpen }) {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const toggleSoluciones = () => setSoluciones((prev) => !prev);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -63,7 +65,7 @@ export default function navbar2({ isOpen, setIsOpen }) {
   return (
     <>
       <div className="w-full flex flex-col">
-        <nav className="w-full py-4 h-[25vh] fixed top-0 lg:px-[3rem]  sm:flex sm:items-center z-50 sm:justify-between items-center bg-[#c70000]">
+        <nav className="w-full lg:py-4 lg:h-[25vh] h-[15vh]  fixed top-0 lg:px-[3rem]  sm:flex sm:items-center z-50 sm:justify-between items-center bg-[#c70000]">
           {/* EN PANTALLA GRANDE */}
           <section className="lg:flex flex-col hidden items-center gap-4 w-full">
             <div className="flex w-full justify-between">
@@ -132,39 +134,39 @@ export default function navbar2({ isOpen, setIsOpen }) {
                 >
                   Inicio
                 </a>
-                <div
-                  className="relative px-3 py-2"
-                  onMouseEnter={() => setSoluciones(true)}
-                  onMouseLeave={() => setSoluciones(false)}
-                >
-                  <p
-                    className="text-white flex items-center gap-1 cursor-pointer select-none"
-                    type="button"
+                {/* Botón Catálogo de equipos */}
+                <div className="relative px-3 py-2">
+                  <button
+                    onClick={toggleSoluciones}
+                    className={`flex items-center gap-1 px-4 py-2 font-semibold rounded-lg  transition-all duration-200 focus:outline-none
+      ${soluciones
+        ? "bg-white text-[#323B75] hover:bg-[#e0e7ff]"
+        : "bg-transparent text-white hover:bg-white hover:text-[#323B75]"}
+    `}
+                    style={{ minWidth: 180 }}
                   >
                     Catálogo de equipos
-                    <svg
-                      className="w-4 h-4 text-white"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="m19 9-7 7-7-7"
-                      />
-                    </svg>
-                  </p>
-                  {soluciones && (
-                    <ul className="absolute left-1/2 -translate-x-1/2 top-full mt-2 min-w-[210px] bg-white border border-gray-200 shadow-lg rounded-xl z-50 py-2">
+                    {soluciones ? (
+                      <ChevronUp className="w-4 h-4" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4" />
+                    )}
+                  </button>
+                  {/* Dropdown animado */}
+                  <div
+                    className={`absolute left-1/2 -translate-x-1/2 mt-2 min-w-[210px] bg-white border border-gray-200 shadow-xl rounded-xl z-50 overflow-hidden transition-all duration-300 ${
+                      soluciones
+                        ? "opacity-100 scale-100 pointer-events-auto"
+                        : "opacity-0 scale-95 pointer-events-none"
+                    }`}
+                    style={{
+                      transformOrigin: "top center",
+                    }}
+                  >
+                    <ul>
                       <li>
                         <a
-                          className="block px-5 py-2 text-[#323B75] hover:bg-[#e0e7ff] hover:text-[#1D4ED8] rounded-t-xl transition-colors font-medium"
+                          className="block px-5 py-3 text-[#323B75] hover:bg-[#e0e7ff] hover:text-[#1D4ED8] transition-colors font-medium"
                           href={`/renta-equipos?category=${localStorage.getItem("products_current_page") ? "todos&page=" + localStorage.getItem("products_current_page") : "todos"}`}
                         >
                           Equipos en renta
@@ -172,14 +174,14 @@ export default function navbar2({ isOpen, setIsOpen }) {
                       </li>
                       <li>
                         <a
-                          className="block px-5 py-2 text-[#323B75] hover:bg-[#e0e7ff] hover:text-[#1D4ED8] rounded-b-xl transition-colors font-medium"
+                          className="block px-5 py-3 text-[#323B75] hover:bg-[#e0e7ff] hover:text-[#1D4ED8] transition-colors font-medium"
                           href="/venta-equipos"
                         >
                           Equipos en venta
                         </a>
                       </li>
                     </ul>
-                  )}
+                  </div>
                 </div>
                 <a
                   href="/about_us"
@@ -264,14 +266,14 @@ export default function navbar2({ isOpen, setIsOpen }) {
           >
             {/* Cerrar */}
             <button
-              className="absolute top-4 right-4 text-white text-5xl px-2 py-2 z-50"
+              className="absolute top-0 right-4 text-white text-5xl px-2 py-2 z-50"
               onClick={toggleMenu}
               aria-label="Cerrar menú"
             >
               &times;
             </button>
             {/* Buscador móvil */}
-            <div className="w-full flex justify-end mb-4">
+            <div className="w-full flex justify-end mt-[5rem] mb-4">
               <input
                 ref={input_term}
                 value={searchTerm}

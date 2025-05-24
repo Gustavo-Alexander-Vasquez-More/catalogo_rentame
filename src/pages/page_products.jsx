@@ -197,7 +197,7 @@ export default function PageProduct() {
       {/* Espacio para que el navbar no tape el contenido */}
       <div className="h-[25vh]" />
 
-      <main className="w-full mx-auto px-5 pb-5">
+      <main className="w-full mx-auto lg:px-[4rem] px-[1rem] pb-5">
         {loading ? (
           <div className="text-center py-10 text-gray-600 font-semibold text-lg">
             Cargando producto...
@@ -206,131 +206,133 @@ export default function PageProduct() {
           datas.map((dat, index) => (
             <section
               key={index}
-              className="flex flex-col md:flex-row gap-8 items-start justify-center my-10 bg-white rounded-xl shadow-lg py-[2rem]"
+              className="flex flex-col lg:flex-row gap-8 items-stretch justify-center my-10 bg-white rounded-2xl shadow-lg py-8 px-4 sm:px-8 max-w-5xl mx-auto w-full"
             >
               {/* Imagen */}
-              <div className="flex-1 flex justify-center items-center">
-                <div className="w-full max-w-[350px] aspect-square flex justify-center items-center">
+              <div className="flex justify-center items-start w-full lg:w-[45%] mb-6 lg:mb-0">
+                <div className="w-full max-w-[400px] aspect-square flex justify-center items-center  rounded-xl shadow-inner p-4">
                   <img
                     src={dat.foto}
                     alt={dat.nombre}
-                    className="w-full h-full object-contain rounded-lg  bg-white p-4"
-                    style={{ background: "#f6f6fa" }}
+                    className="w-full h-full object-contain rounded-lg"
                   />
                 </div>
               </div>
 
               {/* Detalles */}
-              <div className="flex-1 space-y-4">
-  <nav className="text-sm text-gray-500 space-x-2">
-    <a href="/" className="hover:underline text-blue-600">
-      Inicio
-    </a>
-    <span>/</span>
-    <span className="text-gray-900 font-medium">Equipos</span>
-  </nav>
+              <div className="flex-1 flex flex-col justify-between">
+                <div>
+                  <nav className="text-xs sm:text-sm text-gray-500 space-x-2 mb-2">
+                    <a href="/" className="hover:underline text-blue-600">
+                      Inicio
+                    </a>
+                    <span>/</span>
+                    <span className="text-gray-900 font-medium">Equipos</span>
+                  </nav>
 
-  <h1 className="text-3xl font-bold text-[#323B75]">
-    {dat.nombre}
-  </h1>
+                  <h1 className="text-3xl font-bold text-[#323B75] mb-3">
+                    {dat.nombre}
+                  </h1>
 
-  {/* Mostrar categorías del equipo */}
-  <div className="flex flex-wrap gap-2 mt-2">
-    {Array.isArray(dat.categoria) ? dat.categoria.map((cat, idx) => (
-      <span
-        key={idx}
-        className="bg-[#e0e7ff] text-[#323B75] px-3 py-1 rounded-full text-sm font-medium"
-      >
-        {cat}
-      </span>
-    )) : (
-      <span className="bg-[#e0e7ff] text-[#323B75] px-3 py-1 rounded-full text-sm font-medium">
-        {dat.categoria}
-      </span>
-    )}
-  </div>
+                  {/* Categorías */}
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {Array.isArray(dat.categoria) ? dat.categoria.map((cat, idx) => (
+                      <span
+                        key={idx}
+                        className="bg-[#e0e7ff] text-[#323B75] px-3 py-1 rounded-full text-xs sm:text-sm font-medium"
+                      >
+                        {cat}
+                      </span>
+                    )) : (
+                      <span className="bg-[#e0e7ff] text-[#323B75] px-3 py-1 rounded-full text-xs sm:text-sm font-medium">
+                        {dat.categoria}
+                      </span>
+                    )}
+                  </div>
 
-  <div className="flex flex-col gap-2 items-start">
-    <span
-      className={`text-lg font-semibold ${
-        dat.stock > 0 ? "text-green-600" : "text-red-600"
-      }`}
-    >
-      {dat.stock > 0 ? "Disponible" : "Rentado"}
-    </span>
-  </div>
+                  {/* Estado */}
+                  <div className="mb-3">
+                    <span
+                      className={`text-base sm:text-lg font-semibold ${
+                        dat.stock > 0 ? "text-green-600" : "text-red-600"
+                      }`}
+                    >
+                      {dat.stock > 0 ? "Disponible" : "Rentado"}
+                    </span>
+                  </div>
 
-  {/* Mostrar precios según precios_visibles */}
-  {Array.isArray(dat.precios_visibles) && dat.precios_visibles.length > 0 && (
-    <div className="flex flex-col gap-1 mt-2">
-    {dat.precios_visibles.includes("renta") && (
-  <>
-    <span className="text-gray-800 font-semibold text-base">
-      Precio de Renta por día: <span className="text-[#323B75]">${dat.precio_renta}</span>
-    </span>
-    <MiniCalculadoraRenta precioDia={Number(dat.precio_renta)} />
-  </>
-  )}
-      {dat.precios_visibles.includes("semana") && dat.precio_x_semana && (
-        <span className="text-gray-800 font-semibold text-base">
-          Precio de Renta por semana: <span className="text-[#323B75]">${dat.precio_x_semana}</span>
-        </span>
-      )}
-      {dat.precios_visibles.includes("venta") && dat.precio_venta && (
-        <span className="text-gray-800 font-semibold text-base">
-          Precio de Venta: <span className="text-[#323B75]">${dat.precio_venta}</span>
-        </span>
-      )}
-    </div>
-  )}
+                  {/* Precios */}
+                  {Array.isArray(dat.precios_visibles) && dat.precios_visibles.length > 0 && (
+                    <div className="flex flex-col gap-1 mb-3">
+                      {dat.precios_visibles.includes("renta") && (
+                        <>
+                          <span className="text-gray-800 font-semibold text-base">
+                            Precio de Renta por día: <span className="text-[#323B75]">${dat.precio_renta}</span>
+                          </span>
+                          <MiniCalculadoraRenta precioDia={Number(dat.precio_renta)} />
+                        </>
+                      )}
+                      {dat.precios_visibles.includes("semana") && dat.precio_x_semana && (
+                        <span className="text-gray-800 font-semibold text-base">
+                          Precio de Renta por semana: <span className="text-[#323B75]">${dat.precio_x_semana}</span>
+                        </span>
+                      )}
+                      {dat.precios_visibles.includes("venta") && dat.precio_venta && (
+                        <span className="text-gray-800 font-semibold text-base">
+                          Precio de Venta: <span className="text-[#323B75]">${dat.precio_venta}</span>
+                        </span>
+                      )}
+                    </div>
+                  )}
 
-  {/* Si no hay precios visibles */}
-  {(dat.precios_visibles.length === 0) && (
-      <p className="text-gray-700 font-semibold text-lg">
-        PRECIO A CONSULTAR
-      </p>
-  )}
-  <a
-    href="/"
-    className="inline-flex items-center gap-2 text-[#323B75] hover:underline"
-  >
-    <svg
-      className="w-5 h-5"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="M15 19l-7-7 7-7"
-      />
-    </svg>
-    Regresar al catálogo
-  </a>
+                  {/* Si no hay precios visibles */}
+                  {(dat.precios_visibles.length === 0) && (
+                    <p className="text-gray-700 font-semibold text-lg mb-3">
+                      PRECIO A CONSULTAR
+                    </p>
+                  )}
 
-  {/* Botones según disponibilidad */}
-  <div className="flex flex-wrap gap-4 mt-4">
-    {Array.isArray(dat.disponibilidad) && dat.disponibilidad.includes("renta") && (
-      <a
-        href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`}
-        className="px-4 py-2 rounded-lg font-semibold text-white bg-green-600 hover:bg-green-700 transition-colors"
-      >
-        Rentar equipo!
-      </a>
-    )}
-    {Array.isArray(dat.disponibilidad) && dat.disponibilidad.includes("venta") && (
-      <a
-        href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en comprar el siguiente equipo: ${dat.nombre}`}
-        className="px-4 py-2 rounded-lg font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors"
-      >
-        Comprar equipo!
-      </a>
-    )}
-  </div>
-</div>
+                  {/* Botones */}
+                  <div className="flex flex-wrap gap-4 mt-4 mb-6">
+                    {Array.isArray(dat.disponibilidad) && dat.disponibilidad.includes("renta") && (
+                      <a
+                        href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en rentar el siguiente equipo: ${dat.nombre}`}
+                        className="px-5 py-2 rounded-lg font-semibold text-white bg-green-600 hover:bg-green-700 transition-colors text-base shadow"
+                      >
+                        Rentar equipo!
+                      </a>
+                    )}
+                    {Array.isArray(dat.disponibilidad) && dat.disponibilidad.includes("venta") && (
+                      <a
+                        href={`https://api.whatsapp.com/send?phone=529381958284&text=Hola, estoy interesado en comprar el siguiente equipo: ${dat.nombre}`}
+                        className="px-5 py-2 rounded-lg font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors text-base shadow"
+                      >
+                        Comprar equipo!
+                      </a>
+                    )}
+                  </div>
+                </div>
 
+                <a
+                  href="/"
+                  className="inline-flex items-center gap-2 text-[#323B75] hover:underline mt-2 text-base"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M15 19l-7-7 7-7"
+                    />
+                  </svg>
+                  Regresar al catálogo
+                </a>
+              </div>
             </section>
           ))
         )}
@@ -382,8 +384,41 @@ export default function PageProduct() {
 
             {dat.tags && dat.tags.length > 0 && (
               <div className="mt-4">
-                <h3 className="text-lg font-semibold text-[#323B75]">Tags</h3>
-                <div className="flex flex-wrap gap-2 mt-2">
+                <h3 className="text-lg font-semibold text-[#323B75] mb-2">Tags</h3>
+                {/* Dropdown para mobile, lista normal en desktop */}
+                <div className="block lg:hidden">
+                  <details
+                    className="bg-[#e0e7ff] rounded-lg overflow-hidden transition-all duration-300"
+                    onToggle={e => {
+                      const content = e.target.querySelector('.tags-content');
+                      if (e.target.open) {
+                        content.classList.remove('max-h-0', 'opacity-0');
+                        content.classList.add('max-h-96', 'opacity-100');
+                      } else {
+                        content.classList.remove('max-h-96', 'opacity-100');
+                        content.classList.add('max-h-0', 'opacity-0');
+                      }
+                    }}
+                  >
+                    <summary className="cursor-pointer px-4 py-2 text-[#323B75] font-medium select-none">
+                      Ver tags ({dat.tags.length})
+                    </summary>
+                    <div
+                      className="tags-content flex flex-wrap gap-2 p-4 transition-all duration-300 max-h-0 opacity-0"
+                      style={{ willChange: "max-height, opacity" }}
+                    >
+                      {dat.tags.map((tag, idx) => (
+                        <span
+                          key={idx}
+                          className="bg-white text-[#323B75] px-3 py-1 rounded-full text-sm font-medium border"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </details>
+                </div>
+                <div className="hidden lg:flex flex-wrap gap-2 mt-2">
                   {dat.tags.map((tag, idx) => (
                     <span
                       key={idx}
