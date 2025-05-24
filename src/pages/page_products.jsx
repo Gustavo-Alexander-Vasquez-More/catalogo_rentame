@@ -195,7 +195,7 @@ export default function PageProduct() {
 
       <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
       {/* Espacio para que el navbar no tape el contenido */}
-      <div className="h-[25vh]" />
+      <div className="w-full lg:h-[25vh] h-[15vh]" />
 
       <main className="w-full mx-auto lg:px-[4rem] px-[1rem] pb-5">
         {loading ? (
