@@ -304,22 +304,18 @@ export default function equipos_venta() {
                           Disponible
                         </p>
                       )}
-                      {(() => {
-                        const precioNum = Number(dat.precio_venta);
-                        if (!isNaN(precioNum) && precioNum > 0) {
-                          return (
-                            <p className="text-center text-[#323B75] font-bold text-[1rem] mt-1">
-                              ${dat.precio_venta} <span className="font-normal text-gray-600 text-sm">MXN</span>
-                            </p>
-                          );
-                        } else {
-                          return (
-                            <p className="text-center text-gray-500 font-semibold text-[0.95rem] mt-1">
-                              Consultar precio
-                            </p>
-                          );
-                        }
-                      })()}
+                      {dat.precio_venta && dat.precio_venta !== "0" ? (
+                        <p className="text-center text-[#323B75] font-bold text-[1rem] mt-1">
+                          ${dat.precio_venta}{" "}
+                          <span className="font-normal text-gray-600 text-sm">
+                            MXN
+                          </span>
+                        </p>
+                      ) : (
+                        <p className="text-center text-gray-500 font-semibold text-[0.95rem] mt-1">
+                          Consultar precio
+                        </p>
+                      )}
                       <a
                         href={`/detalle-producto?id=${dat._id}`}
                         className="bg-[#323B75] text-white py-[0.3rem] lg:py-[0.5rem] mt-2 px-4 rounded-[5px] lg:text-[0.9rem] text-[0.7rem] text-center hover:bg-[#5F75B8] transition duration-300 ease-in-out"
@@ -411,22 +407,18 @@ export default function equipos_venta() {
                           Disponible
                         </p>
                       )}
-                      {(() => {
-                        const precioNum = Number(dat.precio_venta);
-                        if (!isNaN(precioNum) && precioNum > 0) {
-                          return (
-                            <p className="text-center text-[#323B75] font-bold text-[1rem] mt-1">
-                              ${dat.precio_venta} <span className="font-normal text-gray-600 text-sm">MXN</span>
-                            </p>
-                          );
-                        } else {
-                          return (
-                            <p className="text-center text-gray-500 font-semibold text-[0.95rem] mt-1">
-                              Consultar precio
-                            </p>
-                          );
-                        }
-                      })()}
+                      {dat.precio_venta && dat.precio_venta !== "0" ? (
+                        <p className="text-center text-[#323B75] font-bold text-[1rem] mt-1">
+                          ${dat.precio_venta}{" "}
+                          <span className="font-normal text-gray-600 text-sm">
+                            MXN
+                          </span>
+                        </p>
+                      ) : (
+                        <p className="text-center text-gray-500 font-semibold text-[0.95rem] mt-1">
+                          Consultar precio
+                        </p>
+                      )}
                       <a
                         href={`/detalle-producto?id=${dat._id}`}
                         className="bg-[#323B75] text-white py-[0.3rem] lg:py-[0.5rem] mt-2 px-4 rounded-[5px] lg:text-[0.9rem] text-[0.7rem] text-center hover:bg-[#5F75B8] transition duration-300 ease-in-out"

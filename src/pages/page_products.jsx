@@ -32,12 +32,12 @@ function CarouselSimilares({ productos }) {
         autoPlay
         autoPlaySpeed={3000}
         arrows
-        itemClass="px-2"
-        className="w-full"
+        itemClass="lg:px-[1rem] px-[0rem]" // <-- Sin padding lateral en mobile
+        className="w-full z-30"
       >
         {productos.map((prod) => (
           <a key={prod._id} href={`/detalle-producto?id=${prod._id}`}>
-            <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center justify-between p-4 min-w-[250px] max-w-[250px] h-[370px] relative">
+            <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center justify-between p-4 w-full max-w-xs mx-auto h-[370px] relative">
               {/* Oferta por semana */}
               {(prod.precio_x_semana && Number(prod.precio_x_semana) > 0) && (
                 <div className="absolute  left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded shadow z-10 opacity-90">
@@ -188,7 +188,7 @@ export default function PageProduct() {
         href="https://wa.link/gpu01d"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-5 z-50 shadow-xl bg-white/50 rounded-full p-2 hover:scale-105 transition"
+        className="fixed bottom-6 right-5 z-30 shadow-xl bg-white/50 rounded-full p-2 hover:scale-105 transition"
       >
         <img className="w-16 lg:w-24" src={whatsapp} alt="WhatsApp" />
       </a>
@@ -222,14 +222,7 @@ export default function PageProduct() {
               {/* Detalles */}
               <div className="flex-1 flex flex-col justify-between">
                 <div>
-                  <nav className="text-xs sm:text-sm text-gray-500 space-x-2 mb-2">
-                    <a href="/" className="hover:underline text-blue-600">
-                      Inicio
-                    </a>
-                    <span>/</span>
-                    <span className="text-gray-900 font-medium">Equipos</span>
-                  </nav>
-
+                  
                   <h1 className="text-3xl font-bold text-[#323B75] mb-3">
                     {dat.nombre}
                   </h1>
