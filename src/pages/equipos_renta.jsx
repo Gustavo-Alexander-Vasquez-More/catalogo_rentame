@@ -20,6 +20,10 @@ export default function equipos_renta() {
   const [categoriasCount, setCategoriasCount] = useState({});
   const [showCategorias, setShowCategorias] = useState(false);
   const [selectedCategorias, setSelectedCategorias] = useState([]);
+  const [currentPage, setCurrentPage] = useState(
+    Number(new URLSearchParams(location.search).get("page")) || 1
+  );
+  const itemsPerPage = 12; // o el valor que uses
 
   // Trae todas las categorías
   async function get_categorias() {
@@ -63,13 +67,16 @@ export default function equipos_renta() {
     }
   }, [productos, categorias]);
 
-  // Filtrar productos según categorías seleccionadas
+  // Primero filtra los productos
   const productosFiltrados =
     selectedCategorias.length === 0
       ? productos
       : productos.filter(p =>
           selectedCategorias.includes(p.categoria)
         );
+
+  // Ahora sí puedes calcular totalPages
+  const totalPages = Math.ceil(productosFiltrados?.length / itemsPerPage);
 
   // Manejar selección de categorías (checkbox)
   const handleCategoriaChange = (cat) => {
@@ -79,6 +86,15 @@ export default function equipos_renta() {
         : [...prev, cat]
     );
   };
+
+  // Validar página al cargar productos o cambiar filtros
+  useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      // Si la página no existe, redirige a la última disponible
+      navigate(`?category=${param || "todos"}&page=${totalPages}`, { replace: true });
+      localStorage.setItem("products_current_page", totalPages);
+    }
+  }, [currentPage, totalPages, navigate, param]);
 
   return (
     <>

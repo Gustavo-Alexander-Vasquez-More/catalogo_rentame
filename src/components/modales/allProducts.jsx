@@ -9,13 +9,13 @@ export default function AllProducts() {
   // Leer params de la URL
   const searchParams = new URLSearchParams(location.search);
   const categoryParam = searchParams.get("category");
-  const pageParam = parseInt(searchParams.get("page") || localStorage.getItem("products_current_page") || "1", 10);
+  const pageParam = parseInt(searchParams.get("page") || "1", 10);
+  const [current_page, setCurrent_page] = useState(pageParam);
 
   const [loading, setLoading] = useState(true);
   const [loadingImages, setLoadingImages] = useState(true);
   const [productos_paginados, setProductos_paginados] = useState([]);
   const [total_pages, setTotal_pages] = useState(0);
-  const [current_page, setCurrent_page] = useState(pageParam);
   const [copied, setCopied] = useState(false);
 
   async function get_products_paginates(page = current_page) {
@@ -39,8 +39,9 @@ export default function AllProducts() {
         error.response?.data?.message ===
         "Página fuera de rango. Por favor, selecciona una página válida."
       ) {
-        localStorage.setItem("products_venta_current_page", 1);
-        window.location.reload();
+        // No guardes la página inválida en localStorage
+        navigate("?category=todos&page=1", { replace: true });
+        return;
       }
       setLoading(false);
       setLoadingImages(false); // <-- Desactiva el loader también en error
@@ -52,7 +53,10 @@ export default function AllProducts() {
     if (categoryParam === "todos") {
       setCurrent_page(pageParam);
       get_products_paginates(pageParam);
-      localStorage.setItem("products_current_page", pageParam);
+      // Solo guarda en localStorage si la página es válida
+      if (!isNaN(pageParam) && pageParam > 0) {
+        localStorage.setItem("products_current_page", pageParam);
+      }
     }
     // eslint-disable-next-line
   }, [categoryParam, pageParam]);
