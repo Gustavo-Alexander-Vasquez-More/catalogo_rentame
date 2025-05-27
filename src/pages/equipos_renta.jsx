@@ -87,15 +87,6 @@ export default function equipos_renta() {
     );
   };
 
-  // Validar página al cargar productos o cambiar filtros
-  useEffect(() => {
-    if (currentPage > totalPages && totalPages > 0) {
-      // Si la página no existe, redirige a la última disponible
-      navigate(`?category=${param || "todos"}&page=${totalPages}`, { replace: true });
-      localStorage.setItem("products_current_page", totalPages);
-    }
-  }, [currentPage, totalPages, navigate, param]);
-
   return (
     <>
       <Helmet>
@@ -141,12 +132,11 @@ export default function equipos_renta() {
               Nuestros equipos
             </p>
             <a
-              href={`?category=todos&page=${localStorage.getItem("products_current_page") || 1}`}
+              href={`/renta-equipos`}
               onClick={e => {
                 e.preventDefault();
-                setSelectedCategorias([]); // <-- Limpia los checkboxes
-                const lastPage = localStorage.getItem("products_current_page");
-                navigate(`?category=todos&page=${lastPage ? lastPage : 1}`);
+                setSelectedCategorias([]);
+                navigate(`/renta-equipos`);
               }}
               className="text-base text-blue-950 underline"
             >

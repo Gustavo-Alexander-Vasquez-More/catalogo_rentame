@@ -1,17 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from "react-router-dom";
 
 export default function AllProducts() {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  // Leer params de la URL
-  const searchParams = new URLSearchParams(location.search);
-  const categoryParam = searchParams.get("category");
-  const pageParam = parseInt(searchParams.get("page") || "1", 10);
-  const [current_page, setCurrent_page] = useState(pageParam);
-
+  const [current_page, setCurrent_page] = useState(
+    Number(localStorage.getItem("products_current_page")) || 1
+  );
   const [loading, setLoading] = useState(true);
   const [loadingImages, setLoadingImages] = useState(true);
   const [productos_paginados, setProductos_paginados] = useState([]);
@@ -19,7 +12,7 @@ export default function AllProducts() {
   const [copied, setCopied] = useState(false);
 
   async function get_products_paginates(page = current_page) {
-    setLoadingImages(true); // <-- Activa el loader antes de la petición
+    setLoadingImages(true);
     try {
       const { data } = await axios.get(
         `https://backrecordatoriorenta-production.up.railway.app/api/products/read_pag?page=${page}`
@@ -27,7 +20,7 @@ export default function AllProducts() {
       setTotal_pages(data?.totalPages);
       setProductos_paginados(data.response);
       setLoading(false);
-      setLoadingImages(false); // <-- Desactiva el loader después de cargar
+      setLoadingImages(false);
     } catch (error) {
       if (
         error.response?.data?.message ===
@@ -39,42 +32,36 @@ export default function AllProducts() {
         error.response?.data?.message ===
         "Página fuera de rango. Por favor, selecciona una página válida."
       ) {
-        // No guardes la página inválida en localStorage
-        navigate("?category=todos&page=1", { replace: true });
+        // Si la página es inválida, vuelve a la 1 y actualiza localStorage
+        setCurrent_page(1);
+        localStorage.setItem("products_current_page", 1);
+        get_products_paginates(1);
         return;
       }
       setLoading(false);
-      setLoadingImages(false); // <-- Desactiva el loader también en error
+      setLoadingImages(false);
     }
   }
 
-  // Actualiza la página cuando cambia el parámetro en la URL
+  // Cargar productos al montar o cuando cambia la página
   useEffect(() => {
-    if (categoryParam === "todos") {
-      setCurrent_page(pageParam);
-      get_products_paginates(pageParam);
-      // Solo guarda en localStorage si la página es válida
-      if (!isNaN(pageParam) && pageParam > 0) {
-        localStorage.setItem("products_current_page", pageParam);
-      }
-    }
+    get_products_paginates(current_page);
+    localStorage.setItem("products_current_page", current_page);
     // eslint-disable-next-line
-  }, [categoryParam, pageParam]);
+  }, [current_page]);
 
   function goToPage(page) {
-    if (categoryParam === "todos") {
-      navigate(`?category=todos&page=${page}`);
-      // El useEffect se encargará de actualizar el resto
-    }
+    setCurrent_page(page);
+    localStorage.setItem("products_current_page", page);
   }
 
   function nextPage() {
-    if (current_page < total_pages && categoryParam === "todos") {
+    if (current_page < total_pages) {
       goToPage(current_page + 1);
     }
   }
   function prevPage() {
-    if (current_page > 1 && categoryParam === "todos") {
+    if (current_page > 1) {
       goToPage(current_page - 1);
     }
   }
@@ -97,14 +84,12 @@ export default function AllProducts() {
     const url = `/detalle-producto?id=${_id}`;
     navigator.clipboard.writeText(window.location.origin + url);
     setCopied(true);
-    // notyf.success("Enlace copiado"); // Si tienes notyf, descomenta esta línea
   };
 
   return (
     <div className=''>
       {loadingImages ? (
         <div className="w-full flex justify-center items-center py-10">
-          {/* Loader simple, puedes cambiarlo por un spinner animado */}
           <svg className="animate-spin h-10 w-10 text-[#0D6EFD]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
@@ -198,54 +183,52 @@ export default function AllProducts() {
           ))}
         </div>
       )}
-      {categoryParam === "todos" && (
-        <div className="w-full py-4 flex items-center justify-center">
-          <nav className="flex items-center gap-2 select-none">
-            {/* Botón "Anterior" */}
-            <button
-              onClick={prevPage}
-              disabled={current_page === 1}
-              className="p-2 text-[#0D6EFD] hover:text-[#2563eb] disabled:text-gray-300 bg-transparent"
-              aria-label="Anterior"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            {/* Números de página */}
-            <div className="flex gap-1">
-              {generatePageNumbers(current_page, total_pages).map(page => (
-                <button
-                  key={page}
-                  disabled={current_page === page}
-                  onClick={() => goToPage(page)}
-                  className={`
-                    px-2 py-1 bg-transparent border-none rounded
-                    ${current_page === page
-                      ? "text-[#0D6EFD] underline font-bold"
-                      : "text-gray-700 hover:text-[#0D6EFD]"}
-                    transition
-                  `}
-                  style={{ minWidth: "2rem" }}
-                >
-                  {page}
-                </button>
-              ))}
-            </div>
-            {/* Botón "Siguiente" */}
-            <button
-              onClick={nextPage}
-              disabled={current_page >= total_pages}
-              className="p-2 text-[#0D6EFD] hover:text-[#2563eb] disabled:text-gray-300 bg-transparent"
-              aria-label="Siguiente"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </nav>
-        </div>
-      )}
+      <div className="w-full py-4 flex items-center justify-center">
+        <nav className="flex items-center gap-2 select-none">
+          {/* Botón "Anterior" */}
+          <button
+            onClick={prevPage}
+            disabled={current_page === 1}
+            className="p-2 text-[#0D6EFD] hover:text-[#2563eb] disabled:text-gray-300 bg-transparent"
+            aria-label="Anterior"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          {/* Números de página */}
+          <div className="flex gap-1">
+            {generatePageNumbers(current_page, total_pages).map(page => (
+              <button
+                key={page}
+                disabled={current_page === page}
+                onClick={() => goToPage(page)}
+                className={`
+                  px-2 py-1 bg-transparent border-none rounded
+                  ${current_page === page
+                    ? "text-[#0D6EFD] underline font-bold"
+                    : "text-gray-700 hover:text-[#0D6EFD]"}
+                  transition
+                `}
+                style={{ minWidth: "2rem" }}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+          {/* Botón "Siguiente" */}
+          <button
+            onClick={nextPage}
+            disabled={current_page >= total_pages}
+            className="p-2 text-[#0D6EFD] hover:text-[#2563eb] disabled:text-gray-300 bg-transparent"
+            aria-label="Siguiente"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </nav>
+      </div>
     </div>
   );
 }

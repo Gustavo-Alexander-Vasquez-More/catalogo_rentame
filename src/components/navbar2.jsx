@@ -167,7 +167,7 @@ export default function navbar2({ isOpen, setIsOpen }) {
                       <li>
                         <a
                           className="block px-5 py-3 text-[#323B75] hover:bg-[#e0e7ff] hover:text-[#1D4ED8] transition-colors font-medium"
-                          href={`/renta-equipos?category=${localStorage.getItem("products_current_page") ? "todos&page=" + localStorage.getItem("products_current_page") : "todos"}`}
+                          href={`/renta-equipos`}
                         >
                           Equipos en renta
                         </a>
