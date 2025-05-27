@@ -145,7 +145,7 @@ export default function navbar2({ isOpen, setIsOpen }) {
     `}
                     style={{ minWidth: 180 }}
                   >
-                    Catálogo de equipos
+                    Nuestro catálogo
                     {soluciones ? (
                       <ChevronUp className="w-4 h-4" />
                     ) : (
