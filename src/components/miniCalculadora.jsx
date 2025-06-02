@@ -2,7 +2,6 @@ import React from "react";
 export default function MiniCalculadoraRenta({ precioDia }) {
   const [dias, setDias] = React.useState(1);
 
-  // Permitir vacío mientras se edita
   const handleChange = (e) => {
     const val = e.target.value;
     if (val === "") {
@@ -12,7 +11,6 @@ export default function MiniCalculadoraRenta({ precioDia }) {
     }
   };
 
-  // Al salir del input, forzar mínimo 1
   const handleBlur = () => {
     if (dias === "" || dias < 1) setDias(1);
   };
@@ -20,9 +18,22 @@ export default function MiniCalculadoraRenta({ precioDia }) {
   const handleIncrement = () => setDias((prev) => Number(prev) + 1);
   const handleDecrement = () => setDias((prev) => (Number(prev) > 1 ? Number(prev) - 1 : 1));
 
-  const subtotal = Number(dias) * precioDia;
-  const aplicaDescuento = Number(dias) >= 4;
-  const descuento = aplicaDescuento ? subtotal * 0.05 : 0;
+  // Lógica de descuentos escalonados
+  const diasNum = Number(dias) || 0;
+  let descuentoPorc = 0;
+  if (diasNum >= 3 && diasNum < 6) {
+    descuentoPorc = 0.05;
+  } else if (diasNum >= 6 && diasNum < 9) {
+    descuentoPorc = 0.1;
+  } else if (diasNum >= 9 && diasNum < 12) {
+    descuentoPorc = 0.15;
+  } else if (diasNum >= 12 && diasNum <= 31) {
+    descuentoPorc = 0.2;
+  } else if (diasNum > 31) {
+    descuentoPorc = 0.3;
+  }
+  const subtotal = diasNum * precioDia;
+  const descuento = subtotal * descuentoPorc;
   const total = subtotal - descuento;
 
   return (
@@ -61,10 +72,11 @@ export default function MiniCalculadoraRenta({ precioDia }) {
       <div className="text-base font-bold text-[#323B75] mt-1">
         Total: <span className="text-2xl">${isNaN(total) ? 0 : total.toLocaleString()}</span> MXN
       </div>
-      {aplicaDescuento && (
+      {descuentoPorc > 0 && (
         <div className="text-green-700 text-sm font-semibold mt-1 bg-green-100 rounded px-2 py-1 text-center">
           ¡Descuento aplicado!<br />
-          <span className="line-through text-gray-500">${subtotal.toLocaleString()} MXN</span> -5%
+          <span className="line-through text-gray-500">${subtotal.toLocaleString()} MXN</span> -
+          {descuentoPorc * 100}%
         </div>
       )}
     </div>
