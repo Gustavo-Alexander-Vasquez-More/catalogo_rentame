@@ -13,14 +13,17 @@ export default function PaginacionCategoria({ productos, categorias }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Filtrar productos donde su array categoria incluya alguno de los nombres seleccionados
-  const productosFiltrados = categorias && categorias.length > 0
-    ? productos.filter(prod =>
-        Array.isArray(prod.categoria)
-          ? prod.categoria.some(cat => categorias.includes(cat))
-          : categorias.includes(prod.categoria)
-      )
-    : productos;
+  // Filtrar productos donde su array categoria incluya alguno de los ids seleccionados
+  const productosFiltrados = Array.isArray(productos)
+    ? productos.filter(prod => {
+        // prod.categoria es un array de objetos { _id, nombre, ... }
+        const cats = Array.isArray(prod.categoria)
+          ? prod.categoria.map(catObj => String(catObj._id))
+          : [];
+        // categorias es un array de ids seleccionados (string)
+        return categorias.length === 0 || cats.some(catId => categorias.includes(catId));
+      })
+    : [];
 
   const handleVerMas = () => setVisibleCount(prev => prev + 9);
 
@@ -42,12 +45,6 @@ export default function PaginacionCategoria({ productos, categorias }) {
                   href={`/detalle-producto?id=${dat._id}`}
                   className="group relative"
                 >
-                  {/* Oferta por semana */}
-                  {(dat.precio_x_semana && Number(dat.precio_x_semana) > 0) && (
-                    <div className="absolute bottom-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded shadow z-10 opacity-90">
-                      ${dat.precio_x_semana} MXN x semana
-                    </div>
-                  )}
                   <img
                     className="w-full h-[20vh] lg:h-[20vh] object-contain rounded-lg transition-all duration-300 group-hover:opacity-60"
                     src={dat.foto}

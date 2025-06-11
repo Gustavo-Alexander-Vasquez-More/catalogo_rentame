@@ -72,18 +72,18 @@ export default function equipos_renta() {
     selectedCategorias.length === 0
       ? productos
       : productos.filter(p =>
-          selectedCategorias.includes(p.categoria)
+          p.categoria.some(catId => selectedCategorias.includes(catId))
         );
 
   // Ahora sí puedes calcular totalPages
   const totalPages = Math.ceil(productosFiltrados?.length / itemsPerPage);
 
   // Manejar selección de categorías (checkbox)
-  const handleCategoriaChange = (cat) => {
+  const handleCategoriaChange = (catId) => {
     setSelectedCategorias(prev =>
-      prev.includes(cat)
-        ? prev.filter(c => c !== cat)
-        : [...prev, cat]
+      prev.includes(catId)
+        ? prev.filter(c => c !== catId)
+        : [...prev, catId]
     );
   };
 
@@ -171,8 +171,8 @@ export default function equipos_renta() {
                   <label key={idx} className="flex items-center gap-2 cursor-pointer text-gray-800 text-base">
                     <input
                       type="checkbox"
-                      checked={selectedCategorias.includes(cat.nombre)}
-                      onChange={() => handleCategoriaChange(cat.nombre)}
+                      checked={selectedCategorias.includes(cat._id)}
+                      onChange={() => handleCategoriaChange(cat._id)}
                       className="accent-[#0D6EFD] w-4 h-4"
                     />
                     {cat.nombre}

@@ -39,11 +39,7 @@ function CarouselSimilares({ productos }) {
           <a key={prod._id} href={`/detalle-producto?id=${prod._id}`}>
             <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center justify-between p-4 w-full max-w-xs mx-auto h-[370px] relative">
               {/* Oferta por semana */}
-              {(prod.precio_x_semana && Number(prod.precio_x_semana) > 0) && (
-                <div className="absolute  left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded shadow z-10 opacity-90">
-                  ${prod.precio_x_semana} MXN x semana
-                </div>
-              )}
+              
               <img
                 loading="lazy"
                 src={prod.foto}
@@ -145,15 +141,16 @@ export default function PageProduct() {
   useEffect(() => {
     if (datas.length > 0 && allProducts.length > 0) {
       const equipo = datas[0];
-      const categoriasEquipo = Array.isArray(equipo.categoria) ? equipo.categoria : [equipo.categoria];
-      const similaresFiltrados = allProducts.filter(
-        prod =>
-          prod._id !== equipo._id &&
-          (
-            Array.isArray(prod.categoria)
-              ? prod.categoria.some(cat => categoriasEquipo.includes(cat))
-              : categoriasEquipo.includes(prod.categoria)
-          )
+      // Extrae los _id de las categorías del equipo actual
+      const categoriasEquipo = Array.isArray(equipo.categoria)
+        ? equipo.categoria.map(catObj => String(catObj._id))
+        : [];
+      const similaresFiltrados = allProducts.filter(prod =>
+        prod._id !== equipo._id &&
+        Array.isArray(prod.categoria) &&
+        prod.categoria.some(catObj =>
+          categoriasEquipo.includes(String(catObj._id))
+        )
       );
       setSimilares(similaresFiltrados);
     }
@@ -231,14 +228,14 @@ export default function PageProduct() {
                   <div className="flex flex-wrap gap-2 mb-3">
                     {Array.isArray(dat.categoria) ? dat.categoria.map((cat, idx) => (
                       <span
-                        key={idx}
+                        key={cat._id || idx}
                         className="bg-[#e0e7ff] text-[#323B75] px-3 py-1 rounded-full text-xs sm:text-sm font-medium"
                       >
-                        {cat}
+                        {cat.nombre}
                       </span>
                     )) : (
                       <span className="bg-[#e0e7ff] text-[#323B75] px-3 py-1 rounded-full text-xs sm:text-sm font-medium">
-                        {dat.categoria}
+                        {dat.categoria?.nombre || ""}
                       </span>
                     )}
                   </div>

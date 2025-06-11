@@ -147,7 +147,7 @@ export default function ResultSearchPage() {
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
                 </svg>
-                Subir arriba
+                Volver arriba
               </button>
               {/* Botón cargar más solo si hay más resultados */}
               {results.length > visibleCount && (

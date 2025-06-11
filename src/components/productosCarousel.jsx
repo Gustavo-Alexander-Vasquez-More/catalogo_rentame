@@ -30,16 +30,12 @@ export default function CarouselProductos() {
     mobile: { breakpoint: { max: 463, min: 0 }, items: 1 },
   };
 
-
-
-
   return (
     <div className="w-full lg:h-[90vh] h-auto bg-white flex flex-col rounded-xl gap-6 py-8 px-[0.5rem] lg:px-[2rem]">
       <div className="flex lg:flex-row flex-col lg:gap-0 gap-2 text-center justify-between items-center space-x-4">
         <p className="lg:text-[1.5rem] text-[1.2rem] px-2 text-gray-600 font-semibold montserrat">
           Renta de Equipos para cada desafío
         </p>
-        
       </div>
 
       <CarouselMulti
@@ -54,12 +50,6 @@ export default function CarouselProductos() {
         {all_products?.map((product, index) => (
           <a key={index} href={`/detalle-producto?id=${product._id}`}>
             <div className="bg-white rounded-xl shadow-md hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center justify-between p-4 min-w-[250px] max-w-[250px] h-[370px] relative">
-              {/* Oferta por semana */}
-              {(product.precio_x_semana && Number(product.precio_x_semana) > 0) && (
-                <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded shadow z-10 opacity-90">
-                  ${product.precio_x_semana} MXN x semana
-                </div>
-              )}
               <img
                 loading="lazy"
                 src={product.foto}
